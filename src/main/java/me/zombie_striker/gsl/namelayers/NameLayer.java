@@ -78,6 +78,11 @@ public class NameLayer {
         this.name = name;
         this.uuid = uuid;
     }
+
+    public static void register(NameLayer nameLayer) {
+        nameLayers.add(nameLayer);
+    }
+
     public void addMemberRank(UUID uuid, byte rank){
         this.memberranks.put(uuid,rank);
     }

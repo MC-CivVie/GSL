@@ -3,3 +3,10 @@ version: '${project.version}'
 main: me.zombie_striker.gsl.GSLCore
 api-version: 1.19
 authors: [ Zombie_Striker ]
+commands:
+  r:
+    aliases: ['reinforce']
+  nlcg:
+    description: "create new namelayer"
+  nl:
+    description: "Namelayer commands"

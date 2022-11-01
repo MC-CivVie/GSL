@@ -5,6 +5,7 @@ import me.zombie_striker.gsl.files.YamlParserLoader;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ public class MaterialType {
 
         YamlParserLoader customItems = new YamlParserLoader()
                 .addDefault("name","AUTO_GENEREATED")
+                .addDefault("displayname","displayname")
                 .addDefault("base","DIRT")
                 .addDefault("custom_model_id",0);
 
@@ -37,7 +39,7 @@ public class MaterialType {
             if(!customItems.verifyAllPathsAreThere(fc)){
                 customItems.addDefaultValues(fc,file);
             }
-            customMaterialTypes.put(fc.getString("name"),new CustomMaterialType(fc.getString("name"),Material.matchMaterial(fc.getString("base")),fc.getInt("custom_model_id")));
+            customMaterialTypes.put(fc.getString("name"),new CustomMaterialType(fc.getString("name"),fc.getString("displayname"),Material.matchMaterial(fc.getString("base")),fc.getInt("custom_model_id")));
         }
 
 
@@ -66,6 +68,24 @@ public class MaterialType {
         this.base=base;
     }
 
+    public static MaterialType getMaterialType(ItemStack itemInMainHand) {
+        if(itemInMainHand==null)
+            return MaterialType.getMaterialType("AIR");
+        if(itemInMainHand.getItemMeta().hasCustomModelData()){
+            for(MaterialType mt : customMaterialTypes.values()){
+                if(mt instanceof CustomMaterialType && mt.base==itemInMainHand.getType()&&((CustomMaterialType) mt).getId()==itemInMainHand.getItemMeta().getCustomModelData()){
+                    return mt;
+                }
+            }
+        }
+        for(MaterialType mt : materialTypes.values()){
+            if(mt.base==itemInMainHand.getType()){
+                return mt;
+            }
+        }
+        return null;
+    }
+
     public Material getBase() {
         return base;
     }
@@ -87,5 +107,9 @@ public class MaterialType {
         if(customMaterialTypes.containsKey(name))
             return customMaterialTypes.get(name);
         return materialTypes.get(name);
+    }
+
+    public ItemStack toItemStack(){
+        return new ItemStack(base);
     }
 }
