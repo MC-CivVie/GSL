@@ -19,9 +19,9 @@ public class OreObject {
     public static SimplexOctaveGenerator METALIC = new SimplexOctaveGenerator(1356235,16);
 
     static{
-        TOUGHNESS.setScale(0.01);
-        ROUGHNESS.setScale(0.02);
-        METALIC.setScale(0.04);
+        TOUGHNESS.setScale(0.001);
+        ROUGHNESS.setScale(0.002);
+        METALIC.setScale(0.004);
     }
 
     public static final List<OreObject> oreObjects = new LinkedList<>();
@@ -69,7 +69,7 @@ public class OreObject {
                     double s2 = OreObject.TOUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz)-oreObject.simplex2Center;
                     double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz)-oreObject.simplex3Center;
 
-                    double dist = (s1 * s1) + (s2 * s2) + (s3 * s3);
+                    double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3))* oreObject.getRarity();
                     if (dist < distanceClose) {
                         distanceClose = dist;
                         closest = oreObject;

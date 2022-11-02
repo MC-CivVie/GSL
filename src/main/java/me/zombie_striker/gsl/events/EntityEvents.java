@@ -3,10 +3,12 @@ package me.zombie_striker.gsl.events;
 import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.materials.MaterialType;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
 
@@ -16,15 +18,14 @@ public class EntityEvents implements Listener {
     public void onEntityDeath(EntityDeathEvent event){
         EntityData entityData = EntityData.getEntityData(event.getEntityType());
         if(entityData!=null){
-
             event.getDrops().clear();
-
-            for(MaterialType materialType: entityData.getDropsPersistant()){
-                event.getDrops().add(materialType.toItemStack());
-            }
             for(Map.Entry<MaterialType, Double> e: entityData.getPercentageDrop().entrySet()){
-                if(Math.random() < e.getValue()) {
-                    event.getDrops().add(e.getKey().toItemStack());
+                if(Math.random() <= e.getValue()) {
+                    ItemStack is = e.getKey().toItemStack();
+                    if(entityData.getMaxAmountDrop().containsKey(e.getKey())){
+                        is.setAmount((int) (entityData.getMaxAmountDrop().get(e.getKey())*Math.random())+1);
+                    }
+                    event.getDrops().add(is);
                 }
             }
         }

@@ -1,8 +1,9 @@
 entitytype: SPIDER
 displayname: 'Spider'
-drops:
-  - "BONE"
 percentagedrops:
-  SPIDER_EYE: 0.6
+  SPIDER_EYE:
+    chance: 1
+  BONE:
+    chance: 1
 naturalspawn: true
 hostile: true

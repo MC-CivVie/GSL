@@ -1,5 +1,6 @@
 entitytype: HORSE
 displayname: 'Horse'
-drops:
-  - "BONE"
+percentagedrops:
+  BONE:
+    chance: 1
 naturalspawn: true

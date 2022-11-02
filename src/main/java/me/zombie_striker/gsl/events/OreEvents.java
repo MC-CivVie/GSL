@@ -3,6 +3,7 @@ package me.zombie_striker.gsl.events;
 import me.zombie_striker.gsl.ores.OreObject;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,10 @@ public class OreEvents implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
         GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getBlock().getChunk());
         GSLCube gslCube = gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
-        if (gslCube != null) {
+        if(gslCube==null){
+            gslCube = new GSLCube();
+            gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16]=gslCube;
+        }
             int x = event.getBlock().getX() % 16;
             if (event.getBlock().getX() < 0)
                 x = Math.abs((-event.getBlock().getX()) % 16 - 15);
@@ -25,7 +29,7 @@ public class OreEvents implements Listener {
             if (event.getBlock().getZ() < 0)
                 z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
-            int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
+            int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
 
             if (!gslCube.getPlaced()[x][y][z]) {
                 randomlyGenerateOres(event.getBlock().getRelative(BlockFace.NORTH));
@@ -35,7 +39,6 @@ public class OreEvents implements Listener {
                 randomlyGenerateOres(event.getBlock().getRelative(BlockFace.UP));
                 randomlyGenerateOres(event.getBlock().getRelative(BlockFace.DOWN));
             }
-        }
     }
     @EventHandler
     public void onPlace(BlockPlaceEvent event){
@@ -43,6 +46,7 @@ public class OreEvents implements Listener {
         GSLCube gslCube = gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
         if(gslCube==null){
             gslCube = new GSLCube();
+            gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16]=gslCube;
         }
         int x = event.getBlock().getX() % 16;
         if (event.getBlock().getX() < 0)
@@ -51,14 +55,17 @@ public class OreEvents implements Listener {
         if (event.getBlock().getZ() < 0)
             z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
-        int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
+        int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
         gslCube.getPlaced()[x][y][z]=true;
     }
 
     public void randomlyGenerateOres(Block rel) {
         GSLChunk gslChunk = GSLChunk.getGSLChunk(rel.getChunk());
         GSLCube gslCube = gslChunk.getCubes()[(rel.getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
-        if (gslCube != null) {
+        if (gslCube == null) {
+        gslCube = new GSLCube();
+        gslChunk.getCubes()[(rel.getY() - GSLChunk.BLOCK_Y_OFFSET) / 16]=gslCube;
+        }
             int x = rel.getX() % 16;
             if (rel.getX() < 0)
                 x = Math.abs((-rel.getX()) % 16 - 15);
@@ -66,14 +73,13 @@ public class OreEvents implements Listener {
             if (rel.getZ() < 0)
                 z = Math.abs((-rel.getZ()) % 16 - 15);
 
-            int y = rel.getY() - GSLChunk.BLOCK_Y_OFFSET;
+            int y = (rel.getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
 
             if (!gslCube.getPlaced()[x][y][z]) {
                 OreObject oreObject = OreObject.getRandomOreForType(rel.getType(),rel.getX(),rel.getY(),rel.getZ());
                 if(oreObject!=null){
                     rel.setType(oreObject.getOreBlock());
                 }
-            }
         }
     }
 }

@@ -1,8 +1,9 @@
 entitytype: ZOMBIE
 displayname: 'Zombie'
-drops:
-  - "BONE"
 percentagedrops:
-  ROTTEN_FLESH: 0.6
+  ROTTEN_FLESH:
+    chance: 0.6
+  BONE:
+    chance: 1
 naturalspawn: true
 hostile: true

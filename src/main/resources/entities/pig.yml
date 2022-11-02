@@ -1,6 +1,8 @@
 entitytype: PIG
 displayname: 'Pig'
-drops:
-  - "BONE"
-  - "PORKCHOP"
+percentagedrops:
+  PORKCHOP:
+    chance: 1
+  BONE:
+    chance: 1
 naturalspawn: true

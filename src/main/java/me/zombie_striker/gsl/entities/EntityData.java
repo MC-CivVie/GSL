@@ -25,9 +25,9 @@ public class EntityData {
         YamlParserLoader customItems = new YamlParserLoader()
                 .addDefault("entitytype", "AUTO_GENEREATED")
                 .addDefault("displayname", "displayname")
-                .addDefault("drops", Arrays.asList("DIRT"))
                 .addDefault("naturalspawn", true)
-                .addOptional("percentagedrops.DIRT",0.1)
+                .addOptional("percentagedrops.DIRT.maxamount",1)
+                .addOptional("percentagedrops.DIRT.chance",0.1)
                 .addOptional("hostile",false);
 
         for (File file : customMaterialsDir.listFiles()) {
@@ -36,7 +36,6 @@ public class EntityData {
                 customItems.addDefaultValues(fc, file);
             }
             EntityData entityData1 = new EntityData(EntityType.valueOf(fc.getString("entitytype")), fc.getString("displayname"),fc.getBoolean("naturalspawn"));
-            entityData1.setDropsPersistant(MaterialType.toMaterialTypesList(fc.getStringList("drops")));
 
             if(fc.contains("hostile")){
                 entityData1.setHostileMob(fc.getBoolean("hostile"));
@@ -44,11 +43,18 @@ public class EntityData {
 
             if(fc.contains("percentagedrops")){
                 for(String key : fc.getConfigurationSection("percentagedrops").getKeys(false)){
-                    double chance = fc.getDouble("percentagedrops."+key);
+                    double chance = fc.getDouble("percentagedrops."+key+".chance");
                     MaterialType type = MaterialType.getMaterialType(key);
                     entityData1.getPercentageDrop().put(type,chance);
+                    if (fc.contains("percentagedrops." + key + ".amount")) {
+                        int maxamount = fc.getInt("percentagedrops."+key+".amount");
+                        entityData1.getMaxAmountDrop().put(type,maxamount);
+                    }else{
+                        entityData1.getMaxAmountDrop().put(type,1);
+                    }
                 }
             }
+            entityData.add(entityData1);
         }
     }
 
@@ -65,8 +71,8 @@ public class EntityData {
     private String displayname;
     private boolean naturalSpawn;
     private boolean hostileMob = false;
-    private List<MaterialType> dropsPersistant = new LinkedList<>();
     private HashMap<MaterialType, Double> percentageDrop = new HashMap<>();
+    private HashMap<MaterialType, Integer> maxAmountDrop = new HashMap<>();
 
     public EntityData(EntityType entityType, String displayname, boolean naturalSpawn) {
         this.entityType = entityType;
@@ -75,14 +81,6 @@ public class EntityData {
 
     public EntityType getEntityType() {
         return entityType;
-    }
-
-    public List<MaterialType> getDropsPersistant() {
-        return dropsPersistant;
-    }
-
-    public void setDropsPersistant(List<MaterialType> dropsPersistant) {
-        this.dropsPersistant = dropsPersistant;
     }
 
     public String getDisplayname() {
@@ -106,5 +104,9 @@ public class EntityData {
 
     public static List<EntityData> getEntityData() {
         return entityData;
+    }
+
+    public HashMap<MaterialType, Integer> getMaxAmountDrop() {
+        return maxAmountDrop;
     }
 }

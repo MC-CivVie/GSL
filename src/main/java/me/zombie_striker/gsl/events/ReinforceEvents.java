@@ -58,7 +58,7 @@ public class ReinforceEvents implements Listener {
             if (event.getBlock().getZ() < 0)
                 z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
-            int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
+            int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
             if(gslCube.getDurability()[x][y][z]>0) {
                 if (gslCube.getNamelayers()[x][y][z] != null && !gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
                     gslCube.getDurability()[x][y][z]=gslCube.getDurability()[x][y][z]-1;

@@ -71,7 +71,7 @@ public class GSLChunk {
 
         GSLChunk gslChunk = new GSLChunk(chunk.getWorld().getName(),chunk.getX(),chunk.getZ());
 
-        File file = new File("x"+chunk.getX()+"z"+chunk.getZ()+".yml");
+        File file = new File(world,"x"+chunk.getX()+"z"+chunk.getZ()+".yml");
         if(file.exists()) {
             FileConfiguration yml = YamlConfiguration.loadConfiguration(file);
             for (int i = 0; i < gslChunk.cubes.length; i++) {
@@ -111,7 +111,7 @@ public class GSLChunk {
         if(!world.exists())
             world.mkdirs();
 
-        File file = new File("x"+xc+"z"+zc+".yml");
+        File file = new File(world,"x"+xc+"z"+zc+".yml");
         if(!file.exists()){
             try {
                 file.createNewFile();
