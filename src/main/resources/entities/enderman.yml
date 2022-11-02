@@ -1,0 +1,8 @@
+entitytype: ENDERMAN
+displayname: 'Enderman'
+drops:
+  -
+percentagedrops:
+  ENDER_PEARL: 0.25
+naturalspawn: true
+hostile: true

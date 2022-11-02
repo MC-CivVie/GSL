@@ -1,0 +1,6 @@
+entitytype: SKELETON
+displayname: 'Skeleton'
+drops:
+  - "BONE"
+naturalspawn: true
+hostile: true

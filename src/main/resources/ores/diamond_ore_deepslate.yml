@@ -1,0 +1,6 @@
+rarity: 500
+toughness: 0.75
+roughness: 0.5
+metallic: 0
+blocktype: "DEEPSLATE_DIAMOND_ORE"
+replacetype: "DEEPSLATE"

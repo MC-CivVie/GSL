@@ -1,0 +1,5 @@
+entitytype: CAT
+displayname: 'Cat'
+drops:
+  - "BONE"
+naturalspawn: true

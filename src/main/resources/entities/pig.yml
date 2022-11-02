@@ -1,0 +1,6 @@
+entitytype: PIG
+displayname: 'Pig'
+drops:
+  - "BONE"
+  - "PORKCHOP"
+naturalspawn: true

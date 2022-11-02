@@ -2,5 +2,5 @@ rarity: 100
 toughness: 1
 roughness: 0.5
 metallic: 1
-blocktype: "IRON_ORE"
+blocktype: "GOLD_ORE"
 replacetype: "STONE"

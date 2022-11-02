@@ -1,0 +1,5 @@
+entitytype: HORSE
+displayname: 'Horse'
+drops:
+  - "BONE"
+naturalspawn: true

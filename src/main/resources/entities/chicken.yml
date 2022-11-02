@@ -1,0 +1,6 @@
+entitytype: CHICKEN
+displayname: 'Chicken'
+drops:
+  - "BONE"
+  - "CHICKEN"
+naturalspawn: true

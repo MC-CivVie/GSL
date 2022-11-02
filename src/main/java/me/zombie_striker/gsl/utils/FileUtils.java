@@ -1,7 +1,6 @@
 package me.zombie_striker.gsl.utils;
 
 import me.zombie_striker.gsl.GSL;
-import org.bukkit.block.Chest;
 
 import java.io.*;
 import java.net.JarURLConnection;
@@ -20,6 +19,7 @@ public class FileUtils {
     public static final String PATH_MATERIALS_GROUP = "materials/groups";
     public static final String PATH_MATERIALS_CUSTOM = "materials/custom";
     public static final String PATH_REINFORCEMENT_TYPES = "reinforcement";
+    public static final String PATH_ENTITY_DATA = "entities";
 
     public static File getFolder(String path){
         return new File(GSL.getCore().getDataFolder(),path);

@@ -1,0 +1,6 @@
+entitytype: COW
+displayname: 'Cow'
+drops:
+  - "BONE"
+  - "BEEF"
+naturalspawn: true

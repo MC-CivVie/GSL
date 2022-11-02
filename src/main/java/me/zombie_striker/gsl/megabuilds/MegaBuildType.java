@@ -105,4 +105,35 @@ public class MegaBuildType {
         }
         return true;
     }
+
+    public String getDisplayname() {
+        return displayname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BuildAxis getBuildAxis() {
+        return buildAxis;
+    }
+
+    public int getOffsetX() {
+        return offsetX;
+    }
+
+    public static List<MegaBuildType> getBuildtypes() {
+        return buildtypes;
+    }
+
+    public int getOffsetY() {
+        return offsetY;
+    }
+    public int getOffsetZ() {
+        return offsetZ;
+    }
+
+    public Material[][][] getTypes() {
+        return types;
+    }
 }
