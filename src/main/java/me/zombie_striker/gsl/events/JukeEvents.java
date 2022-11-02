@@ -18,32 +18,36 @@ public class JukeEvents implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBreakSnitch(BlockBreakEvent event) {
-        GSLWorld gslWorld = GSLWorld.getWorld(event.getBlock().getWorld());
-        for (Snitch snitch : new ArrayList<>(gslWorld.getSnitches())) {
-            if (snitch.getLocation().equals(event.getBlock().getLocation())) {
-                gslWorld.unregisterSnitch(snitch);
-                break;
+        if (event.getBlock().getType() == Material.JUKEBOX) {
+            GSLWorld gslWorld = GSLWorld.getWorld(event.getBlock().getWorld());
+            for (Snitch snitch : new ArrayList<>(gslWorld.getSnitches())) {
+                if (snitch.getLocation().equals(event.getBlock().getLocation())) {
+                    gslWorld.unregisterSnitch(snitch);
+                    break;
+                }
             }
         }
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onPlaceSnitch(BlockPlaceEvent event) {
-        GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getBlock().getChunk());
-        GSLCube gslCube = gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
-        if (gslCube != null) {
-            int x = event.getBlock().getX() % 16;
-            if (event.getBlock().getX() < 0)
-                x = Math.abs((-event.getBlock().getX()) % 16 - 15);
-            int z = event.getBlock().getZ() % 16;
-            if (event.getBlock().getZ() < 0)
-                z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
+        if (event.getBlock().getType() == Material.JUKEBOX) {
+            GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getBlock().getChunk());
+            GSLCube gslCube = gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
+            if (gslCube != null) {
+                int x = event.getBlock().getX() % 16;
+                if (event.getBlock().getX() < 0)
+                    x = Math.abs((-event.getBlock().getX()) % 16 - 15);
+                int z = event.getBlock().getZ() % 16;
+                if (event.getBlock().getZ() < 0)
+                    z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
-            int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
+                int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
 
-            if (gslCube.getNamelayers()[x][y][z] != null) {
-                Snitch snitch = new Snitch(event.getBlock().getLocation(), Snitch.SNITCHLOG_SIZE);
-                GSLWorld.getWorld(event.getBlock().getWorld()).registerSnitch(snitch);
+                if (gslCube.getNamelayers()[x][y][z] != null) {
+                    Snitch snitch = new Snitch(event.getBlock().getLocation(), Snitch.SNITCHLOG_SIZE);
+                    GSLWorld.getWorld(event.getBlock().getWorld()).registerSnitch(snitch);
+                }
             }
         }
     }

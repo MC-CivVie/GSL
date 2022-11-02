@@ -2,6 +2,7 @@ package me.zombie_striker.gsl;
 
 import me.zombie_striker.gsl.events.*;
 import me.zombie_striker.gsl.materials.MaterialType;
+import me.zombie_striker.gsl.megabuilds.MegaBuildType;
 import me.zombie_striker.gsl.namelayers.NameLayer;
 import me.zombie_striker.gsl.ores.OreObject;
 import me.zombie_striker.gsl.world.GSLWorld;
@@ -30,7 +31,7 @@ public class GSL {
         MaterialType.init();
         OreObject.init();
         NameLayer.init();
-
+        MegaBuildType.init();
 
         registerListeners();
     }
