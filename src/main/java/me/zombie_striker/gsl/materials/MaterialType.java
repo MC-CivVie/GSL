@@ -1,6 +1,6 @@
 package me.zombie_striker.gsl.materials;
 
-import me.zombie_striker.gsl.files.FileUtils;
+import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.files.YamlParserLoader;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -1,9 +1,8 @@
 package me.zombie_striker.gsl.megabuilds;
 
 import me.zombie_striker.gsl.GSL;
-import me.zombie_striker.gsl.files.FileUtils;
+import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.files.YamlParserLoader;
-import me.zombie_striker.gsl.namelayers.NameLayer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,7 +11,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 public class MegaBuildType {
 

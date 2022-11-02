@@ -1,10 +1,9 @@
 package me.zombie_striker.gsl.namelayers;
 
-import me.zombie_striker.gsl.files.FileUtils;
+import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.files.YamlParserLoader;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.checkerframework.checker.units.qual.N;
 
 import java.io.File;
 import java.util.HashMap;

@@ -1,0 +1,6 @@
+name: Containers
+group:
+  - 'CHEST'
+  - 'TRAPPED_CHEST'
+  - 'BARREL'
+  - 'DISPENSER'

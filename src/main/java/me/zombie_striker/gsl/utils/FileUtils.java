@@ -1,7 +1,7 @@
-package me.zombie_striker.gsl.files;
+package me.zombie_striker.gsl.utils;
 
-import com.sun.tools.javac.util.StringUtils;
 import me.zombie_striker.gsl.GSL;
+import org.bukkit.block.Chest;
 
 import java.io.*;
 import java.net.JarURLConnection;

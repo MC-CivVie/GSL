@@ -1,16 +1,11 @@
 package me.zombie_striker.gsl.world;
 
-import com.sun.org.apache.xerces.internal.impl.xs.SchemaGrammar;
-import me.zombie_striker.gsl.GSL;
-import me.zombie_striker.gsl.files.FileUtils;
-import me.zombie_striker.gsl.files.YamlParserLoader;
+import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.materials.MaterialType;
 import me.zombie_striker.gsl.namelayers.NameLayer;
 import org.bukkit.Chunk;
-import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 1
+roughness: 1
+metallic: 1
+blocktype: "IRON_ORE"
+replacetype: "STONE"
