@@ -14,11 +14,18 @@ public class ComponentBuilder {
 
     private Component core;
 
+    public ComponentBuilder clone(){
+        return new ComponentBuilder(core.asComponent());
+    }
+
+    public ComponentBuilder(Component core){
+        this.core = core;
+    }
     public ComponentBuilder(String message, Color color){
-        core = Component.text(message).color(TextColor.color(color.getRGB()));
+        this.core = Component.text(message).color(TextColor.color(color.getRGB()));
     }
     public ComponentBuilder append(String message, Color color){
-        core=core.append(Component.text(message).color(TextColor.color(color.getRGB())));
+        this.core=core.append(Component.text(message).color(TextColor.color(color.getRGB())));
         return this;
     }
 

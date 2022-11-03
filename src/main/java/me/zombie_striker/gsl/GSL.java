@@ -8,6 +8,7 @@ import me.zombie_striker.gsl.namelayers.NameLayer;
 import me.zombie_striker.gsl.ores.OreObject;
 import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.utils.InternalFileUtil;
+import me.zombie_striker.gsl.wordbank.WordBank;
 import me.zombie_striker.gsl.world.GSLWorld;
 import org.bukkit.Bukkit;
 
@@ -42,6 +43,7 @@ public class GSL {
         NameLayer.init();
         MegaBuildType.init();
         EntityData.init();
+        WordBank.init();
 
         registerListeners();
     }
@@ -54,6 +56,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new ReinforceEvents(), core);
         Bukkit.getPluginManager().registerEvents(new EntityEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ExpEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
     }
     public void copyDataFiles(){
 
