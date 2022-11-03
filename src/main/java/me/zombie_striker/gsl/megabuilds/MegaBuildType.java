@@ -34,7 +34,7 @@ public class MegaBuildType {
 
 
 
-        File dir = FileUtils.getFolder(FileUtils.PATH_NAMELAYERS);
+        File dir = FileUtils.getFolder(FileUtils.PATH_MEGASTRUCTURETYPES);
         if(!dir.exists())
             dir.mkdirs();
         for(File f : dir.listFiles()) {

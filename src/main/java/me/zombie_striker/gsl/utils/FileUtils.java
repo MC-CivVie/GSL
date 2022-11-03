@@ -21,6 +21,7 @@ public class FileUtils {
     public static final String PATH_REINFORCEMENT_TYPES = "reinforcement";
     public static final String PATH_ENTITY_DATA = "entities";
     public static final String PATH_WORDBANK_FILE = "wordbank.yml";
+    public static final String PATH_MEGASTRUCTURETYPES = "megastructures";
 
     public static File getFolder(String path){
         return new File(GSL.getCore().getDataFolder(),path);

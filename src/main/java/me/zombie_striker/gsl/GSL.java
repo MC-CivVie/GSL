@@ -59,6 +59,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new EntityEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ExpEvents(), core);
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(),core);
     }
     public void copyDataFiles(){
         try {

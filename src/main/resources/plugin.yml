@@ -6,6 +6,8 @@ authors: [ Zombie_Striker ]
 commands:
   r:
     aliases: ['reinforce']
+  g:
+    aliases: ['group']
   nlcg:
     description: "create new namelayer"
   nl:

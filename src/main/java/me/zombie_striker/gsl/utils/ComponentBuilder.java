@@ -10,6 +10,8 @@ public class ComponentBuilder {
     public static final Color RED = new Color(200,24,20);
     public static final Color BLUE = new Color(02,20,200);
     public static final Color WHITE = new Color(200,200,200);
+    public static final Color GRAY = new Color(100,100,100);
+    public static final Color BLACK = new Color(20,20,20);
     public static final Color GREEN = new Color (40,200,40);
 
     private Component core;

@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl;
 
+import me.zombie_striker.gsl.commands.GroupCommand;
 import me.zombie_striker.gsl.commands.NamelayerCommand;
 import me.zombie_striker.gsl.commands.NamelayerCreateGroupCommand;
 import me.zombie_striker.gsl.commands.ReinforceCommand;
@@ -16,6 +17,10 @@ public final class GSLCore extends JavaPlugin {
         ReinforceCommand rc = new ReinforceCommand();
         getCommand("r").setExecutor(rc);
         getCommand("r").setTabCompleter(rc);
+
+        GroupCommand gc = new GroupCommand();
+        getCommand("g").setExecutor(gc);
+        getCommand("g").setTabCompleter(gc);
     }
 
     @Override
