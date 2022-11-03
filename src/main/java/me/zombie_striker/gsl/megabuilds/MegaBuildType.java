@@ -1,6 +1,7 @@
 package me.zombie_striker.gsl.megabuilds;
 
 import me.zombie_striker.gsl.GSL;
+import me.zombie_striker.gsl.megabuilds.interact.InteractAction;
 import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.files.YamlParserLoader;
 import org.bukkit.Location;
@@ -30,6 +31,7 @@ public class MegaBuildType {
                 .addDefault("y_size",1)
                 .addDefault("z_size",1)
                 .addDefault("materials.0_0_0","CRAFTING_TABLE")
+                .addDefault("actions.0_0_0","factory_open")
                 ;
 
 
@@ -70,11 +72,28 @@ public class MegaBuildType {
                     types[x][y][z]=Material.matchMaterial(yml.getString("materials."+keyx));
                 }
             }
-            buildtypes.add(new MegaBuildType(name,display,types,xoff,yoff,zoff,buildAxis1));
+            InteractAction[][][] actions = new InteractAction[x_size][y_size][z_size];
+            if(yml.contains("actions")){
+                for(String keyx : yml.getConfigurationSection("actions").getKeys(false)){
+                    String[] parts = keyx.split("\\_");
+                    if(parts.length<3){
+                        GSL.getCore().getLogger().info("Failed to load "+name+" action "+keyx);
+                        continue;
+                    }
+                    int x = Integer.parseInt(parts[0]);
+                    int y = Integer.parseInt(parts[1]);
+                    int z = Integer.parseInt(parts[2]);
+
+
+                    actions[x][y][z]=InteractAction.getAction(yml.getString("materials."+keyx));
+                }
+            }
+            buildtypes.add(new MegaBuildType(name,display,types,actions,xoff,yoff,zoff,buildAxis1));
         }
     }
 
     private Material[][][] types;
+    private InteractAction[][][] actions;
     private String name;
     private String displayname;
     private BuildAxis buildAxis;
@@ -82,7 +101,7 @@ public class MegaBuildType {
     private int offsetY;
     private int offsetZ;
 
-    public MegaBuildType(String name,String displayname, Material[][][] types, int offsetX,int offsetY,int offsetZ, BuildAxis axis){
+    public MegaBuildType(String name,String displayname, Material[][][] types, InteractAction[][][] actions, int offsetX,int offsetY,int offsetZ, BuildAxis axis){
         this.name=  name;
         this.types = types;
         this.offsetX = offsetX;
@@ -90,6 +109,7 @@ public class MegaBuildType {
         this.offsetZ = offsetZ;
         this.displayname = displayname;
         this.buildAxis = axis;
+        this.actions = actions;
     }
 
     public boolean isValidStructure(Location center){
@@ -120,6 +140,10 @@ public class MegaBuildType {
 
     public int getOffsetX() {
         return offsetX;
+    }
+
+    public InteractAction[][][] getActions() {
+        return actions;
     }
 
     public static List<MegaBuildType> getBuildtypes() {

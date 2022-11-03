@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl;
 
+import me.zombie_striker.gsl.commands.TradingBoothCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import me.zombie_striker.gsl.commands.GroupCommand;
@@ -21,6 +22,10 @@ public final class GSLCore extends JavaPlugin {
         GroupCommand gc = new GroupCommand();
         getCommand("g").setExecutor(gc);
         getCommand("g").setTabCompleter(gc);
+
+        TradingBoothCommand tbc = new TradingBoothCommand();
+        getCommand("tb").setExecutor(tbc);
+        getCommand("tb").setTabCompleter(tbc);
     }
 
     @Override

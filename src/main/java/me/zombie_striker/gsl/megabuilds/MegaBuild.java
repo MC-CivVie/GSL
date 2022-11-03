@@ -8,14 +8,24 @@ import java.util.List;
 public class MegaBuild {
 
     private List<Location> blocks = new LinkedList<>();
-    @SuppressWarnings("unused")
-	private Location interactBlock;
+    private Location center;
+    private MegaBuildType type;
 
-    public MegaBuild(Location interactBlock, Location... blocks){
-        this.interactBlock = interactBlock;
+    public MegaBuild(MegaBuildType type, Location center, Location... blocks){
+        this.center = center;
+        this.type = type;
         for(Location l : blocks){
             this.blocks.add(l);
         }
+    }
+
+
+    public Location getCenter() {
+        return center;
+    }
+
+    public MegaBuildType getType() {
+        return type;
     }
 
     public List<Location> getBlocks() {

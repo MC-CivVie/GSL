@@ -9,6 +9,7 @@ import me.zombie_striker.gsl.ores.OreObject;
 import me.zombie_striker.gsl.reinforcement.ReinforcementMaterial;
 import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.utils.InternalFileUtil;
+import me.zombie_striker.gsl.utils.guis.GUIUtil;
 import me.zombie_striker.gsl.wordbank.WordBank;
 import me.zombie_striker.gsl.world.GSLWorld;
 import org.bukkit.Bukkit;
@@ -46,6 +47,7 @@ public class GSL {
         EntityData.init();
         WordBank.init();
         ReinforcementMaterial.init();
+        GUIUtil.init();
 
         registerListeners();
     }

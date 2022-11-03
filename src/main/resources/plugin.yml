@@ -12,3 +12,5 @@ commands:
     description: "create new namelayer"
   nl:
     description: "Namelayer commands"
+  tb:
+    aliases: ['tradingbooth']
