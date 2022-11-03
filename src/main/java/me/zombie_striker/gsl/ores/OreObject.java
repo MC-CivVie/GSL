@@ -1,7 +1,7 @@
 package me.zombie_striker.gsl.ores;
 
-import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.files.YamlParserLoader;
+import me.zombie_striker.gsl.utils.FileUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -10,15 +10,16 @@ import org.bukkit.util.noise.SimplexOctaveGenerator;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class OreObject {
 
 
-    public static SimplexOctaveGenerator TOUGHNESS = new SimplexOctaveGenerator(1354235,8);
-    public static SimplexOctaveGenerator ROUGHNESS = new SimplexOctaveGenerator(1554235,32);
-    public static SimplexOctaveGenerator METALIC = new SimplexOctaveGenerator(1356235,16);
+    public static SimplexOctaveGenerator TOUGHNESS = new SimplexOctaveGenerator(1354235, 8);
+    public static SimplexOctaveGenerator ROUGHNESS = new SimplexOctaveGenerator(1554235, 32);
+    public static SimplexOctaveGenerator METALIC = new SimplexOctaveGenerator(1356235, 16);
 
-    static{
+    static {
         TOUGHNESS.setScale(0.001);
         ROUGHNESS.setScale(0.002);
         METALIC.setScale(0.004);
@@ -30,55 +31,53 @@ public class OreObject {
         return oreObjects;
     }
 
-    public static void init(){
+    public static void init() {
         YamlParserLoader parserLoader = new YamlParserLoader()
-                .addDefault("rarity",100)
-                .addDefault("toughness",1)
-                .addDefault("roughness",1)
-                .addDefault("metallic",1)
-                .addDefault("blocktype","DIRT")
-                .addDefault("replacetype","STONE");
+                .addDefault("rarity", 100)
+                .addDefault("toughness", 1)
+                .addDefault("roughness", 1)
+                .addDefault("metallic", 1)
+                .addDefault("blocktype", "DIRT")
+                .addDefault("replacetype", "STONE");
 
         File f = FileUtils.getFolder(FileUtils.PATH_ORES);
-        if(!f.exists())
+        if (!f.exists())
             f.mkdirs();
 
-        for(File file : f.listFiles()){
+        for (File file : f.listFiles()) {
             FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
-            if(parserLoader.verifyAllPathsAreThere(fc))
-                parserLoader.addDefaultValues(fc,file);
+            if (parserLoader.verifyAllPathsAreThere(fc))
+                parserLoader.addDefaultValues(fc, file);
 
-            OreObject ore = new OreObject(fc.getInt("rarity"),fc.getDouble("toughness"),fc.getDouble("roughness"),fc.getDouble("metallic"),Material.matchMaterial(fc.getString("blocktype")),Material.matchMaterial(fc.getString("replacetype")));
+            OreObject ore = new OreObject(fc.getInt("rarity"), fc.getDouble("toughness"), fc.getDouble("roughness"), fc.getDouble("metallic"), Material.matchMaterial(fc.getString("blocktype")), Material.matchMaterial(fc.getString("replacetype")));
             oreObjects.add(ore);
         }
     }
 
 
+    public static OreObject getRandomOreForType(Material replaceType, int x, int y, int z) {
+        int randx = (int) ((Math.random() * 16) - 8);
+        int randy = (int) ((Math.random() * 16) - 8);
+        int randz = (int) ((Math.random() * 16) - 8);
 
-    public static OreObject getRandomOreForType(Material replaceType, int x, int y, int z){
-        int randx = (int) ((Math.random()*16)-8);
-        int randy = (int) ((Math.random()*16)-8);
-        int randz = (int) ((Math.random()*16)-8);
+        OreObject closest = null;
+        double distanceClose = Integer.MAX_VALUE;
+        for (OreObject oreObject : oreObjects) {
+            if (oreObject.getReplaceType() == replaceType) {
+                if(new Random().nextInt((int) oreObject.getRarity())==0) {
+                    double s1 = OreObject.ROUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex1Center;
+                    double s2 = OreObject.TOUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex2Center;
+                    double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex3Center;
 
-        if(Math.random()<0.015) {
-            OreObject closest = null;
-            double distanceClose = Integer.MAX_VALUE;
-            for (OreObject oreObject : oreObjects) {
-                if(oreObject.getReplaceType()==replaceType) {
-                    double s1 = OreObject.ROUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz)-oreObject.simplex1Center;
-                    double s2 = OreObject.TOUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz)-oreObject.simplex2Center;
-                    double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz)-oreObject.simplex3Center;
-
-                    double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3))* oreObject.getRarity();
+                    double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3));
                     if (dist < distanceClose) {
                         distanceClose = dist;
                         closest = oreObject;
                     }
                 }
             }
-            return closest;
         }
-        return null;
+        return closest;
     }
 
     private double rarity;
@@ -90,7 +89,7 @@ public class OreObject {
     private Material oreBlock;
     private Material replaceType;
 
-    public OreObject(double rarity, double s1c, double s2c, double s3c, Material oreBlock, Material replacetype){
+    public OreObject(double rarity, double s1c, double s2c, double s3c, Material oreBlock, Material replacetype) {
         this.rarity = rarity;
         this.simplex1Center = s1c;
         this.simplex2Center = s2c;

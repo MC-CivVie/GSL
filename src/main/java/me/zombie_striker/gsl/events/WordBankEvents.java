@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -13,7 +14,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class WordBankEvents implements Listener {
-    
+
+    @EventHandler
+    public void onInteract(PlayerInteractAtEntityEvent event){
+        if(event.getPlayer().getInventory().getItemInMainHand()!=null&&event.getPlayer().getInventory().getItemInMainHand().getType()==Material.NAME_TAG){
+            event.setCancelled(true);
+        }
+        if(event.getPlayer().getInventory().getItemInOffHand()!=null&&event.getPlayer().getInventory().getItemInOffHand().getType()==Material.NAME_TAG){
+            event.setCancelled(true);
+        }
+    }
+
+
     @EventHandler
     public void onAnvil(PrepareAnvilEvent event){
         if(event.getInventory().getFirstItem()!=null) {

@@ -60,6 +60,7 @@ public class WordBank {
             }
             if(sentence.contains(REPLACE_ADJECTIVVE)){
                 sentence = sentence.replaceFirst(REPLACE_ADJECTIVVE,getRandomAdjective(psudorandom++));
+                continue;
             }
             break;
         }
