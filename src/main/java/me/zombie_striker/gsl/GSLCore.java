@@ -20,6 +20,6 @@ public final class GSLCore extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        GSL.getApi().shutdown();
     }
 }

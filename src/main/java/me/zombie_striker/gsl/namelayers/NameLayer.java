@@ -6,10 +6,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.io.IOException;
+import java.util.*;
 
 public class NameLayer {
 
@@ -44,6 +42,36 @@ public class NameLayer {
                 }
             }
             nameLayers.add(nl);
+        }
+    }
+    public static void saveNamelayers(){
+        File dir = FileUtils.getFolder(FileUtils.PATH_NAMELAYERS);
+        for(NameLayer nameLayer: nameLayers){
+            File file = new File(dir,nameLayer.getUuid()+".yml");
+            if(!file.exists()){
+                try {
+                    file.createNewFile();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            FileConfiguration fc = YamlConfiguration.loadConfiguration(file);
+            fc.set("members",null);
+            fc.set("name",nameLayer.getName());
+            fc.set("uuid",nameLayer.getUuid().toString());
+            for(Map.Entry<UUID, Byte> e : nameLayer.getMemberranks().entrySet())
+            fc.set("members."+e.getKey(),e.getValue());
+
+            List<String> mergers = new LinkedList<>();
+            for(UUID m : nameLayer.getMergers()){
+                mergers.add(m.toString());
+            }
+            fc.set("mergers",mergers);
+            try {
+                fc.save(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 

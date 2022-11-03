@@ -35,12 +35,12 @@ public class EntityEvents implements Listener {
         if(event.getReason()!= CreatureSpawnEvent.SpawnReason.CUSTOM){
             EntityData entityData = EntityData.getEntityData(event.getType());
             if(entityData==null){
-                event.setShouldAbortSpawn(true);
+                event.setCancelled(true);
                 return;
             }
             if(!entityData.canNaturallySpawn()){
                 if(event.getReason()== CreatureSpawnEvent.SpawnReason.NATURAL){
-                    event.setShouldAbortSpawn(true);
+                    event.setCancelled(true);
                 }
             }
         }

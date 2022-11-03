@@ -71,6 +71,7 @@ public class MaterialType {
     public static MaterialType getMaterialType(ItemStack itemInMainHand) {
         if(itemInMainHand==null)
             return MaterialType.getMaterialType("AIR");
+        if(itemInMainHand.hasItemMeta())
         if(itemInMainHand.getItemMeta().hasCustomModelData()){
             for(MaterialType mt : customMaterialTypes.values()){
                 if(mt instanceof CustomMaterialType && mt.base==itemInMainHand.getType()&&((CustomMaterialType) mt).getId()==itemInMainHand.getItemMeta().getCustomModelData()){

@@ -1,0 +1,8 @@
+entitytype: SHEEP
+displayname: 'Sheep'
+percentagedrops:
+  BONE:
+    chance: 1
+  MUTTON:
+    chance: 1
+naturalspawn: true

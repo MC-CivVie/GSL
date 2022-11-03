@@ -33,12 +33,16 @@ public class ReinforceCommand implements CommandExecutor, TabExecutor {
                 return true;
             }
 
-            ReinforcementMaterial rm = null;
-            if (player.getInventory().getItemInMainHand() != null)
+            ReinforcementMaterial rm;
+            if (player.getInventory().getItemInMainHand() != null) {
                 if ((rm = ReinforcementMaterial.getReinforcementMaterialData(MaterialType.getMaterialType(player.getInventory().getItemInMainHand()))) == null) {
                     sender.sendMessage(new ComponentBuilder("You need to hold the item you are going to reinforce with.", ComponentBuilder.RED).build());
                     return true;
                 }
+            }else{
+                sender.sendMessage(new ComponentBuilder("You need to hold the item you are going to reinforce with.", ComponentBuilder.RED).build());
+                return true;
+            }
 
 
             String namelayer = args[0];
@@ -49,6 +53,9 @@ public class ReinforceCommand implements CommandExecutor, TabExecutor {
                     PlayerStatesManager.addState(player.getUniqueId(), rs);
                     sender.sendMessage(new ComponentBuilder("Reinforcing to \"" + nl.getName() + "\".", ComponentBuilder.WHITE).build());
                 }
+            }else{
+                sender.sendMessage(new ComponentBuilder("Thew namelayer "+namelayer+" does not exist!", ComponentBuilder.RED).build());
+                return true;
             }
         }
         return false;

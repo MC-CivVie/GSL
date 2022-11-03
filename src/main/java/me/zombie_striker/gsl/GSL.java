@@ -6,6 +6,7 @@ import me.zombie_striker.gsl.materials.MaterialType;
 import me.zombie_striker.gsl.megabuilds.MegaBuildType;
 import me.zombie_striker.gsl.namelayers.NameLayer;
 import me.zombie_striker.gsl.ores.OreObject;
+import me.zombie_striker.gsl.reinforcement.ReinforcementMaterial;
 import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.utils.InternalFileUtil;
 import me.zombie_striker.gsl.wordbank.WordBank;
@@ -44,6 +45,7 @@ public class GSL {
         MegaBuildType.init();
         EntityData.init();
         WordBank.init();
+        ReinforcementMaterial.init();
 
         registerListeners();
     }
@@ -59,15 +61,18 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
     }
     public void copyDataFiles(){
-
         try {
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), "entities"), InternalFileUtil.getPathsToInternalFiles("entities"), false);
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), "materials/custom"), InternalFileUtil.getPathsToInternalFiles("materials.custom"), false);
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), "materials/groups"), InternalFileUtil.getPathsToInternalFiles("materials.groups"), false);
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), "ores"), InternalFileUtil.getPathsToInternalFiles("ores"), false);
-
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ENTITY_DATA), InternalFileUtil.getPathsToInternalFiles("entities"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_CUSTOM), InternalFileUtil.getPathsToInternalFiles("materials.custom"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_GROUP), InternalFileUtil.getPathsToInternalFiles("materials.groups"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ORES), InternalFileUtil.getPathsToInternalFiles("ores"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_REINFORCEMENT_TYPES), InternalFileUtil.getPathsToInternalFiles("reinforcedtypes"), false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void shutdown() {
+        NameLayer.saveNamelayers();
     }
 }

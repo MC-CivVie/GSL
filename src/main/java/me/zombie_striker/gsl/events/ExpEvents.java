@@ -4,6 +4,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.inventory.FurnaceExtractEvent;
+import org.bukkit.event.inventory.FurnaceSmeltEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 
 public class ExpEvents implements Listener {
@@ -19,5 +21,10 @@ public class ExpEvents implements Listener {
     @EventHandler
     public void onBlockBreakEvent(BlockBreakEvent event){
         event.setExpToDrop(0);
+    }
+
+    @EventHandler
+    public void onFurnace(FurnaceExtractEvent event){
+    event.setExpToDrop(0);
     }
 }
