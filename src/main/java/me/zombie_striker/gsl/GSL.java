@@ -15,7 +15,6 @@ import org.bukkit.Bukkit;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.JarURLConnection;
 
 public class GSL {
 
@@ -38,6 +37,7 @@ public class GSL {
     public void init() {
         copyDataFiles();
 
+        // basics
         GSLWorld.init();
         MaterialType.init();
         OreObject.init();

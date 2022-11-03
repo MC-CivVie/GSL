@@ -1,12 +1,8 @@
 package me.zombie_striker.gsl.commands;
 
-import me.zombie_striker.gsl.materials.MaterialType;
-import me.zombie_striker.gsl.namelayers.NameLayer;
-import me.zombie_striker.gsl.reinforcement.ReinforcementMaterial;
-import me.zombie_striker.gsl.states.PlayerStatesManager;
-import me.zombie_striker.gsl.states.ReinforcementState;
-import me.zombie_striker.gsl.states.TalkInGroupState;
-import me.zombie_striker.gsl.utils.ComponentBuilder;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,8 +11,10 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.LinkedList;
-import java.util.List;
+import me.zombie_striker.gsl.namelayers.NameLayer;
+import me.zombie_striker.gsl.states.PlayerStatesManager;
+import me.zombie_striker.gsl.states.TalkInGroupState;
+import me.zombie_striker.gsl.utils.ComponentBuilder;
 
 public class GroupCommand implements CommandExecutor, TabCompleter {
     @Override

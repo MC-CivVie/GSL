@@ -1,7 +1,5 @@
 package me.zombie_striker.gsl.materials;
 
-import org.bukkit.Material;
-
 import java.util.List;
 
 public class GroupMaterialType extends MaterialType{

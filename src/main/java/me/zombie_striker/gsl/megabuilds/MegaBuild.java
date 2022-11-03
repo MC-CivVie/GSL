@@ -8,10 +8,11 @@ import java.util.List;
 public class MegaBuild {
 
     private List<Location> blocks = new LinkedList<>();
-    private Location interactBlock1;
+    @SuppressWarnings("unused")
+	private Location interactBlock;
 
-    public MegaBuild(Location interactBlock1, Location... blocks){
-        this.interactBlock1 = interactBlock1;
+    public MegaBuild(Location interactBlock, Location... blocks){
+        this.interactBlock = interactBlock;
         for(Location l : blocks){
             this.blocks.add(l);
         }

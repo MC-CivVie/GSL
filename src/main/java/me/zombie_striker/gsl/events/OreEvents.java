@@ -1,9 +1,5 @@
 package me.zombie_striker.gsl.events;
 
-import me.zombie_striker.gsl.ores.OreObject;
-import me.zombie_striker.gsl.world.GSLChunk;
-import me.zombie_striker.gsl.world.GSLCube;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
@@ -11,6 +7,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+
+import me.zombie_striker.gsl.ores.OreObject;
+import me.zombie_striker.gsl.world.GSLChunk;
+import me.zombie_striker.gsl.world.GSLCube;
 
 public class OreEvents implements Listener {
 

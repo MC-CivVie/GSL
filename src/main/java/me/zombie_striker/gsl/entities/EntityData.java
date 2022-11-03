@@ -1,17 +1,17 @@
 package me.zombie_striker.gsl.entities;
 
-import me.zombie_striker.gsl.files.YamlParserLoader;
-import me.zombie_striker.gsl.materials.MaterialType;
-import me.zombie_striker.gsl.utils.FileUtils;
+import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import me.zombie_striker.gsl.files.YamlParserLoader;
+import me.zombie_striker.gsl.materials.MaterialType;
+import me.zombie_striker.gsl.utils.FileUtils;
 
 public class EntityData {
 

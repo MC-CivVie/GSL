@@ -1,16 +1,17 @@
 package me.zombie_striker.gsl.events;
 
-import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
-import me.zombie_striker.gsl.entities.EntityData;
-import me.zombie_striker.gsl.materials.MaterialType;
-import org.bukkit.Bukkit;
+import java.util.Map;
+
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
+import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
+
+import me.zombie_striker.gsl.entities.EntityData;
+import me.zombie_striker.gsl.materials.MaterialType;
 
 public class EntityEvents implements Listener {
 
