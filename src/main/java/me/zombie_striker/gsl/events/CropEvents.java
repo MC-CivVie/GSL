@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl.events;
 
+import me.zombie_striker.gsl.GSL;
 import me.zombie_striker.gsl.crops.CropType;
 import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.utils.StringUtil;
@@ -17,6 +18,7 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class CropEvents implements Listener {
 
@@ -88,11 +90,16 @@ public class CropEvents implements Listener {
                 }
             }
 
-            int stage = (int) (((double) (System.currentTimeMillis() - time)) / growtime);
-            Ageable ageable = (Ageable) event.getBlock().getBlockData();
-            stage = Math.min(stage,ageable.getMaximumAge());
-            ageable.setAge(stage);
-            event.getBlock().setBlockData(ageable);
+            new BukkitRunnable(){
+                @Override
+                public void run() {
+                    int stage = (int) (((double) (System.currentTimeMillis() - time)) / growtime);
+                    Ageable ageable = (Ageable) event.getBlock().getBlockData();
+                    stage = Math.min(stage,ageable.getMaximumAge());
+                    ageable.setAge(stage);
+                    event.getBlock().setBlockData(ageable);
+                }
+            }.runTaskLater(GSL.getCore(),1);
         }
     }
 
