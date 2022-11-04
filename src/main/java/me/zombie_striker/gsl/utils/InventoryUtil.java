@@ -8,6 +8,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class InventoryUtil {
 
+    /**
+     * Removes onme of a specified Material Type from an inventory. Works with groups of items as well.
+     * @param type
+     * @param inventory
+     */
     public static void removeOneOf(MaterialType type, Inventory inventory) {
         if (type instanceof GroupMaterialType) {
             for (int i = 0; i < inventory.getSize(); i++) {

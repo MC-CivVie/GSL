@@ -10,8 +10,14 @@ public class GSLCube {
     private NameLayer[][][] namelayers = new NameLayer[16][16][16];
     private boolean[][][] placed = new boolean[16][16][16];
 
+    private long[][][] plantDate = new long[16][16][16];
+
     public GSLCube(){
 
+    }
+
+    public long[][][] getPlantDate() {
+        return plantDate;
     }
 
     public int[][][] getDurability() {

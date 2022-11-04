@@ -13,6 +13,7 @@ import java.util.zip.ZipInputStream;
 
 public class InternalFileUtil {
 
+
     public static List<String> getPathsToInternalFiles(String folder) throws IOException {
         CodeSource src = InternalFileUtil.class.getProtectionDomain().getCodeSource();
         List<String> list = new ArrayList<String>();

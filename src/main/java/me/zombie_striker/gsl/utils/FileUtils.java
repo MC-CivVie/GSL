@@ -23,6 +23,8 @@ public class FileUtils {
     public static final String PATH_WORDBANK_FILE = "wordbank.yml";
     public static final String PATH_MEGASTRUCTURETYPES = "megastructures";
     public static final String PATH_CRAFTING_FILE = "crafting.yml";
+    public static final String PATH_BIOMES_FILE = "biomes.yml";
+    public static final String PATH_CROPS = "crops";
 
     public static File getFolder(String path){
         return new File(GSL.getCore().getDataFolder(),path);

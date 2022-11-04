@@ -1,5 +1,8 @@
 package me.zombie_striker.gsl;
 
+import me.zombie_striker.gsl.crops.CropType;
+import me.zombie_striker.gsl.world.GSLBiomeList;
+import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.events.*;
 import me.zombie_striker.gsl.materials.MaterialType;
@@ -48,6 +51,10 @@ public class GSL {
         WordBank.init();
         ReinforcementMaterial.init();
         GUIUtil.init();
+        DependancyManager.init();
+        GSLBiomeList.init(Bukkit.getWorlds().get(0));
+        CropType.init();
+
 
         registerListeners();
     }
@@ -62,6 +69,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new ExpEvents(), core);
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(),core);
+        Bukkit.getPluginManager().registerEvents(new CropEvents(),core);
     }
     public void copyDataFiles(){
         try {

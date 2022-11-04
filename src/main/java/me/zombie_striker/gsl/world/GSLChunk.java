@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 public class GSLChunk {
-
-
     public static final int BLOCK_Y_OFFSET = -64;
     private static List<GSLChunk> chunks = new LinkedList<>();
 
