@@ -1,0 +1,12 @@
+name: WOODS
+group:
+  - 'OAK_LOG'
+  - 'OAK_WOOD'
+  - 'BIRCH_LOG'
+  - 'BIRCH_WOOD'
+  - 'SPRUCE_LOG'
+  - 'SPRUCE_WOOD'
+  - 'JUNGLE_LOG'
+  - 'JUNGLE_WOOD'
+  - 'DARK_OAK_LOG'
+  - 'DARK_OAK_WOOD'

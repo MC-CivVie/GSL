@@ -105,8 +105,8 @@ public class GSL {
     public void copyDataFiles() {
         try {
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ENTITY_DATA), InternalFileUtil.getPathsToInternalFiles("entities"), false);
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_CUSTOM), InternalFileUtil.getPathsToInternalFiles("materials.custom"), false);
-            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_GROUP), InternalFileUtil.getPathsToInternalFiles("materials.groups"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_CUSTOM), InternalFileUtil.getPathsToInternalFiles("materials_custom"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_GROUP), InternalFileUtil.getPathsToInternalFiles("materials_groups"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ORES), InternalFileUtil.getPathsToInternalFiles("ores"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_REINFORCEMENT_TYPES), InternalFileUtil.getPathsToInternalFiles("reinforcedtypes"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_CROPS), InternalFileUtil.getPathsToInternalFiles("crops"), false);

@@ -1,0 +1,9 @@
+name: "woodtocharcoal"
+displayname: "Cook Charcoal"
+factory: charcoal
+icon: CHARCOAL
+ingredients:
+  WOODS: 8
+results:
+  CHARCOAL: 32
+powerrequirement: 2

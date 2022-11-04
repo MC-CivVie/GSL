@@ -1,0 +1,9 @@
+name: "coaltocharcoal"
+displayname: "Cook Charcoal"
+factory: charcoal
+icon: CHARCOAL
+ingredients:
+  COAL: 8
+results:
+  CHARCOAL: 32
+powerrequirement: 2

@@ -39,7 +39,7 @@ public class MaterialType {
             if(!customItems.verifyAllPathsAreThere(fc)){
                 customItems.addDefaultValues(fc,file);
             }
-            customMaterialTypes.put(fc.getString("name"),new CustomMaterialType(fc.getString("name"),fc.getString("displayname"),Material.matchMaterial(fc.getString("base")),fc.getInt("custom_model_id")));
+            customMaterialTypes.put(fc.getString("name").trim(),new CustomMaterialType(fc.getString("name"),fc.getString("displayname"),Material.matchMaterial(fc.getString("base")),fc.getInt("custom_model_id")));
         }
 
 
@@ -56,7 +56,7 @@ public class MaterialType {
             if(!groupItems.verifyAllPathsAreThere(fc)){
                 groupItems.addDefaultValues(fc,file);
             }
-            groupMaterialTypes.put(fc.getString("name"),new GroupMaterialType(fc.getString("name"),toMaterialTypesList(fc.getStringList("group"))));
+            groupMaterialTypes.put(fc.getString("name").trim(),new GroupMaterialType(fc.getString("name"),toMaterialTypesList(fc.getStringList("group"))));
         }
     }
 
@@ -103,11 +103,11 @@ public class MaterialType {
         return materialTypes1;
     }
     public static MaterialType getMaterialType(String name){
-        if(groupMaterialTypes.containsKey(name))
-            return groupMaterialTypes.get(name);
-        if(customMaterialTypes.containsKey(name))
-            return customMaterialTypes.get(name);
-        return materialTypes.get(name);
+        if(groupMaterialTypes.containsKey(name.trim()))
+            return groupMaterialTypes.get(name.trim());
+        if(customMaterialTypes.containsKey(name.trim()))
+            return customMaterialTypes.get(name.trim());
+        return materialTypes.get(name.trim());
     }
 
     public ItemStack toItemStack(){
