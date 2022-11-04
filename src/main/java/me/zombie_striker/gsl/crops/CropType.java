@@ -43,7 +43,7 @@ public class CropType {
             }
             Material material = Material.matchMaterial(fc.getString("material"));
             Material soil = Material.matchMaterial(fc.getString("soilmaterial"));
-            GrowType growtype = GrowType.valueOf("growtype");
+            GrowType growtype = GrowType.valueOf(fc.getString("growtype"));
             boolean requiressun = fc.getBoolean("requiressun");
             double growtime = fc.getDouble("growtime");
 
