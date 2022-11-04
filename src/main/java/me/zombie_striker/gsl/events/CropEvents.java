@@ -17,6 +17,7 @@ import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -103,6 +104,52 @@ public class CropEvents implements Listener {
         }
     }
 
+    @EventHandler
+    public void onGrow(StructureGrowEvent event) {
+        CropType cropType = CropType.getCropTypeByMaterial(event.getLocation().getBlock().getType());
+        if (cropType != null) {
+            GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getLocation().getBlock().getChunk());
+            GSLCube gslCube = gslChunk.getCubes()[(event.getLocation().getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
+            if (gslCube == null) {
+                gslCube = new GSLCube();
+                gslChunk.getCubes()[(event.getLocation().getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16] = gslCube;
+            }
+            int x = event.getLocation().getBlock().getX() % 16;
+            if (event.getLocation().getBlock().getX() < 0)
+                x = Math.abs((-event.getLocation().getBlock().getX()) % 16 - 15);
+            int z = event.getLocation().getBlock().getZ() % 16;
+            if (event.getLocation().getBlock().getZ() < 0)
+                z = Math.abs((-event.getLocation().getBlock().getZ()) % 16 - 15);
+
+            int y = (event.getLocation().getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
+
+            long time = gslCube.getPlantDate()[x][y][z];
+            long growtime = (long) (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
+
+            if(growtime<0) {
+                event.setCancelled(true);
+                return;
+            }boolean directSunlight = cropType.requiresSunlight();
+            if(directSunlight) {
+                Block highest = event.getLocation().getBlock().getWorld().getHighestBlockAt(event.getLocation().getBlock().getLocation());
+                while (!highest.equals(event.getLocation().getBlock())) {
+                    if(highest==null)
+                        break;
+                    if(highest.getY()< event.getLocation().getBlock().getY())
+                        break;
+                    if (!highest.getType().isOccluding()) {
+                        highest = highest.getRelative(BlockFace.DOWN);
+                    } else {
+                        directSunlight = false;
+                        break;
+                    }
+                }
+                if (!directSunlight) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getBlock().getChunk());

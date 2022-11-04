@@ -11,6 +11,11 @@ public abstract class InteractAction {
 
     private static List<InteractAction> actionList = new LinkedList<>();
 
+    public static void init(){
+        registerAction(new OpenCraftingBenchGUI());
+
+    }
+
     public static InteractAction getAction(String string) {
         for(InteractAction ia : actionList){
             if(ia.getActionName().equalsIgnoreCase(string))
@@ -19,7 +24,7 @@ public abstract class InteractAction {
         return null;
     }
 
-    public static void rsegisterAction(InteractAction ia){
+    public static void registerAction(InteractAction ia){
         actionList.add(ia);
     }
     public abstract void onInteract(Player player, Block block, MegaBuild build, boolean rightclick);

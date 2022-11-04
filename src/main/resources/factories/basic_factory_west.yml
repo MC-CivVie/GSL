@@ -1,0 +1,16 @@
+name: "basicwest"
+factory: "basic"
+displayname: "Basic Factory"
+axis: NORTH
+xoff: 1
+yoff: 0
+zoff: 0
+x_size: 3
+y_size: 1
+z_size: 1
+materials:
+  1x0x0: "CRAFTING_TABLE"
+  2x0x0: "FURNACE"
+  0x0x0: "CHEST"
+actions:
+  1x0x0: "factory_open"

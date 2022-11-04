@@ -6,10 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-import org.bukkit.event.inventory.InventoryEvent;
-import org.bukkit.event.inventory.InventoryMoveItemEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.inventory.Inventory;
 
 import java.util.LinkedList;
@@ -24,10 +21,10 @@ public class GUIUtil implements Listener {
         Bukkit.getPluginManager().registerEvents(new GUIUtil(),GSL.getCore());
     }
 
-    public void register(GUI gui){
+    public static void register(GUI gui){
         guis.add(gui);
     }
-    public void unregister(GUI gui){
+    public static void unregister(GUI gui){
         guis.remove(gui);
     }
     public static GUI getGUI(Inventory inventory){
@@ -59,5 +56,13 @@ public class GUIUtil implements Listener {
         if((getGUI(event.getSource()))!=null||(getGUI(event.getDestination()))!=null) {
             event.setCancelled(true);
         }
+    }
+    @EventHandler
+    public void onClose(InventoryCloseEvent event){
+        GUI gui;
+        if((gui = getGUI(event.getInventory()))!=null) {
+            guis.remove(gui);
+        }
+
     }
 }

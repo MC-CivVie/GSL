@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl.megabuilds;
 
+import me.zombie_striker.gsl.recipes.FactoryRecipe;
 import org.bukkit.Location;
 
 import java.util.LinkedList;
@@ -11,6 +12,8 @@ public class MegaBuild {
     private Location center;
     private MegaBuildType type;
 
+    private FactoryRecipe recipe;
+
     public MegaBuild(MegaBuildType type, Location center, Location... blocks){
         this.center = center;
         this.type = type;
@@ -19,6 +22,13 @@ public class MegaBuild {
         }
     }
 
+    public FactoryRecipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(FactoryRecipe recipe) {
+        this.recipe = recipe;
+    }
 
     public Location getCenter() {
         return center;

@@ -1,0 +1,16 @@
+name: "basicup"
+factory: "basic"
+displayname: "Basic Factory"
+axis: UP
+xoff: 0
+yoff: 1
+zoff: 0
+x_size: 1
+y_size: 3
+z_size: 1
+materials:
+  0x1x0: "CRAFTING_TABLE"
+  0x0x0: "FURNACE"
+  0x2x0: "CHEST"
+actions:
+  0x1x0: "factory_open"

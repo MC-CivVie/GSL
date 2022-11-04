@@ -1,6 +1,6 @@
-rarity: 200
+rarity: 50
 toughness: 1
 roughness: 0.5
-metallic: 1
-blocktype: "GOLD_ORE"
+metallic: 0.1
+blocktype: "CLAY"
 replacetype: "STONE"

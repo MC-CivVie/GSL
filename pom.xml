@@ -86,6 +86,7 @@
 	    <groupId>com.dfsek</groupId>
 	    <artifactId>terra</artifactId>
 	    <version>meowcorp</version>
+        <scope>provided</scope>
 	</dependency>
     </dependencies>
 </project>

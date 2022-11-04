@@ -1,0 +1,8 @@
+name: "scaffolding"
+displayname: "Make Scaffolding"
+factory: basic
+icon: SCAFFOLDING
+ingredients:
+  STICK: 8
+results:
+  SCAFFOLDING: 8

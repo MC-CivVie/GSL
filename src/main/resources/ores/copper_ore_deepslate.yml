@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 0.25
+roughness: 0.5
+metallic: 1
+blocktype: "DEEPSLATE_COPPER_ORE"
+replacetype: "DEEPSLATE"

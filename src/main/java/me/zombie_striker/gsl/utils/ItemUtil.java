@@ -1,5 +1,7 @@
 package me.zombie_striker.gsl.utils;
 
+import me.zombie_striker.gsl.materials.MaterialType;
+import me.zombie_striker.gsl.recipes.FactoryRecipe;
 import me.zombie_striker.gsl.wordbank.WordBank;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -9,12 +11,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ItemUtil {
 
     public static final ComponentBuilder LORE_WORDBANK = new ComponentBuilder("WB: ", ComponentBuilder.BLUE);
 
+    public static ItemStack prepareFactoryIcon(FactoryRecipe factoryRecipe){
+        ItemStack i = factoryRecipe.getIcon().toItemStack();
+        ItemMeta im = i.getItemMeta();
+        im.displayName(new ComponentBuilder(factoryRecipe.getDisplayname(),ComponentBuilder.WHITE).build());
+        List<Component> ingredients = new LinkedList<>();
+        for(Map.Entry<MaterialType, Integer> e : factoryRecipe.getIngredients().entrySet()){
+            ingredients.add(new ComponentBuilder(e.getKey().getName()+":"+e.getValue(),ComponentBuilder.RED).build());
+        }
+        im.lore(ingredients);
+        i.setItemMeta(im);
+        return i;
+    }
 
     public static Component getWordBankOfItemLore(ItemStack is){
         @Nullable List<Component> lores = is.lore();

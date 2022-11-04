@@ -12,6 +12,7 @@ public class GUI {
     public GUI(Inventory inventory) {
         this.inventory = inventory;
         actions = new GUIAction[inventory.getSize()];
+        GUIUtil.register(this);
     }
 
     public void setIcon(int slot, ItemStack material, GUIAction action) {

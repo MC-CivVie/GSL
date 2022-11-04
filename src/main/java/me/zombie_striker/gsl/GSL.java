@@ -1,6 +1,8 @@
 package me.zombie_striker.gsl;
 
 import me.zombie_striker.gsl.crops.CropType;
+import me.zombie_striker.gsl.megabuilds.interact.InteractAction;
+import me.zombie_striker.gsl.recipes.FactoryRecipe;
 import me.zombie_striker.gsl.world.GSLBiomeList;
 import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
@@ -46,6 +48,8 @@ public class GSL {
         MaterialType.init();
         OreObject.init();
         NameLayer.init();
+        FactoryRecipe.init();
+        InteractAction.init();
         MegaBuildType.init();
         EntityData.init();
         WordBank.init();
@@ -70,6 +74,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(),core);
         Bukkit.getPluginManager().registerEvents(new CropEvents(),core);
+        Bukkit.getPluginManager().registerEvents(new FactoryEvents(),core);
     }
     public void copyDataFiles(){
         try {
@@ -79,7 +84,10 @@ public class GSL {
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ORES), InternalFileUtil.getPathsToInternalFiles("ores"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_REINFORCEMENT_TYPES), InternalFileUtil.getPathsToInternalFiles("reinforcedtypes"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_CROPS), InternalFileUtil.getPathsToInternalFiles("crops"), false);
-        } catch (IOException e) {
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_RECIPES), InternalFileUtil.getPathsToInternalFiles("recipes"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MEGASTRUCTURETYPES), InternalFileUtil.getPathsToInternalFiles("factories"), false);
+
+              } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
