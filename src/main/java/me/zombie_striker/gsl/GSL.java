@@ -78,6 +78,7 @@ public class GSL {
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_GROUP), InternalFileUtil.getPathsToInternalFiles("materials.groups"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ORES), InternalFileUtil.getPathsToInternalFiles("ores"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_REINFORCEMENT_TYPES), InternalFileUtil.getPathsToInternalFiles("reinforcedtypes"), false);
+            InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_CROPS), InternalFileUtil.getPathsToInternalFiles("crops"), false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

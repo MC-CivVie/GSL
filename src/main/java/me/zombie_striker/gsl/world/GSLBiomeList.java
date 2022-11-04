@@ -37,22 +37,24 @@ public class GSLBiomeList {
             }
         }
         FileConfiguration yml = YamlConfiguration.loadConfiguration(f);
-        if (parserLoader.verifyAllPathsAreThere(yml))
+        if (!parserLoader.verifyAllPathsAreThere(yml))
             parserLoader.addDefaultValues(yml, f);
 
         for(Biome biome : Biome.values()){
             biomeLists.add(new GSLBiomeList(biome.name(),biome));
         }
-        for(String key : yml.getConfigurationSection("groups").getKeys(false)){
-            List<Biome> biomes = new LinkedList<>();
-            for(String s : yml.getStringList("groups."+key)){
-                if(DependancyManager.hasTerra()){
-                    biomes.add(TerraManager.getBiomeByName(world, s));
-                }else{
-                    biomes.add(Biome.valueOf(s));
+        if(yml.contains("groups")) {
+            for (String key : yml.getConfigurationSection("groups").getKeys(false)) {
+                List<Biome> biomes = new LinkedList<>();
+                for (String s : yml.getStringList("groups." + key)) {
+                    if (DependancyManager.hasTerra()) {
+                        biomes.add(TerraManager.getBiomeByName(world, s));
+                    } else {
+                        biomes.add(Biome.valueOf(s));
+                    }
                 }
+                biomeLists.add(new GSLBiomeList(key, biomes));
             }
-            biomeLists.add(new GSLBiomeList(key,biomes));
         }
     }
 

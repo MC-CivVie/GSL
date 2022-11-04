@@ -1,0 +1,11 @@
+material: "OAK_SAPLING"
+growtype: DEFAULT
+growtime: 4.0
+requiressun: true
+soilmaterial: DIRT
+growthmodifiers:
+  frozen: 4.0
+  cold: 2.0
+  hot: 3.0
+  temperate: 1.0
+  ocean: -1.0
