@@ -2,7 +2,8 @@ package me.zombie_striker.gsl.conversations;
 
 import java.util.HashMap;
 import java.util.Map;
-
+import me.zombie_striker.gsl.prompts.TradingBoothPrompt;
+import me.zombie_striker.gsl.utils.ComponentBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -19,9 +20,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-
-import me.zombie_striker.gsl.prompts.TradingBoothPrompt;
-import me.zombie_striker.gsl.utils.ComponentBuilder;
 
 public class TradingBoothConversation {
     private JavaPlugin plugin;
@@ -48,28 +46,30 @@ public class TradingBoothConversation {
 			Location senderLocation = sender.getLocation();
 			Block barrel = senderLocation.getBlock();
 			barrel.setType(Material.BARREL);
-			var locationOfSign = canPlaceBlock(senderLocation, Material.OAK_SIGN);
-			var locationOfIF = canPlaceBlock(senderLocation, Material.ITEM_FRAME);
-			if(locationOfSign!=null) {
-			    if(locationOfIF!=null) {
-				Block sign = locationOfSign.getBlock();
-				Block itemf = locationOfIF.getBlock();
-				BlockState signstate = sign.getState();
-				BlockState itemfstate = itemf.getState();
-				Sign signdate = (Sign) signstate;
-				ItemFrame itemfdate = (ItemFrame) itemfstate;
-				ItemStack itemfitem = new ItemStack(Material.DIAMOND);
-
-				signdate.line(0,new ComponentBuilder("Trading",ComponentBuilder.WHITE).build());
-				signdate.line(1,new ComponentBuilder("[xx]",ComponentBuilder.WHITE).build());
-				signdate.update();
-
-				itemfdate.setItem(itemfitem);
-				itemfdate.setVisible(true);
-			    }
-			} else {
-			    barrel.setType(Material.AIR);
-			}
+			try {
+				Location locationOfSign = canPlaceBlock(senderLocation, Material.OAK_SIGN);
+				Location locationOfIF = canPlaceBlock(senderLocation, Material.ITEM_FRAME);
+				if(locationOfSign!=null) {
+			    		if(locationOfIF!=null) {
+						Block sign = locationOfSign.getBlock();
+						Block itemf = locationOfIF.getBlock();
+						BlockState signstate = sign.getState();
+						BlockState itemfstate = itemf.getState();
+						Sign signdate = (Sign) signstate;
+						ItemFrame itemfdate = (ItemFrame) itemfstate;
+						ItemStack itemfitem = new ItemStack(Material.DIAMOND);
+		
+						signdate.line(0,new ComponentBuilder("Trading",ComponentBuilder.WHITE).build());
+						signdate.line(1,new ComponentBuilder("[xx]",ComponentBuilder.WHITE).build());
+						signdate.update();
+		
+						itemfdate.setItem(itemfitem);
+						itemfdate.setVisible(true);
+			    		}
+				} else {
+			    		barrel.setType(Material.AIR);
+				}
+			} catch(Exception npe) {}
 		    } catch(Exception npe) {
 			plugin.getLogger().info("Exception happened in TradingBoothConversation.java!\n\n"+npe.getStackTrace());
 		    }

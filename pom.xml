@@ -49,10 +49,14 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-        </resources>
+    	</resources>
     </build>
 
     <repositories>
+	<repository>
+		<id>meowcorp</id>
+		<url>https://fs.meowcorp.org/maven2</url>
+	</repository>
         <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
@@ -60,7 +64,7 @@
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
-        </repository>
+    	</repository>
     </repositories>
 
     <dependencies>
@@ -76,13 +80,12 @@
             <artifactId>paper-api</artifactId>
             <version>1.19.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.dfsek</groupId>
-            <artifactId>Terra</artifactId>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/Terra-bukkit-6.2.0-BETA+7d056bd88-shaded.jar</systemPath>
-            <version>6.1.2</version>
-        </dependency>
+    	</dependency>
+
+	<dependency>
+	    <groupId>com.dfsek</groupId>
+	    <artifactId>terra</artifactId>
+	    <version>meowcorp</version>
+	</dependency>
     </dependencies>
 </project>

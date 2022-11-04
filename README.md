@@ -7,3 +7,4 @@ Adds BlockReinforcement, Snitches, Ore Discovery, and more.
     /nl     : Name layer commands
     /nlcg   : Creating name layers
     /r      : Reinforce to a namelayer
+    /tb     : Trading booth commands
