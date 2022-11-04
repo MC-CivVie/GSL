@@ -4,6 +4,7 @@ import me.zombie_striker.gsl.megabuilds.MegaBuild;
 import me.zombie_striker.gsl.megabuilds.MegaBuildType;
 import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.world.GSLWorld;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,12 +20,31 @@ public class FactoryEvents implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onInteractEvent(PlayerInteractEvent event) {
+        if (event.getAction() == Action.LEFT_CLICK_BLOCK && event.getHand() != EquipmentSlot.OFF_HAND) {
+            GSLWorld gslWorld = GSLWorld.getWorld(event.getClickedBlock().getWorld());
+            for (MegaBuild megaBuild : gslWorld.getMegabuilds()) {
+                int xoff = event.getClickedBlock().getX()+ megaBuild.getType().getOffsetX() - megaBuild.getCenter().getBlockX();
+                int yoff = event.getClickedBlock().getY()+ megaBuild.getType().getOffsetY() - megaBuild.getCenter().getBlockY();
+                int zoff = event.getClickedBlock().getZ()+ megaBuild.getType().getOffsetZ() - megaBuild.getCenter().getBlockZ();
+
+                if (xoff < 0 || xoff >= megaBuild.getType().getActions().length)
+                    continue;
+                if (yoff < 0 || yoff >= megaBuild.getType().getActions()[xoff].length)
+                    continue;
+                if (zoff < 0 || zoff >= megaBuild.getType().getActions()[xoff][yoff].length)
+                    continue;
+                if (megaBuild.getType().getActions()[xoff][yoff][zoff] != null) {
+                    event.setCancelled( megaBuild.getType().getActions()[xoff][yoff][zoff].onInteract(event.getPlayer(), event.getClickedBlock(), megaBuild, false));
+                }
+                return;
+            }
+        }
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getHand() != EquipmentSlot.OFF_HAND) {
             GSLWorld gslWorld = GSLWorld.getWorld(event.getClickedBlock().getWorld());
             for (MegaBuild megaBuild : gslWorld.getMegabuilds()) {
-                int xoff =  megaBuild.getCenter().getBlockX() + megaBuild.getType().getOffsetX() -event.getClickedBlock().getX();
-                int yoff =  megaBuild.getCenter().getBlockY() + megaBuild.getType().getOffsetY() -event.getClickedBlock().getY();
-                int zoff =  megaBuild.getCenter().getBlockZ() + megaBuild.getType().getOffsetZ() -event.getClickedBlock().getZ();
+                int xoff = event.getClickedBlock().getX()+ megaBuild.getType().getOffsetX() - megaBuild.getCenter().getBlockX();
+                int yoff = event.getClickedBlock().getY()+ megaBuild.getType().getOffsetY() - megaBuild.getCenter().getBlockY();
+                int zoff = event.getClickedBlock().getZ()+ megaBuild.getType().getOffsetZ() - megaBuild.getCenter().getBlockZ();
 
                 if(xoff<0||xoff>=megaBuild.getType().getActions().length)
                     continue;
@@ -33,8 +53,7 @@ public class FactoryEvents implements Listener {
                 if(zoff<0||zoff>=megaBuild.getType().getActions()[xoff][yoff].length)
                     continue;
                 if (megaBuild.getType().getActions()[xoff][yoff][zoff] != null) {
-                    megaBuild.getType().getActions()[xoff][yoff][zoff].onInteract(event.getPlayer(), event.getClickedBlock(), megaBuild, true);
-                    event.setCancelled(true);
+                    event.setCancelled( megaBuild.getType().getActions()[xoff][yoff][zoff].onInteract(event.getPlayer(), event.getClickedBlock(), megaBuild, true));
                 }
                 return;
             }

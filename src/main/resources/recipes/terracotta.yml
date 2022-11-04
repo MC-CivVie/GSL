@@ -1,0 +1,9 @@
+name: "terracotta"
+displayname: "Make Terracotta"
+factory: basic
+icon: TERRACOTTA
+ingredients:
+  CLAY: 6
+results:
+  TERRACOTTA: 8
+powerrequirement: 1

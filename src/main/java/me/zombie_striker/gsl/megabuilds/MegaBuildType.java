@@ -94,12 +94,35 @@ public class MegaBuildType {
                     }
                 }
             }
-            buildtypes.add(new MegaBuildType(name, display, group, types, actions, xoff, yoff, zoff, buildAxis1));
+            String[][][] labels = new String[x_size][y_size][z_size];
+            if (yml.contains("labels")) {
+                for (String keyx : yml.getConfigurationSection("labels").getKeys(false)) {
+                    String[] parts = keyx.split("x");
+                    if (parts.length < 3) {
+                        GSL.getCore().getLogger().info("Failed to load " + name + " label " + keyx);
+                        continue;
+                    }
+                    int x = Integer.parseInt(parts[0]);
+                    int y = Integer.parseInt(parts[1]);
+                    int z = Integer.parseInt(parts[2]);
+
+                   String label = yml.getString("labels." + keyx);
+
+
+                    if (label != null) {
+                        labels[x][y][z] = label;
+                    } else {
+                        GSL.getCore().getLogger().info("Failed to find labels " + yml.getString("actions." + keyx) + " for " + keyx);
+                    }
+                }
+            }
+            buildtypes.add(new MegaBuildType(name, display, group, types, actions,labels, xoff, yoff, zoff, buildAxis1));
         }
     }
 
     private Material[][][] types;
     private InteractAction[][][] actions;
+    private String[][][] labels;
     private String name;
     private String displayname;
     private String group;
@@ -108,16 +131,21 @@ public class MegaBuildType {
     private int offsetY;
     private int offsetZ;
 
-    public MegaBuildType(String name, String displayname, String group, Material[][][] types, InteractAction[][][] actions, int offsetX, int offsetY, int offsetZ, BuildAxis axis) {
+    public MegaBuildType(String name, String displayname, String group, Material[][][] types, InteractAction[][][] actions, String[][][] labels, int offsetX, int offsetY, int offsetZ, BuildAxis axis) {
         this.name = name;
         this.types = types;
         this.group = group;
+        this.labels = labels;
         this.offsetX = offsetX;
         this.offsetY = offsetY;
         this.offsetZ = offsetZ;
         this.displayname = displayname;
         this.buildAxis = axis;
         this.actions = actions;
+    }
+
+    public String[][][] getLabels() {
+        return labels;
     }
 
     public boolean isValidStructure(Location center) {

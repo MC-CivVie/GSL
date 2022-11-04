@@ -1,0 +1,9 @@
+name: "ironingot"
+displayname: "Forge Iron Ingots"
+factory: forge
+icon: IRON_INGOT
+ingredients:
+  RAW_IRON: 6
+results:
+  IRON_INGOT: 8
+powerrequirement: 1

@@ -1,0 +1,9 @@
+name: "cobbletostone"
+displayname: "Make Stone"
+factory: basic
+icon: STONE
+ingredients:
+  COBBLESTONE: 16
+results:
+  STONE: 20
+powerrequirement: 1

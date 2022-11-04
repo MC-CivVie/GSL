@@ -1,0 +1,9 @@
+name: "brick"
+displayname: "Make Brick"
+factory: basic
+icon: BRICK
+ingredients:
+  CLAY_BALL: 6
+results:
+  BRICK: 8
+powerrequirement: 1

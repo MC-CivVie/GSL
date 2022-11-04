@@ -1,23 +1,26 @@
 package me.zombie_striker.gsl;
 
 import me.zombie_striker.gsl.crops.CropType;
-import me.zombie_striker.gsl.megabuilds.interact.InteractAction;
-import me.zombie_striker.gsl.recipes.FactoryRecipe;
-import me.zombie_striker.gsl.world.GSLBiomeList;
 import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.events.*;
 import me.zombie_striker.gsl.materials.MaterialType;
+import me.zombie_striker.gsl.megabuilds.MegaBuild;
 import me.zombie_striker.gsl.megabuilds.MegaBuildType;
+import me.zombie_striker.gsl.megabuilds.interact.InteractAction;
 import me.zombie_striker.gsl.namelayers.NameLayer;
 import me.zombie_striker.gsl.ores.OreObject;
+import me.zombie_striker.gsl.recipes.FactoryRecipe;
 import me.zombie_striker.gsl.reinforcement.ReinforcementMaterial;
 import me.zombie_striker.gsl.utils.FileUtils;
 import me.zombie_striker.gsl.utils.InternalFileUtil;
 import me.zombie_striker.gsl.utils.guis.GUIUtil;
 import me.zombie_striker.gsl.wordbank.WordBank;
+import me.zombie_striker.gsl.world.GSLBiomeList;
 import me.zombie_striker.gsl.world.GSLWorld;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,7 +64,29 @@ public class GSL {
 
 
         registerListeners();
+        createRunnables();
     }
+
+
+    public void createRunnables() {
+        //Factory ticking
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for (World world : Bukkit.getWorlds()) {
+                    GSLWorld gslWorld = GSLWorld.getWorld(world);
+                    if (gslWorld != null) {
+                        for (MegaBuild megaBuild : gslWorld.getMegabuilds()) {
+                            if(megaBuild.isActive()){
+                                megaBuild.tick();
+                            }
+                        }
+                    }
+                }
+            }
+        }.runTaskTimer(core, 10,10);
+    }
+
 
     public void registerListeners() {
         Bukkit.getPluginManager().registerEvents(new OreEvents(), core);
@@ -72,11 +97,12 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new EntityEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ExpEvents(), core);
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
-        Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(),core);
-        Bukkit.getPluginManager().registerEvents(new CropEvents(),core);
-        Bukkit.getPluginManager().registerEvents(new FactoryEvents(),core);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new CropEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);
     }
-    public void copyDataFiles(){
+
+    public void copyDataFiles() {
         try {
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_ENTITY_DATA), InternalFileUtil.getPathsToInternalFiles("entities"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MATERIALS_CUSTOM), InternalFileUtil.getPathsToInternalFiles("materials.custom"), false);
@@ -87,7 +113,7 @@ public class GSL {
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_RECIPES), InternalFileUtil.getPathsToInternalFiles("recipes"), false);
             InternalFileUtil.copyFilesOut(new File(core.getDataFolder(), FileUtils.PATH_MEGASTRUCTURETYPES), InternalFileUtil.getPathsToInternalFiles("factories"), false);
 
-              } catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

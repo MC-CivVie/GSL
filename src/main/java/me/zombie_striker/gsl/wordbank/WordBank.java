@@ -23,7 +23,7 @@ public class WordBank {
     public static void init() {
         YamlParserLoader parserLoader = new YamlParserLoader()
                 .addDefault("adjectives", Arrays.asList("Cute","Cruel","Caring","Kind","Stupid","Red","Blue","Minted","Gray","White","Black","Brown","Communist","Capitalist","Apolitical","Political","Determined","Dead"))
-                .addDefault("nouns", Arrays.asList("Cat","Gato","Anarchist","Capitalist","Communist","City","Gulag","Prison","Player","Hat","Helmet","Enderman","Prison Pearl","Creeper","Man","Machine","Zombie","Pig","Determination","Cow","Horse","Skeleton","Skull"))
+                .addDefault("nouns", Arrays.asList("Cat","Gato","Anarchist","Capitalist","Communist","Fascist","City","Gulag","Prison","Player","Hat","Helmet","Enderman","Prison Pearl","Creeper","Man","Machine","Zombie","Pig","Determination","Cow","Horse","Skeleton","Skull"))
                 .addDefault("sentences", Arrays.asList(
                         REPLACE_NOUN,
                         REPLACE_ADJECTIVVE+" "+REPLACE_NOUN,

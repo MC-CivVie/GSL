@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 0.2
+roughness: 0.5
+metallic: 1
+blocktype: "NETHER_GOLD_ORE"
+replacetype: "NETHERRACK"

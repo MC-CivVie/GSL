@@ -1,0 +1,9 @@
+name: "goldinot"
+displayname: "Forge Gold Ingots"
+factory: forge
+icon: GOLD_INGOT
+ingredients:
+  RAW_GOLD: 6
+results:
+  GOLD_INGOT: 8
+powerrequirement: 1

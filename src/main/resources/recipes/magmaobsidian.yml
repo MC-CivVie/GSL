@@ -1,0 +1,9 @@
+name: "coolmagma"
+displayname: "Make Obsidian from Magma"
+factory: basic
+icon: OBSIDIAN
+ingredients:
+  MAGMA_BLOCK: 16
+results:
+  OBSIDIAN: 8
+powerrequirement: 3

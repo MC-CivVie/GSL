@@ -13,6 +13,7 @@ public abstract class InteractAction {
 
     public static void init(){
         registerAction(new OpenCraftingBenchGUI());
+        registerAction(new TurnOnEnginAction());
 
     }
 
@@ -27,6 +28,6 @@ public abstract class InteractAction {
     public static void registerAction(InteractAction ia){
         actionList.add(ia);
     }
-    public abstract void onInteract(Player player, Block block, MegaBuild build, boolean rightclick);
+    public abstract boolean onInteract(Player player, Block block, MegaBuild build, boolean rightclick);
     public abstract String getActionName();
 }

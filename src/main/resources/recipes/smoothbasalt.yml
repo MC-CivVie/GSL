@@ -1,0 +1,9 @@
+name: "basalt"
+displayname: "Make Smooth Basalt"
+factory: basic
+icon: SMOOTH_BASALT
+ingredients:
+  BASALT: 8
+results:
+  SMOOTH_BASALT: 8
+powerrequirement: 1

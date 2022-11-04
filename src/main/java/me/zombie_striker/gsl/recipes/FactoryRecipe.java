@@ -31,6 +31,7 @@ public class FactoryRecipe {
                 .addDefault("displayname","displayname")
                 .addDefault("factory","type")
                 .addDefault("icon","DIRT")
+                .addDefault("powerrequirement",1)
                 .addOptional("ingredients.DIRT",1)
                 .addOptional("results.DIRT",1);
 
@@ -43,8 +44,9 @@ public class FactoryRecipe {
             String displayname = fc.getString("displayname");
             String group = fc.getString("factory");
             MaterialType materialType = MaterialType.getMaterialType(fc.getString("icon"));
+            int powerrequirement = fc.getInt("powerrequirement");
 
-            FactoryRecipe factoryRecipe = new FactoryRecipe(name,displayname,group,materialType);
+            FactoryRecipe factoryRecipe = new FactoryRecipe(name,displayname,group,materialType,powerrequirement);
 
             if(fc.contains("ingredients")){
                 for(String s : fc.getConfigurationSection("ingredients").getKeys(false)){
@@ -73,12 +75,18 @@ public class FactoryRecipe {
     private String displayname;
     private String group;
     private MaterialType icon;
+    private int power;
 
-    public FactoryRecipe(String name, String displayname, String group, MaterialType icon){
+    public FactoryRecipe(String name, String displayname, String group, MaterialType icon, int power){
         this.name = name;
         this.displayname = displayname;
         this.group = group;
         this.icon=icon;
+        this.power = power;
+    }
+
+    public int getPower() {
+        return power;
     }
 
     public String getGroup() {

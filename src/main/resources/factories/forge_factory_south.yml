@@ -1,6 +1,6 @@
-name: "basicsouth"
-factory: "basic"
-displayname: "Basic Factory"
+name: "forgesouth"
+factory: "forge"
+displayname: "Forge"
 axis: SOUTH
 xoff: 0
 yoff: 0
@@ -9,7 +9,7 @@ x_size: 1
 y_size: 1
 z_size: 3
 materials:
-  0x0x1: "CRAFTING_TABLE"
+  0x0x1: "BLAST_FURNACE"
   0x0x2: "FURNACE"
   0x0x0: "CHEST"
 actions:

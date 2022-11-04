@@ -1,0 +1,9 @@
+name: "cobbledeepslatetodeepslate"
+displayname: "Make Deepslate"
+factory: basic
+icon: DEEPSLATE
+ingredients:
+  COBBLED_DEEPSLATE: 16
+results:
+  DEEPSLATE: 20
+powerrequirement: 1

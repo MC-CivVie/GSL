@@ -1,0 +1,9 @@
+name: "nether_brick"
+displayname: "Make Nether Brick"
+factory: basic
+icon: NETHER_BRICK
+ingredients:
+  NETHERRACK: 6
+results:
+  NETHER_BRICK: 8
+powerrequirement: 1

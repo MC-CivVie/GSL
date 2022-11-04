@@ -27,6 +27,10 @@ public class ItemUtil {
         for(Map.Entry<MaterialType, Integer> e : factoryRecipe.getIngredients().entrySet()){
             ingredients.add(new ComponentBuilder(e.getKey().getName()+":"+e.getValue(),ComponentBuilder.RED).build());
         }
+        ingredients.add(new ComponentBuilder("--------------------",ComponentBuilder.GRAY).build());
+        for(Map.Entry<MaterialType, Integer> e : factoryRecipe.getResults().entrySet()){
+            ingredients.add(new ComponentBuilder(e.getKey().getName()+":"+e.getValue(),ComponentBuilder.GREEN).build());
+        }
         im.lore(ingredients);
         i.setItemMeta(im);
         return i;
@@ -78,5 +82,10 @@ public class ItemUtil {
         im.lore(lores);
         is.setItemMeta(im);
         return is;
+    }
+
+    public static ItemStack setAmount(ItemStack toItemStack, Integer value) {
+        toItemStack.setAmount(value);
+        return toItemStack;
     }
 }

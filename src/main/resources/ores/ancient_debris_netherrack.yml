@@ -1,0 +1,6 @@
+rarity: 5000
+toughness: 1
+roughness: 1
+metallic: 1
+blocktype: "ANCIENT_DEBRIS"
+replacetype: "NETHERRACK"

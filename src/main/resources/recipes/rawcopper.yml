@@ -1,0 +1,9 @@
+name: "copperingot"
+displayname: "Forge Copper Ingots"
+factory: forge
+icon: COPPER_INGOT
+ingredients:
+  RAW_COPPER: 6
+results:
+  COPPER_INGOT: 8
+powerrequirement: 1

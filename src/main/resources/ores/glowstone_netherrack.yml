@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 0.2
+roughness: 0.25
+metallic: 0
+blocktype: "GLOWSTONE"
+replacetype: "NETHERRACK"

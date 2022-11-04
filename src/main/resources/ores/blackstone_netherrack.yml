@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 1
+roughness: 0.25
+metallic: 0.5
+blocktype: "BLACKSTONE"
+replacetype: "NETHERRACK"

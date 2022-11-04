@@ -10,11 +10,13 @@ import org.bukkit.entity.Player;
 
 public class OpenCraftingBenchGUI extends InteractAction {
     @Override
-    public void onInteract(Player player, Block block,MegaBuild build, boolean rightclick) {
+    public boolean onInteract(Player player, Block block,MegaBuild build, boolean rightclick) {
         if(rightclick){
             GUI gui = FactoryGUIHandlers.createGUIManageRecipeFor(build);
             player.openInventory(gui.getInventory());
+            return true;
         }
+        return false;
     }
 
     @Override

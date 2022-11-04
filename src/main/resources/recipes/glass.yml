@@ -1,0 +1,9 @@
+name: "glass"
+displayname: "Make Glass"
+factory: basic
+icon: GLASS
+ingredients:
+  SAND: 6
+results:
+  GLASS: 8
+powerrequirement: 1

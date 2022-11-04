@@ -48,7 +48,7 @@ public class ReinforceEvents implements Listener {
                 gslCube.getPlaced()[x][y][z] = true;
                 gslCube.getDurability()[x][y][z] = rm.getDurability();
                 gslCube.getReinforcedBy()[x][y][z] = rm.getType();
-                InventoryUtil.removeOneOf(rm.getType(),event.getPlayer().getInventory());
+                InventoryUtil.removeAmount(rm.getType(),1,event.getPlayer().getInventory());
         }
     }
     @EventHandler

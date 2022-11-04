@@ -1,0 +1,6 @@
+rarity: 100
+toughness: 0.2
+roughness: 1
+metallic: 0
+blocktype: "NETHER_QUARTZ_ORE"
+replacetype: "NETHERRACK"

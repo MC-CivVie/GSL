@@ -148,6 +148,7 @@ public class CropEvents implements Listener {
                     event.setCancelled(true);
                 }
             }
+            if(System.currentTimeMillis()-time < growtime)event.setCancelled(true);
         }
     }
     @EventHandler
