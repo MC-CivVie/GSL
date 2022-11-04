@@ -92,6 +92,8 @@ public class ReinforceEvents implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event){
         if(event.getHand()== EquipmentSlot.OFF_HAND)
             return;
+        if(event.getClickedBlock()==null)
+            return;
         PlayerState ps = PlayerStatesManager.getState(event.getPlayer().getUniqueId(), ReinforcementState.class);
         if (ps != null) {
             NameLayer nl = ((ReinforcementState) ps).getNameLayer();

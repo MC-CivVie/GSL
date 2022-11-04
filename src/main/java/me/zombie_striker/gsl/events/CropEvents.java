@@ -5,6 +5,7 @@ import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.utils.StringUtil;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
+import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
@@ -36,7 +37,7 @@ public class CropEvents implements Listener {
             if (event.getBlock().getZ() < 0)
                 z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
-            int y = event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET;
+            int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
 
             gslCube.getPlantDate()[x][y][z] = System.currentTimeMillis();
         }
@@ -71,10 +72,15 @@ public class CropEvents implements Listener {
             if(directSunlight) {
                 Block highest = event.getBlock().getWorld().getHighestBlockAt(event.getBlock().getLocation());
                 while (!highest.equals(event.getBlock())) {
+                    if(highest==null)
+                        break;
+                    if(highest.getY()< event.getBlock().getY())
+                        break;
                     if (!highest.getType().isOccluding()) {
                         highest = highest.getRelative(BlockFace.DOWN);
                     } else {
                         directSunlight = false;
+                        break;
                     }
                 }
                 if (!directSunlight) {
@@ -83,8 +89,8 @@ public class CropEvents implements Listener {
             }
 
             int stage = (int) (((double) (System.currentTimeMillis() - time)) / growtime);
-
             Ageable ageable = (Ageable) event.getBlock().getBlockData();
+            stage = Math.min(stage,ageable.getMaximumAge());
             ageable.setAge(stage);
             event.getBlock().setBlockData(ageable);
         }
@@ -112,6 +118,8 @@ public class CropEvents implements Listener {
     public void onInteract(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.OFF_HAND)
             return;
+        if(event.getClickedBlock()==null)
+            return;
         CropType cropType = CropType.getCropTypeByMaterial(event.getClickedBlock().getType());
         if (cropType != null) {
             GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getClickedBlock().getChunk());
@@ -127,33 +135,41 @@ public class CropEvents implements Listener {
             if (event.getClickedBlock().getZ() < 0)
                 z = Math.abs((-event.getClickedBlock().getZ()) % 16 - 15);
 
-            int y = (event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET)%16;
+            int y = (event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
             long growtime = (long) (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
 
             boolean directSunlight = cropType.requiresSunlight();
-            if(directSunlight){
-               Block highest = event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation());
-               while(!highest.equals(event.getClickedBlock())){
-                   if(!highest.getType().isOccluding()){
-                       highest = highest.getRelative(BlockFace.DOWN);
-                   }else{
-                       directSunlight=false;
-                   }
-               }
-               if(!directSunlight) {
-                   ComponentBuilder cb = new ComponentBuilder("This crop is in the shade and will not grow!", ComponentBuilder.RED);
-                   event.getPlayer().sendMessage(cb.build());
-                   return;
-               }
-            }else{
+            if (event.getAction().isRightClick()) {
+                if (directSunlight) {
+                    Block highest = event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation());
+                    while (!highest.equals(event.getClickedBlock())) {
+                        if(highest==null)
+                            break;
+                        if(highest.getY()< event.getClickedBlock().getY())
+                            break;
+                        if (!highest.getType().isOccluding()) {
+                            highest = highest.getRelative(BlockFace.DOWN);
+                        } else {
+                            directSunlight = false;
+                            break;
+                        }
+                    }
+                    if (!directSunlight) {
+                        ComponentBuilder cb = new ComponentBuilder("This crop is in the shade and will not grow!", ComponentBuilder.RED);
+                        event.getPlayer().sendMessage(cb.build());
+                        return;
+                    }
+                }
 
-            }
-
-            if (growtime > System.currentTimeMillis() - time) {
-                ComponentBuilder cb = new ComponentBuilder("It will take ", ComponentBuilder.GREEN).append(StringUtil.formatTime(growtime - (System.currentTimeMillis() - time)), ComponentBuilder.WHITE).append(" till this crop is fully grown.", ComponentBuilder.GREEN);
-                event.getPlayer().sendMessage(cb.build());
+                if (growtime > System.currentTimeMillis() - time) {
+                    ComponentBuilder cb = new ComponentBuilder("It will take ", ComponentBuilder.GREEN).append(StringUtil.formatTime(growtime - (System.currentTimeMillis() - time)), ComponentBuilder.WHITE).append(" till this crop is fully grown.", ComponentBuilder.GREEN);
+                    event.getPlayer().sendMessage(cb.build());
+                }else{
+                    ComponentBuilder cb = new ComponentBuilder("This crop should be fully grown!", ComponentBuilder.GREEN);
+                    event.getPlayer().sendMessage(cb.build());
+                }
             }
         }
     }

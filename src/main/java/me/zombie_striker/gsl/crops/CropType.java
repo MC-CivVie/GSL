@@ -53,6 +53,7 @@ public class CropType {
                 double value = fc.getDouble("growthmodifiers." + key);
                 cropType.getGrowthModiferByBiome().put(GSLBiomeList.getBiomeByName(key), value);
             }
+            croptype.add(cropType);
         }
     }
 
