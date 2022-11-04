@@ -24,16 +24,16 @@ public class TradingBoothCommand implements CommandExecutor, @Nullable TabComple
       } else {
         switch(args[0]) {
           case "create":
-        	TradingBoothConversation tbc = new TradingBoothConversation();
-        	tbc.init((JavaPlugin) sender.getServer().getPluginManager().getPlugin("GSL"));
-            tbc.convoInit(sender);
+	    TradingBoothConversation tbc = new TradingBoothConversation();
+	    tbc.init((JavaPlugin) sender.getServer().getPluginManager().getPlugin("GSL"));
+	    tbc.convoInit(sender);
             return true;
           default:
             break;
         }
       }
     }
-	return false;
+    return false;
   }
 
   @Override
