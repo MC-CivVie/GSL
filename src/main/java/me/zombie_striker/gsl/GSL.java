@@ -17,8 +17,11 @@ import me.zombie_striker.gsl.utils.InternalFileUtil;
 import me.zombie_striker.gsl.utils.guis.GUIUtil;
 import me.zombie_striker.gsl.wordbank.WordBank;
 import me.zombie_striker.gsl.world.GSLBiomeList;
+import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLWorld;
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -120,5 +123,10 @@ public class GSL {
 
     public void shutdown() {
         NameLayer.saveNamelayers();
+        for(World world : Bukkit.getWorlds()){
+            for(Chunk chunk : world.getLoadedChunks()){
+                GSLChunk.getGSLChunk(chunk).save();
+            }
+        }
     }
 }

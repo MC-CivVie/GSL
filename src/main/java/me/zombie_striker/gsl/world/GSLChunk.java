@@ -88,7 +88,7 @@ public class GSLChunk {
                                     gslCube.getReinforcedBy()[x][y][z] = MaterialType.getMaterialType(reinforcedby);
                                 }
                                 if (yml.contains("cube." + i + "." + x + "." + y + "." + z + ".planttime")) {
-                                    long planttime = yml.getInt("cube." + i + "." + x + "." + y + "." + z + ".planttime");
+                                    long planttime = yml.getLong("cube." + i + "." + x + "." + y + "." + z + ".planttime");
                                     gslCube.getPlantDate()[x][y][z] = planttime;
                                 }
                                 if (yml.contains("cube." + i + "." + x + "." + y + "." + z + ".pl")) {

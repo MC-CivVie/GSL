@@ -94,8 +94,8 @@ public class CropEvents implements Listener {
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    int stage = (int) (((double) (System.currentTimeMillis() - time)) / growtime);
                     Ageable ageable = (Ageable) event.getBlock().getBlockData();
+                    int stage = (int) (((double) (System.currentTimeMillis() - time)) / growtime)*ageable.getMaximumAge();
                     stage = Math.min(stage,ageable.getMaximumAge());
                     ageable.setAge(stage);
                     event.getBlock().setBlockData(ageable);
