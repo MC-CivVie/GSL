@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.Map;
@@ -41,6 +42,18 @@ public class EntityEvents implements Listener {
             if (event.getReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onSpawn(EntitySpawnEvent event) {
+        EntityData entityData = EntityData.getEntityData(event.getEntityType());
+        if (entityData == null) {
+            event.setCancelled(true);
+            return;
+        }
+        if (!entityData.canNaturallySpawn()) {
+            event.setCancelled(true);
         }
     }
 }

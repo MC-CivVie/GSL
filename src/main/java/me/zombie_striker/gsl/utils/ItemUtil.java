@@ -18,6 +18,7 @@ import java.util.Map;
 public class ItemUtil {
 
     public static final ComponentBuilder LORE_WORDBANK = new ComponentBuilder("WB: ", ComponentBuilder.BLUE);
+    public static final ComponentBuilder LORE_PRISON = new ComponentBuilder("Prison: ", ComponentBuilder.BLUE);
 
     public static ItemStack prepareFactoryIcon(FactoryRecipe factoryRecipe){
         ItemStack i = factoryRecipe.getIcon().toItemStack();
@@ -36,6 +37,44 @@ public class ItemUtil {
         return i;
     }
 
+    public static Component getPrisonFromLore(ItemStack is){
+        @Nullable List<Component> lores = is.lore();
+        if (lores != null) {
+            for (int loreindex = 0; loreindex < lores.size(); loreindex++) {
+                Component lore = lores.get(loreindex);
+                if (lore instanceof TextComponent) {
+                    if (((TextComponent) lore).content().startsWith(((TextComponent) LORE_PRISON.build()).content())) {
+                        return (lores.get(loreindex));
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public static ItemStack addPrisonToLore(ItemStack itemStack, Location prison) {
+        @Nullable List<Component> lores = itemStack.lore();
+        if (lores != null) {
+            for (int loreindex = 0; loreindex < lores.size(); loreindex++) {
+                Component lore = lores.get(loreindex);
+                if (lore instanceof TextComponent) {
+                    if (((TextComponent) lore).content().startsWith(((TextComponent) LORE_PRISON.build()).content())) {
+                        lores.remove(loreindex);
+                        break;
+                    }
+                }
+            }
+        }else{
+            lores = new ArrayList<>();
+        }
+
+        lores.add(LORE_PRISON.clone().append(StringUtil.getStringLocation(prison),ComponentBuilder.WHITE).build());
+
+        ItemStack is = itemStack;
+        ItemMeta im = is.getItemMeta();
+        im.lore(lores);
+        is.setItemMeta(im);
+        return is;
+    }
     public static Component getWordBankOfItemLore(ItemStack is){
         @Nullable List<Component> lores = is.lore();
         if (lores != null) {

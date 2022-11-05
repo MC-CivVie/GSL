@@ -4,6 +4,8 @@ import me.zombie_striker.gsl.crops.CropType;
 import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.events.*;
+import me.zombie_striker.gsl.handlers.BossBarHandler;
+import me.zombie_striker.gsl.handlers.PrisonerHandler;
 import me.zombie_striker.gsl.materials.MaterialType;
 import me.zombie_striker.gsl.megabuilds.MegaBuild;
 import me.zombie_striker.gsl.megabuilds.MegaBuildType;
@@ -61,9 +63,11 @@ public class GSL {
         WordBank.init();
         ReinforcementMaterial.init();
         GUIUtil.init();
+        BossBarHandler.init();
         DependancyManager.init();
         GSLBiomeList.init(Bukkit.getWorlds().get(0));
         CropType.init();
+        PrisonerHandler.init();
 
 
         registerListeners();
@@ -102,7 +106,8 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(), core);
         Bukkit.getPluginManager().registerEvents(new CropEvents(), core);
-        Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);;
+        Bukkit.getPluginManager().registerEvents(new PrisonEvents(), core);
     }
 
     public void copyDataFiles() {
@@ -123,6 +128,7 @@ public class GSL {
 
     public void shutdown() {
         NameLayer.saveNamelayers();
+        PrisonerHandler.save();
         for(World world : Bukkit.getWorlds()){
             for(Chunk chunk : world.getLoadedChunks()){
                 GSLChunk.getGSLChunk(chunk).save();

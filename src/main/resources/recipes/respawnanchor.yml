@@ -1,0 +1,11 @@
+name: "respawnanchor"
+displayname: "Make Prison Anchor"
+factory: forge
+icon: RESPAWN_ANCHOR
+ingredients:
+  DIAMOND: 8
+  OBSIDIAN: 32
+  GOLD_INGOT: 64
+results:
+  RESPAWN_ANCHOR: 1
+powerrequirement: 10

@@ -24,6 +24,7 @@ public class FileUtils {
     public static final String PATH_MEGASTRUCTURETYPES = "megastructures";
     public static final String PATH_CRAFTING_FILE = "crafting.yml";
     public static final String PATH_BIOMES_FILE = "biomes.yml";
+    public static final String PATH_PRISONERS_FILE = "prisoners.yml";
     public static final String PATH_CROPS = "crops";
     public static final String PATH_RECIPES = "recipes";
 
