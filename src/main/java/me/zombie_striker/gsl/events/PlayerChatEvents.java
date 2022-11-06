@@ -41,6 +41,6 @@ public class PlayerChatEvents implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event){
-        event.quitMessage(new ComponentBuilder("",ComponentBuilder.WHITE).build());
+        event.quitMessage(null);
     }
 }

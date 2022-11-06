@@ -15,44 +15,47 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.UUID;
 
 public class NoteBlockSongEvents implements @NotNull Listener {
 
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event){
-        if(!event.getTo().getBlock().equals(event.getFrom().getBlock())){
-            if(DependancyManager.hasNoteblockAPI())
+    public void onPlayerMove(PlayerMoveEvent event) {
+        if (!event.getTo().getBlock().equals(event.getFrom().getBlock())) {
+            if (DependancyManager.hasNoteblockAPI())
                 NoteBlockAPIManager.updateNearby(event.getPlayer());
         }
     }
+
     @EventHandler
-    public void onInteract(PlayerInteractEvent event){
-        if(event.getHand()== EquipmentSlot.OFF_HAND)
+    public void onInteract(PlayerInteractEvent event) {
+        if (event.getHand() == EquipmentSlot.OFF_HAND)
             return;
-        if(event.getClickedBlock()==null)
+        if (event.getClickedBlock() == null)
             return;
-        if(event.getClickedBlock().getType()!= Material.JUKEBOX)
+        if (event.getClickedBlock().getType() != Material.JUKEBOX)
             return;
-        if(event.getItem()==null || !event.getItem().getType().isRecord())
+        if (!DependancyManager.hasNoteblockAPI())
             return;
-        if(!DependancyManager.hasNoteblockAPI())
-            return;
-        if(NoteBlockAPIManager.alreadyPlayingSong(event.getClickedBlock().getLocation())) {
-            NoteBlockAPIManager.getSongAt(event.getClickedBlock().getLocation()).setPlaying(false);
+        if (NoteBlockAPIManager.alreadyPlayingSong(event.getClickedBlock().getLocation())) {
+            NoteBlockAPIManager.stopSong(event.getClickedBlock().getLocation());
             return;
         }
-        String name= null;
-        for(Component name1 : event.getItem().lore()){
-            if(new File(FileUtils.getFolder(FileUtils.PATH_SONGS),((TextComponent)name1).content()+".nbs").exists()){
-                name=((TextComponent) name1).content();
+        if (event.getItem() == null || !event.getItem().getType().isRecord())
+            return;
+        String name = null;
+        for (Component name1 : event.getItem().lore()) {
+            if (new File(FileUtils.getFolder(FileUtils.PATH_SONGS), ((TextComponent) name1).content() + ".nbs").exists()) {
+                name = ((TextComponent) name1).content();
                 break;
             }
         }
-        if(name!=null) {
+        if (name != null) {
             NoteBlockAPIManager.playNoteBlockSong(name, event.getClickedBlock().getLocation());
             event.setCancelled(true);
             Jukebox jukebox = (Jukebox) event.getClickedBlock().getState();
             jukebox.setRecord(event.getItem());
+            jukebox.stopPlaying();
             jukebox.update();
             event.getPlayer().getInventory().setItemInMainHand(null);
         }

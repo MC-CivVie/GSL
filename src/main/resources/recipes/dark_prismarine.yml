@@ -1,0 +1,10 @@
+name: "darkprismarine"
+displayname: "Make Dark Prismarine"
+factory: deco
+icon: DARK_PRISMARINE
+ingredients:
+  PRISMARINE: 8
+  BLACK_DYE: 1
+results:
+  DARK_PRISMARINE: 8
+powerrequirement: 1

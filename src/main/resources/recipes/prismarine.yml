@@ -1,0 +1,10 @@
+name: "prismarine"
+displayname: "Make Prismarine"
+factory: deco
+icon: PRISMARINE
+ingredients:
+  COBBLESTONE: 8
+  LAPIS_LAZULI: 1
+results:
+  PRISMARINE: 8
+powerrequirement: 1

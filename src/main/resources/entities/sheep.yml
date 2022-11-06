@@ -5,4 +5,6 @@ percentagedrops:
     chance: 1
   MUTTON:
     chance: 1
+  WHITE_WOOL:
+    chance: 1
 naturalspawn: true

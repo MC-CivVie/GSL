@@ -112,6 +112,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new WorldBorderEvents(), core);
         Bukkit.getPluginManager().registerEvents(new NoteBlockSongEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ElevatorEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new FossilEvents(), core);
 
     }
 

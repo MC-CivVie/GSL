@@ -1,0 +1,9 @@
+name: "prismarinebricks"
+displayname: "Make Prismarine Bricks"
+factory: deco
+icon: PRISMARINE_BRICKS
+ingredients:
+  PRISMARINE: 32
+results:
+  PRISMARINE_BRICKS: 32
+powerrequirement: 1

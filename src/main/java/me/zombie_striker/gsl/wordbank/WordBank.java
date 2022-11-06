@@ -2,6 +2,7 @@ package me.zombie_striker.gsl.wordbank;
 
 import me.zombie_striker.gsl.files.YamlParserLoader;
 import me.zombie_striker.gsl.utils.FileUtils;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

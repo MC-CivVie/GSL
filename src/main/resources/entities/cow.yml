@@ -5,4 +5,7 @@ percentagedrops:
     chance: 1
   BONE:
     chance: 1
+  LEATHER:
+    chance: 0.9
+    amount: 3
 naturalspawn: true
