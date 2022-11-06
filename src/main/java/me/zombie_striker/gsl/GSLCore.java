@@ -38,6 +38,13 @@ public final class GSLCore extends JavaPlugin {
         TradingBoothCommand tbc = new TradingBoothCommand();
         getCommand("tb").setExecutor(tbc);
         getCommand("tb").setTabCompleter(tbc);
+
+        NamelayerCreateAd nlad = new NamelayerCreateAd();
+        getCommand("nlad").setExecutor(nlad);
+        getCommand("nlad").setTabCompleter(nlad);
+
+        NationsCommand nations = new NationsCommand();
+        getCommand("nations").setExecutor(nations);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package me.zombie_striker.gsl.utils;
 
 import me.zombie_striker.gsl.materials.MaterialType;
+import me.zombie_striker.gsl.namelayers.NLAdvertisement;
 import me.zombie_striker.gsl.recipes.FactoryRecipe;
 import me.zombie_striker.gsl.wordbank.WordBank;
 import net.kyori.adventure.text.Component;
@@ -19,6 +20,21 @@ public class ItemUtil {
 
     public static final ComponentBuilder LORE_WORDBANK = new ComponentBuilder("WB: ", ComponentBuilder.BLUE);
     public static final ComponentBuilder LORE_PRISON = new ComponentBuilder("Prison: ", ComponentBuilder.BLUE);
+
+    public static ItemStack prepareAd(NLAdvertisement advertisement, int playercount, int playertotal){
+        ItemStack is = new ItemStack(advertisement.getIcon(),Math.min(64,playercount));
+        ItemMeta im = is.getItemMeta();
+        im.displayName(new ComponentBuilder(advertisement.getDisplayname(),ComponentBuilder.BLUE).build());
+        List<Component> lore = new LinkedList<>();
+
+        lore.add(new ComponentBuilder("Ad: ",ComponentBuilder.BLUE).append(advertisement.getLore(),ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Ideology: ",ComponentBuilder.BLUE).append(advertisement.getIdeology(),ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Players: ",ComponentBuilder.BLUE).append(playercount+"/"+playertotal,ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("discord: ",ComponentBuilder.BLUE).append(advertisement.getDiscord(),ComponentBuilder.WHITE).build());
+        im.lore(lore);
+        is.setItemMeta(im);
+        return is;
+    }
 
     public static ItemStack prepareFactoryIcon(FactoryRecipe factoryRecipe){
         ItemStack i = factoryRecipe.getIcon().toItemStack();

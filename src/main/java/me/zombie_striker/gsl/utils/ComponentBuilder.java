@@ -1,6 +1,7 @@
 package me.zombie_striker.gsl.utils;
 
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.format.TextColor;
 
 import java.awt.*;
@@ -13,6 +14,7 @@ public class ComponentBuilder {
     public static final Color GRAY = new Color(100,100,100);
     public static final Color BLACK = new Color(20,20,20);
     public static final Color GREEN = new Color (40,200,40);
+    public static final Color LIGHT_BLUE = new Color(50,110,200);
 
     private Component core;
 
@@ -28,6 +30,10 @@ public class ComponentBuilder {
     }
     public ComponentBuilder append(String message, Color color){
         this.core=core.append(Component.text(message).color(TextColor.color(color.getRGB())));
+        return this;
+    }
+    public ComponentBuilder appendClickableURL(String message, Color color){
+        this.core=core.append(Component.text(message).color(TextColor.color(color.getRGB())).clickEvent(ClickEvent.openUrl(message)));
         return this;
     }
 
