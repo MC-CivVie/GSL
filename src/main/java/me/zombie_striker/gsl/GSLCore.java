@@ -1,11 +1,7 @@
 package me.zombie_striker.gsl;
 
-import me.zombie_striker.gsl.commands.TradingBoothCommand;
+import me.zombie_striker.gsl.commands.*;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import me.zombie_striker.gsl.commands.GroupCommand;
-import me.zombie_striker.gsl.commands.NamelayerCreateGroupCommand;
-import me.zombie_striker.gsl.commands.ReinforceCommand;
 
 public final class GSLCore extends JavaPlugin {
 
@@ -14,6 +10,22 @@ public final class GSLCore extends JavaPlugin {
         new GSL(this).init();
         NamelayerCreateGroupCommand nlcg = new NamelayerCreateGroupCommand();
         getCommand("nlcg").setExecutor(nlcg);
+
+        NamelayerMergeCommand nlmergec = new NamelayerMergeCommand();
+        getCommand("nlmerge").setExecutor(nlmergec);
+        getCommand("nlmerge").setTabCompleter(nlmergec);
+
+        NamelayerDisbandCommand nldiband = new NamelayerDisbandCommand();
+        getCommand("nldisband").setExecutor(nldiband);
+        getCommand("nldisband").setTabCompleter(nldiband);
+
+        NamelayerInviteCommand nlinvite = new NamelayerInviteCommand();
+        getCommand("nlinvite").setExecutor(nlinvite);
+        getCommand("nlinvite").setTabCompleter(nlinvite);
+
+        NamelayerAcceptCommand nlaccept = new NamelayerAcceptCommand();
+        getCommand("nlaccept").setExecutor(nlaccept);
+        getCommand("nlaccept").setTabCompleter(nlaccept);
 
         ReinforceCommand rc = new ReinforceCommand();
         getCommand("r").setExecutor(rc);

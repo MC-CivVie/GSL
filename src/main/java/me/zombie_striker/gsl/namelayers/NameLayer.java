@@ -117,6 +117,10 @@ public class NameLayer {
         this.mergers.add(uuid);
     }
 
+    public static void disband(NameLayer nameLayer){
+        nameLayers.remove(nameLayer);
+    }
+
     public String getName() {
         return name;
     }

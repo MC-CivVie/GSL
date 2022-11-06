@@ -14,5 +14,15 @@ commands:
     description: "create new namelayer"
   nl:
     description: "Namelayer commands"
+  nlmerge:
+    description: "Namelayer commands"
+  nldisband:
+    description: "Namelayer commands"
+  nlinvite:
+    description: "Namelayer commands"
+  nlremove:
+    description: "Namelayer commands"
+  nlaccept:
+    description: "Namelayer commands"
   tb:
     aliases: ['tradingbooth']
