@@ -3,6 +3,8 @@ version: '${project.version}'
 main: me.zombie_striker.gsl.GSLCore
 api-version: 1.19
 authors: [ Zombie_Striker ]
+softdepend:
+  - 'Terra'
 commands:
   r:
     aliases: ['reinforce']

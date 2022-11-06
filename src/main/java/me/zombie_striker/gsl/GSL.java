@@ -108,6 +108,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PrisonEvents(), core);
         Bukkit.getPluginManager().registerEvents(new WorldBorderEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new NoteBlockSongEvents(), core);
     }
 
     public void copyDataFiles() {

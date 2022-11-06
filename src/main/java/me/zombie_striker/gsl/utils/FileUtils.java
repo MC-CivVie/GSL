@@ -27,6 +27,7 @@ public class FileUtils {
     public static final String PATH_PRISONERS_FILE = "prisoners.yml";
     public static final String PATH_CROPS = "crops";
     public static final String PATH_RECIPES = "recipes";
+    public static final String PATH_SONGS="songs";
 
     public static File getFolder(String path){
         return new File(GSL.getCore().getDataFolder(),path);
