@@ -53,4 +53,8 @@ public class GSLWorld {
     public void unregisterSnitch(Snitch snitch){
         snitches.remove(snitch);
     }
+
+    public void removeMegaBuild(MegaBuild megaBuild) {
+        megabuilds.remove(megaBuild);
+    }
 }

@@ -33,6 +33,8 @@ public class EntityEvents implements Listener {
 
     @EventHandler
     public void onPreSpawn(PreCreatureSpawnEvent event) {
+        if(!event.getType().isAlive())
+            return;
         EntityData entityData = EntityData.getEntityData(event.getType());
         if (entityData == null) {
             event.setCancelled(true);
@@ -47,6 +49,8 @@ public class EntityEvents implements Listener {
 
     @EventHandler
     public void onSpawn(EntitySpawnEvent event) {
+        if(!event.getEntityType().isAlive())
+            return;
         EntityData entityData = EntityData.getEntityData(event.getEntityType());
         if (entityData == null) {
             event.setCancelled(true);

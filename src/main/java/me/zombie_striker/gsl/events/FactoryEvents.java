@@ -4,12 +4,12 @@ import me.zombie_striker.gsl.megabuilds.MegaBuild;
 import me.zombie_striker.gsl.megabuilds.MegaBuildType;
 import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.world.GSLWorld;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -74,6 +74,26 @@ public class FactoryEvents implements Listener {
                     event.getPlayer().sendMessage(new ComponentBuilder(megaBuild.getType().getDisplayname() + " created.", ComponentBuilder.GREEN).build());
                     return;
                 }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBreak(BlockBreakEvent event){
+        GSLWorld gslWorld = GSLWorld.getWorld(event.getBlock().getWorld());
+        for (MegaBuild megaBuild : new LinkedList<>(gslWorld.getMegabuilds())) {
+            int xoff = event.getBlock().getX()+ megaBuild.getType().getOffsetX() - megaBuild.getCenter().getBlockX();
+            int yoff = event.getBlock().getY()+ megaBuild.getType().getOffsetY() - megaBuild.getCenter().getBlockY();
+            int zoff = event.getBlock().getZ()+ megaBuild.getType().getOffsetZ() - megaBuild.getCenter().getBlockZ();
+
+            if (xoff < 0 || xoff >= megaBuild.getType().getActions().length)
+                continue;
+            if (yoff < 0 || yoff >= megaBuild.getType().getActions()[xoff].length)
+                continue;
+            if (zoff < 0 || zoff >= megaBuild.getType().getActions()[xoff][yoff].length)
+                continue;
+            if (megaBuild.getType().getTypes()[xoff][yoff][zoff] != null) {
+                gslWorld.removeMegaBuild(megaBuild);
             }
         }
     }

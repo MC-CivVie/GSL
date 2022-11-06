@@ -1,5 +1,5 @@
 name: "forgenorth"
-factory: "basic"
+factory: "forge"
 displayname: "Forge"
 axis: NORTH
 xoff: 0

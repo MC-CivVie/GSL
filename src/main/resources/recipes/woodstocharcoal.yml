@@ -3,7 +3,7 @@ displayname: "Cook Charcoal"
 factory: charcoal
 icon: CHARCOAL
 ingredients:
-  WOODS: 8
+  WOODS: 20
 results:
   CHARCOAL: 32
 powerrequirement: 2
