@@ -1,0 +1,9 @@
+name: "iron_sword"
+displayname: "Forge Iron Sword"
+factory: tools
+icon: IRON_SWORD
+ingredients:
+  IRON_INGOT: 8
+results:
+  IRON_SWORD: 8
+powerrequirement: 1

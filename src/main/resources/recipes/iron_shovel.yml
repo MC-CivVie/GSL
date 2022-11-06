@@ -1,0 +1,9 @@
+name: "iron_shovel"
+displayname: "Forge Iron Shovel"
+factory: tools
+icon: IRON_SHOVEL
+ingredients:
+  IRON_INGOT: 8
+results:
+  IRON_SHOVEL: 16
+powerrequirement: 1

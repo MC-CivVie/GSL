@@ -1,0 +1,9 @@
+name: "cobbletogravel"
+displayname: "Crush Cobblestone to Gravel"
+factory: basic
+icon: GRAVEL
+ingredients:
+  COBBLESTONE: 16
+results:
+  GRAVEL: 16
+powerrequirement: 1

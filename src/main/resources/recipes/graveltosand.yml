@@ -1,0 +1,9 @@
+name: "graveltosand"
+displayname: "Crush Gavel to Sand"
+factory: basic
+icon: SAND
+ingredients:
+  GRAVEL: 16
+results:
+  SAND: 16
+powerrequirement: 1

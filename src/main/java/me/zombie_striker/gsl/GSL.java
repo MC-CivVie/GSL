@@ -23,7 +23,6 @@ import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -106,8 +105,9 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new WordBankEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PlayerChatEvents(), core);
         Bukkit.getPluginManager().registerEvents(new CropEvents(), core);
-        Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);;
+        Bukkit.getPluginManager().registerEvents(new FactoryEvents(), core);
         Bukkit.getPluginManager().registerEvents(new PrisonEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new WorldBorderEvents(), core);
     }
 
     public void copyDataFiles() {

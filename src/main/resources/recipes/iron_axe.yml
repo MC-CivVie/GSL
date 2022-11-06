@@ -1,0 +1,9 @@
+name: "iron_axe"
+displayname: "Forge Iron Axes"
+factory: tools
+icon: IRON_AXE
+ingredients:
+  IRON_INGOT: 8
+results:
+  IRON_AXE: 8
+powerrequirement: 1

@@ -1,0 +1,9 @@
+name: "iron_pickaxe"
+displayname: "Forge Iron Pickaxes"
+factory: tools
+icon: IRON_PICKAXE
+ingredients:
+  IRON_INGOT: 8
+results:
+  IRON_PICKAXE: 8
+powerrequirement: 1
