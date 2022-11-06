@@ -1,6 +1,7 @@
 package me.zombie_striker.gsl.events;
 
 import me.zombie_striker.gsl.snitches.*;
+import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
 import me.zombie_striker.gsl.world.GSLWorld;
@@ -57,7 +58,11 @@ public class JukeEvents implements Listener {
         GSLWorld gslWorld = GSLWorld.getWorld(event.getBlockAgainst().getWorld());
         SnitchLogPlace placelog = new SnitchLogPlace(event.getBlock().getType(), System.currentTimeMillis(), event.getPlayer().getUniqueId(), event.getBlock().getLocation());
         for (Snitch snitch : gslWorld.getSnitches()) {
-            if (snitch.canDetect(event.getBlock().getLocation())) {
+            if (snitch.canDetect(event.getBlock().getLocation(), event.getPlayer())) {
+                snitch.broadcast(new ComponentBuilder(event.getPlayer().getName(),ComponentBuilder.WHITE)
+                        .append(" placed a block at ",ComponentBuilder.BLUE)
+                                .append(event.getBlock().getLocation().getBlockX()+", "+event.getBlock().getLocation().getBlockY()+", "+event.getBlock().getLocation().getBlockZ(),ComponentBuilder.WHITE)
+                        .build());
                 snitch.addToLog(placelog);
             }
         }
@@ -68,7 +73,11 @@ public class JukeEvents implements Listener {
         GSLWorld gslWorld = GSLWorld.getWorld(event.getBlockAgainst().getWorld());
         SnitchLogBreak placelog = new SnitchLogBreak(event.getBlock().getType(), System.currentTimeMillis(), event.getPlayer().getUniqueId(), event.getBlock().getLocation());
         for (Snitch snitch : gslWorld.getSnitches()) {
-            if (snitch.canDetect(event.getBlock().getLocation())) {
+            if (snitch.canDetect(event.getBlock().getLocation(), event.getPlayer())) {
+                snitch.broadcast(new ComponentBuilder(event.getPlayer().getName(),ComponentBuilder.WHITE)
+                        .append(" broke a block at ",ComponentBuilder.BLUE)
+                        .append(event.getBlock().getLocation().getBlockX()+", "+event.getBlock().getLocation().getBlockY()+", "+event.getBlock().getLocation().getBlockZ(),ComponentBuilder.WHITE)
+                        .build());
                 snitch.addToLog(placelog);
             }
         }
@@ -78,12 +87,20 @@ public class JukeEvents implements Listener {
     public void onMove(PlayerMoveEvent event) {
         GSLWorld gslWorld = GSLWorld.getWorld(event.getPlayer().getWorld());
         for (Snitch snitch : gslWorld.getSnitches()) {
-            if (snitch.canDetect(event.getFrom()) && !snitch.canDetect(event.getTo())) {
+            if (snitch.canDetect(event.getFrom(), event.getPlayer()) && !snitch.canDetect(event.getTo(), event.getPlayer())) {
                 SnitchLogUnauthorizedExit placelog = new SnitchLogUnauthorizedExit(Material.PLAYER_HEAD, System.currentTimeMillis(), event.getPlayer().getUniqueId(), event.getPlayer().getLocation());
                 snitch.addToLog(placelog);
-            } else if (!snitch.canDetect(event.getFrom()) && snitch.canDetect(event.getTo())) {
+                snitch.broadcast(new ComponentBuilder(event.getPlayer().getName(),ComponentBuilder.WHITE)
+                        .append(" entered snitch at ",ComponentBuilder.BLUE)
+                        .append(event.getTo().getBlockX()+", "+event.getTo().getBlockY()+", "+event.getTo().getBlockZ(),ComponentBuilder.WHITE)
+                        .build());
+            } else if (!snitch.canDetect(event.getFrom(), event.getPlayer()) && snitch.canDetect(event.getTo(), event.getPlayer())) {
                 SnitchLogUnauthorizedEnter placelog = new SnitchLogUnauthorizedEnter(Material.PLAYER_HEAD, System.currentTimeMillis(), event.getPlayer().getUniqueId(), event.getPlayer().getLocation());
                 snitch.addToLog(placelog);
+                snitch.broadcast(new ComponentBuilder(event.getPlayer().getName(),ComponentBuilder.WHITE)
+                        .append(" exited snitch at ",ComponentBuilder.BLUE)
+                        .append(event.getTo().getBlockX()+", "+event.getTo().getBlockY()+", "+event.getTo().getBlockZ(),ComponentBuilder.WHITE)
+                        .build());
             }
         }
     }
