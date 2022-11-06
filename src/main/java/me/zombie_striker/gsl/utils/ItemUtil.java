@@ -24,13 +24,13 @@ public class ItemUtil {
     public static ItemStack prepareAd(NLAdvertisement advertisement, int playercount, int playertotal){
         ItemStack is = new ItemStack(advertisement.getIcon(),Math.min(64,playercount));
         ItemMeta im = is.getItemMeta();
-        im.displayName(new ComponentBuilder(advertisement.getDisplayname(),ComponentBuilder.BLUE).build());
+        im.displayName(new ComponentBuilder(advertisement.getDisplayname(),ComponentBuilder.LIGHT_BLUE).build());
         List<Component> lore = new LinkedList<>();
 
-        lore.add(new ComponentBuilder("Ad: ",ComponentBuilder.BLUE).append(advertisement.getLore(),ComponentBuilder.WHITE).build());
-        lore.add(new ComponentBuilder("Ideology: ",ComponentBuilder.BLUE).append(advertisement.getIdeology(),ComponentBuilder.WHITE).build());
-        lore.add(new ComponentBuilder("Players: ",ComponentBuilder.BLUE).append(playercount+"/"+playertotal,ComponentBuilder.WHITE).build());
-        lore.add(new ComponentBuilder("discord: ",ComponentBuilder.BLUE).append(advertisement.getDiscord(),ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Ad: ",ComponentBuilder.LIGHT_BLUE).append(advertisement.getLore(),ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Ideology: ",ComponentBuilder.LIGHT_BLUE).append(advertisement.getIdeology(),ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Members: ",ComponentBuilder.LIGHT_BLUE).append(playercount+"/"+playertotal+" Online",ComponentBuilder.WHITE).build());
+        lore.add(new ComponentBuilder("Discord: ",ComponentBuilder.LIGHT_BLUE).append(advertisement.getDiscord(),ComponentBuilder.WHITE).build());
         im.lore(lore);
         is.setItemMeta(im);
         return is;
