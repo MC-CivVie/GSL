@@ -5,6 +5,7 @@ api-version: 1.19
 authors: [ Zombie_Striker ]
 softdepend:
   - 'Terra'
+  - 'NoteBlockAPI'
 commands:
   r:
     aliases: ['reinforce']

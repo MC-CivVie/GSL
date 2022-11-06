@@ -5,6 +5,7 @@ import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.events.*;
 import me.zombie_striker.gsl.handlers.BossBarHandler;
+import me.zombie_striker.gsl.handlers.FossilHandler;
 import me.zombie_striker.gsl.handlers.PrisonerHandler;
 import me.zombie_striker.gsl.materials.MaterialType;
 import me.zombie_striker.gsl.megabuilds.MegaBuild;
@@ -67,6 +68,7 @@ public class GSL {
         GSLBiomeList.init(Bukkit.getWorlds().get(0));
         CropType.init();
         PrisonerHandler.init();
+        FossilHandler.init();
 
 
         registerListeners();

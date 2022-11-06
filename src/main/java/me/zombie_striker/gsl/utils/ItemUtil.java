@@ -7,6 +7,7 @@ import me.zombie_striker.gsl.wordbank.WordBank;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Nullable;
@@ -142,5 +143,19 @@ public class ItemUtil {
     public static ItemStack setAmount(ItemStack toItemStack, Integer value) {
         toItemStack.setAmount(value);
         return toItemStack;
+    }
+
+    public static ItemStack prepareItem(Material material, String displayname, Component... lore) {
+        ItemStack is = new ItemStack(material);
+        ItemMeta im =is.getItemMeta();
+        im.displayName(Component.text(displayname));
+
+        List<Component> l = new LinkedList<>();
+        for(Component e : lore){
+            l.add(e);
+        }
+        im.lore(l);
+        is.setItemMeta(im);
+        return is;
     }
 }

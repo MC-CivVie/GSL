@@ -91,6 +91,7 @@
             <groupId>com.github.koca2000</groupId>
             <artifactId>NoteBlockAPI</artifactId>
             <version>1.6.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
