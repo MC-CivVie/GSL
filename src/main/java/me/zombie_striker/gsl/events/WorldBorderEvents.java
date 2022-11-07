@@ -14,10 +14,12 @@ import java.util.Random;
 
 public class WorldBorderEvents implements Listener {
 
+    private int radius = 5000;
+
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         double distanceFromCenter = new Location(event.getTo().getWorld(), 0, 0, 0).distanceSquared(event.getTo());
-        if (distanceFromCenter >= 10000 * 10000) {
+        if (distanceFromCenter >= radius * radius) {
             double distanceFromCenter2 = new Location(event.getTo().getWorld(), 0, 0, 0).distanceSquared(event.getFrom());
             if (distanceFromCenter > distanceFromCenter2)
                 event.setCancelled(true);
@@ -73,6 +75,6 @@ public class WorldBorderEvents implements Listener {
     }
 
     public int random(){
-        return new Random().nextInt(20000)-10000;
+        return new Random().nextInt(2*radius)-radius;
     }
 }

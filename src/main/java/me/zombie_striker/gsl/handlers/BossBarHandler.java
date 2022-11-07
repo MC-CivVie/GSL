@@ -23,7 +23,7 @@ public class BossBarHandler {
             @Override
             public void run() {
                 for (Map.Entry<UUID, BossBar> e : new HashSet<>(bossbars.entrySet())) {
-                    if ((lastUpdated.containsKey(e.getKey()) && System.currentTimeMillis() - (lastUpdated.get(e.getKey())) > 1000 * 25)) {
+                    if ((lastUpdated.containsKey(e.getKey()) && (System.currentTimeMillis() - lastUpdated.get(e.getKey())) > 1000 * 25)) {
                         bossbars.remove(e.getKey());
                         Player player;
                         if ((player = Bukkit.getPlayer(e.getKey())) != null)
@@ -34,6 +34,17 @@ public class BossBarHandler {
         }.runTaskTimer(GSL.getCore(), 20 * 5, 20 * 5);
     }
 
+    public static void removeBossbar(UUID uuid){
+        BossBar bossBar=bossbars.get(uuid);
+        if(bossBar!=null) {
+            Player player;
+            if ((player = Bukkit.getPlayer(uuid)) != null)
+                bossBar.removePlayer(player);
+
+            bossbars.remove(uuid);
+            lastUpdated.remove(uuid);
+        }
+    }
 
     public static void setBossbarsStats(Player player, String text, double percentage, BarColor color) {
         lastUpdated.put(player.getUniqueId(), System.currentTimeMillis());
@@ -41,12 +52,14 @@ public class BossBarHandler {
         if (!bossbars.containsKey(player.getUniqueId())) {
             bossBar = Bukkit.createBossBar(text, color, BarStyle.SEGMENTED_20);
             bossBar.setProgress(percentage);
+            bossBar.addPlayer(player);
             bossbars.put(player.getUniqueId(), bossBar);
         } else {
             bossBar = bossbars.get(player.getUniqueId());
             bossBar.setTitle(text);
             bossBar.setColor(color);
             bossBar.setProgress(percentage);
+            bossbars.put(player.getUniqueId(), bossBar);
         }
     }
 }

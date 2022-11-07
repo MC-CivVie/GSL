@@ -21,7 +21,7 @@ public class ElevatorEvents implements @NotNull Listener {
                 if(block.getType()==Material.GOLD_BLOCK){
                     if(block.getRelative(BlockFace.UP).getType().isSolid()||block.getRelative(BlockFace.UP,2).getType().isSolid())
                         continue;
-                    event.getPlayer().teleport(block.getRelative(BlockFace.UP).getLocation());
+                    event.getPlayer().teleport(block.getRelative(BlockFace.UP).getLocation().add(0.5,0,0.5));
                     event.getPlayer().playSound(event.getPlayer().getLocation(),Sound.ENTITY_ENDERMAN_TELEPORT,1,2);
                     break;
                 }
@@ -29,16 +29,17 @@ public class ElevatorEvents implements @NotNull Listener {
         }
     }
     @EventHandler
-    public void onPlayuerShift(PlayerToggleSneakEvent event){
+    public void onPlayerShift(PlayerToggleSneakEvent event){
         if(event.isSneaking()) {
             if (event.getPlayer().getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.GOLD_BLOCK) {
                 Block block = event.getPlayer().getLocation().getBlock();
-                for (int i = block.getY(); i < block.getWorld().getMinHeight(); i++) {
+                block = block.getRelative(BlockFace.DOWN,3);
+                for (int i = block.getY(); i > block.getWorld().getMinHeight(); i--) {
                     block = block.getRelative(BlockFace.DOWN);
                     if (block.getType() == Material.GOLD_BLOCK) {
                         if (block.getRelative(BlockFace.UP).getType().isSolid() || block.getRelative(BlockFace.UP, 2).getType().isSolid())
                             continue;
-                        event.getPlayer().teleport(block.getRelative(BlockFace.UP).getLocation());
+                        event.getPlayer().teleport(block.getRelative(BlockFace.UP).getLocation().add(0.5,0,0.5));
                         event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 2);
                         break;
                     }

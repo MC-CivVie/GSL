@@ -5,6 +5,7 @@ import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.events.*;
 import me.zombie_striker.gsl.handlers.BossBarHandler;
+import me.zombie_striker.gsl.handlers.CombatTagHandler;
 import me.zombie_striker.gsl.handlers.FossilHandler;
 import me.zombie_striker.gsl.handlers.PrisonerHandler;
 import me.zombie_striker.gsl.materials.MaterialType;
@@ -69,6 +70,7 @@ public class GSL {
         CropType.init();
         PrisonerHandler.init();
         FossilHandler.init();
+        CombatTagHandler.init();
 
 
         registerListeners();
@@ -113,6 +115,8 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new NoteBlockSongEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ElevatorEvents(), core);
         Bukkit.getPluginManager().registerEvents(new FossilEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new FishingEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new CombatLogEvents(), core);
 
     }
 

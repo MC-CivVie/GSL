@@ -29,5 +29,12 @@ commands:
     description: "Namelayer commands"
   nlaccept:
     description: "Namelayer commands"
+  otp:
+    aliases:
+      - 'ott'
+      - 'ottp'
+    description: "OTP"
+  gamma:
+    description: "stuff"
   tb:
     aliases: ['tradingbooth']

@@ -3,6 +3,7 @@ package me.zombie_striker.gsl.events;
 import com.destroystokyo.paper.event.entity.PreCreatureSpawnEvent;
 import me.zombie_striker.gsl.entities.EntityData;
 import me.zombie_striker.gsl.materials.MaterialType;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
@@ -20,6 +21,7 @@ public class EntityEvents implements Listener {
         if (entityData != null) {
             event.getDrops().clear();
             for (Map.Entry<MaterialType, Double> e : entityData.getPercentageDrop().entrySet()) {
+                if(e.getKey()!=null)
                 if (Math.random() <= e.getValue()) {
                     ItemStack is = e.getKey().toItemStack();
                     if (entityData.getMaxAmountDrop().containsKey(e.getKey())) {
@@ -27,22 +29,6 @@ public class EntityEvents implements Listener {
                     }
                     event.getDrops().add(is);
                 }
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPreSpawn(PreCreatureSpawnEvent event) {
-        if(!event.getType().isAlive())
-            return;
-        EntityData entityData = EntityData.getEntityData(event.getType());
-        if (entityData == null) {
-            event.setCancelled(true);
-            return;
-        }
-        if (!entityData.canNaturallySpawn()) {
-            if (event.getReason() == CreatureSpawnEvent.SpawnReason.NATURAL) {
-                event.setCancelled(true);
             }
         }
     }

@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExpEvent;
+import org.bukkit.event.entity.EntityBreedEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.inventory.FurnaceBurnEvent;
 import org.bukkit.event.inventory.FurnaceExtractEvent;
@@ -38,4 +39,9 @@ public class ExpEvents implements Listener {
     public void onFurnace(FurnaceExtractEvent event) {
         event.setExpToDrop(0);
     }
+
+    @EventHandler
+    public void onBREED(EntityBreedEvent event){
+        event.setExperience(0);}
 }
+

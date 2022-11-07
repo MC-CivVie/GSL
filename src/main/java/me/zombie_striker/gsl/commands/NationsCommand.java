@@ -8,6 +8,7 @@ import me.zombie_striker.gsl.utils.guis.GUI;
 import me.zombie_striker.gsl.utils.guis.GUIAction;
 import me.zombie_striker.gsl.utils.guis.GUIUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -15,9 +16,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class NationsCommand implements CommandExecutor {
 
@@ -43,17 +44,22 @@ public class NationsCommand implements CommandExecutor {
         }
 
         Map<NameLayer,Integer> i = MapUtil.sortByValue(activePlayers);
-        int slot = 0;
-        for(Map.Entry<NameLayer, Integer> e : i.entrySet()){
-            ItemStack is = ItemUtil.prepareAd(e.getKey().getAdvertisement(), e.getValue(),e.getKey().getMemberranks().size());
-            gui.setIcon(slot, is, new GUIAction() {
+        Map<Object, Object> sorted = i.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue(), (e1, e2) -> e1, LinkedHashMap::new));
+
+        final int[] slot = {0};
+        sorted.forEach((e, o)  -> {
+            ItemStack is = ItemUtil.prepareAd(((Map.Entry<NameLayer,Integer>)e).getKey().getAdvertisement(), ((Map.Entry<NameLayer,Integer>)e).getValue(),((Map.Entry<NameLayer,Integer>)e).getKey().getMemberranks().size());
+            gui.setIcon(slot[0], is, new GUIAction() {
                 @Override
                 public void click(int slot, Player player, GUI gui) {
                     player.closeInventory();
-                    player.sendMessage(new ComponentBuilder(e.getKey().getName()+": ",ComponentBuilder.WHITE).appendClickableURL(e.getKey().getAdvertisement().getDiscord(),ComponentBuilder.LIGHT_BLUE).build());
+                    player.sendMessage(new ComponentBuilder(((Map.Entry<NameLayer,Integer>)e).getKey().getName()+": ",ComponentBuilder.WHITE).appendClickableURL(((Map.Entry<NameLayer,Integer>)e).getKey().getAdvertisement().getDiscord(),ComponentBuilder.LIGHT_BLUE).build());
                 }
             });
-        }
+            slot[0]++;
+        });
         player.openInventory(gui.getInventory());
 
         GUIUtil.register(gui);

@@ -27,6 +27,12 @@ public final class GSLCore extends JavaPlugin {
         getCommand("nlaccept").setExecutor(nlaccept);
         getCommand("nlaccept").setTabCompleter(nlaccept);
 
+        OTPCommand otp = new OTPCommand();
+        getCommand("otp").setExecutor(otp);
+
+        GammaCommand gamma = new GammaCommand();
+        getCommand("gamma").setExecutor(gamma);
+
         ReinforceCommand rc = new ReinforceCommand();
         getCommand("r").setExecutor(rc);
         getCommand("r").setTabCompleter(rc);

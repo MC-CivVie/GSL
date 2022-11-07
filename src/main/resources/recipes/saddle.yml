@@ -1,0 +1,10 @@
+name: "saddle"
+displayname: "Make Saddle"
+factory: tools
+icon: SADDLE
+ingredients:
+  IRON_INGOT: 8
+  LEATHER: 16
+results:
+  SADDLE: 1
+powerrequirement: 1

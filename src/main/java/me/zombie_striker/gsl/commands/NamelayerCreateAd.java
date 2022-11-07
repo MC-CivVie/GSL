@@ -66,6 +66,10 @@ public class NamelayerCreateAd implements CommandExecutor, TabCompleter {
         if (action.equalsIgnoreCase("setIcon")) {
             if (args.length >= 2) {
                 Material material = Material.matchMaterial(args[2]);
+                if(material==null ||material.isAir() || ! material.isItem()) {
+                    sender.sendMessage(new ComponentBuilder("The input \""+args[2]+"\" is not a valid material type.", ComponentBuilder.RED).build());
+                    return true;
+                }
                 nameLayer1.getCreateAdvertisement().setIcon(material);
                 sender.sendMessage(new ComponentBuilder("Setting ad icon to " + material.name() + ".", ComponentBuilder.GREEN).build());
             }else{
@@ -88,10 +92,11 @@ public class NamelayerCreateAd implements CommandExecutor, TabCompleter {
                 sender.sendMessage(new ComponentBuilder("Please specify your groups ideology.", ComponentBuilder.RED).build());
             }
         } else if (action.equalsIgnoreCase("setVisible")) {
-            if (args.length >= 2) {
+            if (args.length > 2) {
                 try {
                     boolean b = Boolean.parseBoolean(args[2]);
                     nameLayer1.setVisible(b);
+                    nameLayer1.getCreateAdvertisement();
                     sender.sendMessage(new ComponentBuilder("Setting ad visibility to " + b + ".", ComponentBuilder.GREEN).build());
                 } catch (Exception e) {
                     sender.sendMessage(new ComponentBuilder(args[2] + " is not true or false.", ComponentBuilder.RED).build());

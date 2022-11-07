@@ -54,7 +54,7 @@ public class ReinforceCommand implements CommandExecutor, TabExecutor {
                     sender.sendMessage(new ComponentBuilder("Reinforcing to \"" + nl.getName() + "\".", ComponentBuilder.WHITE).build());
                 }
             }else{
-                sender.sendMessage(new ComponentBuilder("Thew namelayer "+namelayer+" does not exist!", ComponentBuilder.RED).build());
+                sender.sendMessage(new ComponentBuilder("The namelayer "+namelayer+" does not exist!", ComponentBuilder.RED).build());
                 return true;
             }
         }

@@ -1,0 +1,10 @@
+name: "ENDSTONE"
+displayname: "Make End Stone"
+factory: deco
+icon: END_STONE
+ingredients:
+  COBBLESTONE: 64
+  YELLOW_DYE: 16
+results:
+  END_STONE: 64
+powerrequirement: 1

@@ -1,0 +1,11 @@
+name: "mud"
+displayname: "Make Mud"
+factory: deco
+icon: MUD
+ingredients:
+  DIRT: 64
+  WATER_BUCKET: 1
+results:
+  BUCKET: 1
+  MUD: 64
+powerrequirement: 1

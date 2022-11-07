@@ -1,0 +1,10 @@
+name: "diorite"
+displayname: "Make Diorite"
+factory: deco
+icon: DIORITE
+ingredients:
+  COBBLESTONE: 32
+  BONEMEAL: 1
+results:
+  DIORITE: 32
+powerrequirement: 1

@@ -1,0 +1,10 @@
+name: "andesite"
+displayname: "Make Andesite"
+factory: deco
+icon: ANDESITE
+ingredients:
+  DIORITE: 32
+  BONEMEAL: 1
+results:
+  ANDESITE: 32
+powerrequirement: 1

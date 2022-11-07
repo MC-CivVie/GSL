@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl.dependancies;
 
+import com.xxmicloxx.NoteBlockAPI.NoteBlockAPI;
 import com.xxmicloxx.NoteBlockAPI.model.Song;
 import com.xxmicloxx.NoteBlockAPI.songplayer.RadioSongPlayer;
 import com.xxmicloxx.NoteBlockAPI.songplayer.SongPlayer;
@@ -52,6 +53,7 @@ public class NoteBlockAPIManager {
         for (Player player : nearby)
             songPlayer.addPlayer(player);
         songPlayer.setPlaying(true);
+        locationOfSongs.put(songPlayer,spot);
         return true;
     }
 
@@ -69,7 +71,7 @@ public class NoteBlockAPIManager {
     }
 
     public static void stopSong(Location location) {
-        SongPlayer sp = NoteBlockAPIManager.getSongAt(location);
+        RadioSongPlayer sp = (RadioSongPlayer) NoteBlockAPIManager.getSongAt(location);
         sp.setPlaying(false);
         sp.destroy();
         for (UUID player : sp.getPlayerUUIDs()) {

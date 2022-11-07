@@ -113,7 +113,7 @@ public class NameLayer {
 
     public static NameLayer getNameLayer(String name) {
         for (NameLayer nl : getNameLayers()) {
-            if (nl.getName().equals(name))
+            if (nl.getName().equalsIgnoreCase(name))
                 return nl;
         }
         return null;
@@ -182,7 +182,7 @@ public class NameLayer {
 
     public NLAdvertisement getCreateAdvertisement() {
         if(advertisement==null){
-            return advertisement = new NLAdvertisement(name,"Unspecified","A nation.","https://discord.gg/9b3N9CNPEQ",Material.DIRT);
+            return advertisement = new NLAdvertisement(name,"Unspecified","A nation.","No discord specified.",Material.DIRT);
         }
         return advertisement;
     }

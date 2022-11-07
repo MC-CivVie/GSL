@@ -15,7 +15,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.UUID;
 
 public class NoteBlockSongEvents implements @NotNull Listener {
 
@@ -37,6 +36,8 @@ public class NoteBlockSongEvents implements @NotNull Listener {
             return;
         if (!DependancyManager.hasNoteblockAPI())
             return;
+        if(!event.getAction().isRightClick())
+            return;
         if (NoteBlockAPIManager.alreadyPlayingSong(event.getClickedBlock().getLocation())) {
             NoteBlockAPIManager.stopSong(event.getClickedBlock().getLocation());
             return;
@@ -55,6 +56,8 @@ public class NoteBlockSongEvents implements @NotNull Listener {
             event.setCancelled(true);
             Jukebox jukebox = (Jukebox) event.getClickedBlock().getState();
             jukebox.setRecord(event.getItem());
+            jukebox.stopPlaying();
+            jukebox.update();
             jukebox.stopPlaying();
             jukebox.update();
             event.getPlayer().getInventory().setItemInMainHand(null);

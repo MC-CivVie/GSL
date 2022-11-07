@@ -12,14 +12,19 @@ import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.utils.InventoryUtil;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
+import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.LinkedList;
 
 public class ReinforceEvents implements Listener {
 
@@ -139,6 +144,9 @@ public class ReinforceEvents implements Listener {
                 gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
                 gslCube.getDurability()[x][y][z] = rm.getDurability();
                 ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
+                if(rm.getType().equals(MaterialType.getMaterialType(inhand))){
+                    return;
+                }
                 if (inhand.getAmount() == 1) {
                     inhand = null;
                 } else {
@@ -148,6 +156,9 @@ public class ReinforceEvents implements Listener {
             } else {
                 if (gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
                     ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
+                    if(rm.getType().equals(MaterialType.getMaterialType(inhand))){
+                        return;
+                    }
                     if (inhand.getAmount() == 1) {
                         inhand = null;
                     } else {
@@ -191,6 +202,81 @@ public class ReinforceEvents implements Listener {
             if (event.getClickedBlock().getType().isInteractable()) {
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(new ComponentBuilder("This ", ComponentBuilder.RED).append(event.getClickedBlock().getType().name(), ComponentBuilder.GRAY).append(" is locked.", ComponentBuilder.RED).build());
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent event){
+        for(Block block : new LinkedList<>(event.blockList())){
+            GSLChunk gslChunk = GSLChunk.getGSLChunk(block.getChunk());
+            GSLCube gslCube = gslChunk.getCubes()[(block.getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
+            if (gslCube != null) {
+                int x = block.getX() % 16;
+                if (block.getX() < 0)
+                    x = Math.abs((-block.getX()) % 16 - 15);
+                int z = block.getZ() % 16;
+                if (block.getZ() < 0)
+                    z = Math.abs((-block.getZ()) % 16 - 15);
+
+                int y = (block.getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
+                if (gslCube.getDurability()[x][y][z] > 0) {
+                    if (gslCube.getNamelayers()[x][y][z] != null) {
+                        gslCube.getDurability()[x][y][z] = gslCube.getDurability()[x][y][z] - 1;
+                        if (gslCube.getDurability()[x][y][z] > 0) {
+
+                            int maxdurability = ReinforcementMaterial.getReinforcementMaterialData(gslCube.getReinforcedBy()[x][y][z]).getDurability();
+                            double d = (1.0 * gslCube.getDurability()[x][y][z]) / (maxdurability);
+
+                            event.blockList().remove(block);
+                            return;
+                        }else{
+                            gslCube.getNamelayers()[x][y][z] = null;
+                            gslCube.getReinforcedBy()[x][y][z] = null;
+                            gslCube.getDurability()[x][y][z] = -1;
+                        }
+                    }
+                    gslCube.getNamelayers()[x][y][z] = null;
+                    gslCube.getReinforcedBy()[x][y][z] = null;
+                    gslCube.getDurability()[x][y][z] = -1;
+                }
+            }
+        }
+    }
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent event){
+        for(Block block : new LinkedList<>(event.blockList())){
+            GSLChunk gslChunk = GSLChunk.getGSLChunk(block.getChunk());
+            GSLCube gslCube = gslChunk.getCubes()[(block.getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
+            if (gslCube != null) {
+                int x = block.getX() % 16;
+                if (block.getX() < 0)
+                    x = Math.abs((-block.getX()) % 16 - 15);
+                int z = block.getZ() % 16;
+                if (block.getZ() < 0)
+                    z = Math.abs((-block.getZ()) % 16 - 15);
+
+                int y = (block.getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
+                if (gslCube.getDurability()[x][y][z] > 0) {
+                    if (gslCube.getNamelayers()[x][y][z] != null) {
+                        gslCube.getDurability()[x][y][z] = gslCube.getDurability()[x][y][z] - 1;
+                        if (gslCube.getDurability()[x][y][z] > 0) {
+
+                            int maxdurability = ReinforcementMaterial.getReinforcementMaterialData(gslCube.getReinforcedBy()[x][y][z]).getDurability();
+                            double d = (1.0 * gslCube.getDurability()[x][y][z]) / (maxdurability);
+
+                            event.blockList().remove(block);
+                            return;
+                        }else{
+                            gslCube.getNamelayers()[x][y][z] = null;
+                            gslCube.getReinforcedBy()[x][y][z] = null;
+                            gslCube.getDurability()[x][y][z] = -1;
+                        }
+                    }
+                    gslCube.getNamelayers()[x][y][z] = null;
+                    gslCube.getReinforcedBy()[x][y][z] = null;
+                    gslCube.getDurability()[x][y][z] = -1;
+                }
             }
         }
     }

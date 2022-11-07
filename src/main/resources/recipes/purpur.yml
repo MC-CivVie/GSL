@@ -1,0 +1,10 @@
+name: "purpur"
+displayname: "Make Purpur Blocks"
+factory: deco
+icon: PURPUR_BLOCK
+ingredients:
+  ENDSTONE: 64
+  PURPLE_DYE: 16
+results:
+  PURPUR_BLOCK: 64
+powerrequirement: 1
