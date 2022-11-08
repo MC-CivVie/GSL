@@ -2,12 +2,16 @@ package me.zombie_striker.gsl.events;
 
 import me.zombie_striker.gsl.GSL;
 import me.zombie_striker.gsl.crops.CropType;
+import me.zombie_striker.gsl.dependancies.DependancyManager;
+import me.zombie_striker.gsl.dependancies.TerraManager;
 import me.zombie_striker.gsl.utils.ComponentBuilder;
 import me.zombie_striker.gsl.utils.StringUtil;
+import me.zombie_striker.gsl.world.GSLBiomeList;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.Ageable;
@@ -23,6 +27,8 @@ import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.StructureGrowEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.Map;
 
 public class CropEvents implements Listener {
 
@@ -69,7 +75,8 @@ public class CropEvents implements Listener {
             int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
-            long growtime = (long) (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
+            double growtimeMultiplier = getGrowtime(cropType,event.getBlock().getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
 
             if (growtime < 0) {
                 event.setCancelled(true);
@@ -128,7 +135,10 @@ public class CropEvents implements Listener {
             int y = (event.getLocation().getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
-            long growtime = (long) (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
+
+
+            double growtimeMultiplier = getGrowtime(cropType,event.getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
 
             if (growtime <= 0) {
                 event.setCancelled(true);
@@ -155,6 +165,22 @@ public class CropEvents implements Listener {
             }
             if (System.currentTimeMillis() - time < growtime) event.setCancelled(true);
         }
+    }
+
+    private double getGrowtime(CropType cropType, Location location) {;
+        if(DependancyManager.hasTerra()){
+            Biome b = TerraManager.getBiomeByLocation(location);
+            for(Map.Entry<GSLBiomeList, Double> e : cropType.getGrowthModiferByBiome().entrySet()){
+                if(e.getKey().getBiomes().contains(b)){
+                    return e.getValue();
+                }
+            }
+        }else{
+            /**
+             * Finish this
+             */
+        }
+        return 1.0;
     }
 
     @EventHandler
@@ -199,7 +225,8 @@ public class CropEvents implements Listener {
             int y = (event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
-            long growtime = (long) (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
+            double growtimeMultiplier = getGrowtime(cropType,event.getClickedBlock().getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
 
             boolean directSunlight = cropType.requiresSunlight();
             if (event.getAction().isRightClick()) {
@@ -266,7 +293,8 @@ public class CropEvents implements Listener {
                         long time = gslCube.getPlantDate()[x][y][z];
                         CropType cropType = CropType.getCropTypeByMaterial(block.getType());
                         if (cropType != null) {
-                            double growtime = (cropType.getDefaultWaitingTime() * (1000 * 60 * 60));
+                            double growtimeMultiplier = getGrowtime(cropType,block.getLocation());
+                            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
                             if(growtime<=0)
                                 continue;
                             if (block.getBlockData() instanceof Ageable) {

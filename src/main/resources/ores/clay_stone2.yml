@@ -3,4 +3,4 @@ toughness: 1
 roughness: 0.5
 metallic: 0.1
 blocktype: "CLAY"
-replacetype: "STONE"
+replacetype: "DIRT"
