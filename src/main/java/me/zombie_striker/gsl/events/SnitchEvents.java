@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;
 
-public class JukeEvents implements Listener {
+public class SnitchEvents implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBreakSnitch(BlockBreakEvent event) {
@@ -23,6 +23,7 @@ public class JukeEvents implements Listener {
             GSLWorld gslWorld = GSLWorld.getWorld(event.getBlock().getWorld());
             for (Snitch snitch : new ArrayList<>(gslWorld.getSnitches())) {
                 if (snitch.getLocation().equals(event.getBlock().getLocation())) {
+                    event.getPlayer().sendMessage(new ComponentBuilder("This snitch was owned by ",ComponentBuilder.GRAY).append(snitch.getNameLayer().getName(),ComponentBuilder.WHITE).build());
                     gslWorld.unregisterSnitch(snitch);
                     break;
                 }

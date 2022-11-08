@@ -102,7 +102,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new OreEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ChunkLoadEvents(), core);
         Bukkit.getPluginManager().registerEvents(new NamelayerEvents(), core);
-        Bukkit.getPluginManager().registerEvents(new JukeEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new SnitchEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ReinforceEvents(), core);
         Bukkit.getPluginManager().registerEvents(new EntityEvents(), core);
         Bukkit.getPluginManager().registerEvents(new ExpEvents(), core);
