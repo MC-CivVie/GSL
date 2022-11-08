@@ -13,6 +13,7 @@ import me.zombie_striker.gsl.utils.InventoryUtil;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
 import org.bukkit.block.Block;
+import org.bukkit.block.DoubleChest;
 import org.bukkit.boss.BarColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -180,7 +181,7 @@ public class ReinforceEvents implements Listener {
     }
 
     @EventHandler
-    public void onInteractableBlock(PlayerInteractEvent event) {
+    public void onInteractiveBlock(PlayerInteractEvent event) {
         if (event.getHand() == EquipmentSlot.OFF_HAND)
             return;
         if (event.getClickedBlock() == null)
@@ -202,6 +203,31 @@ public class ReinforceEvents implements Listener {
             if (event.getClickedBlock().getType().isInteractable()) {
                 event.setCancelled(true);
                 event.getPlayer().sendMessage(new ComponentBuilder("This ", ComponentBuilder.RED).append(event.getClickedBlock().getType().name(), ComponentBuilder.GRAY).append(" is locked.", ComponentBuilder.RED).build());
+            }
+        }
+        if(event.getClickedBlock().getState() instanceof DoubleChest){
+            Block other = (Block) ((DoubleChest) event.getClickedBlock().getState()).getLeftSide();
+            if(other.getLocation().equals(event.getClickedBlock().getLocation()))
+                other = (Block) ((DoubleChest) event.getClickedBlock().getState()).getRightSide();
+
+            gslChunk = GSLChunk.getGSLChunk(event.getClickedBlock().getChunk());
+            gslCube = gslChunk.getCubes()[(event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
+            if (gslCube == null) {
+                gslCube = new GSLCube();
+                gslChunk.getCubes()[(event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16] = gslCube;
+            }
+            x = event.getClickedBlock().getX() % 16;
+            if (event.getClickedBlock().getX() < 0)
+                x = Math.abs((-event.getClickedBlock().getX()) % 16 - 15);
+            z = event.getClickedBlock().getZ() % 16;
+            if (event.getClickedBlock().getZ() < 0)
+                z = Math.abs((-event.getClickedBlock().getZ()) % 16 - 15);
+            y = (event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
+            if (gslCube.getNamelayers()[x][y][z] != null && !gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
+                if (event.getClickedBlock().getType().isInteractable()) {
+                    event.setCancelled(true);
+                    event.getPlayer().sendMessage(new ComponentBuilder("This ", ComponentBuilder.RED).append(event.getClickedBlock().getType().name(), ComponentBuilder.GRAY).append(" is locked.", ComponentBuilder.RED).build());
+                }
             }
         }
     }

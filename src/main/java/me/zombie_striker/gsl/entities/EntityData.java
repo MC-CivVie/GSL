@@ -77,6 +77,7 @@ public class EntityData {
     public EntityData(EntityType entityType, String displayname, boolean naturalSpawn) {
         this.entityType = entityType;
         this.displayname = displayname;
+        this.naturalSpawn = naturalSpawn;
     }
 
     public EntityType getEntityType() {

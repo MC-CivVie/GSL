@@ -43,10 +43,12 @@ public class ItemUtil {
         im.displayName(new ComponentBuilder(factoryRecipe.getDisplayname(),ComponentBuilder.WHITE).build());
         List<Component> ingredients = new LinkedList<>();
         for(Map.Entry<MaterialType, Integer> e : factoryRecipe.getIngredients().entrySet()){
+            if(e.getKey()!=null)
             ingredients.add(new ComponentBuilder(e.getKey().getName()+":"+e.getValue(),ComponentBuilder.RED).build());
         }
         ingredients.add(new ComponentBuilder("--------------------",ComponentBuilder.GRAY).build());
         for(Map.Entry<MaterialType, Integer> e : factoryRecipe.getResults().entrySet()){
+            if(e.getKey()!=null)
             ingredients.add(new ComponentBuilder(e.getKey().getName()+":"+e.getValue(),ComponentBuilder.GREEN).build());
         }
         im.lore(ingredients);

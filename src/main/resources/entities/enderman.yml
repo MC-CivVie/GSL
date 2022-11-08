@@ -5,5 +5,5 @@ percentagedrops:
     chance: 1
   BONE:
     chance: 1
-naturalspawn: true
+naturalspawn: false
 hostile: true

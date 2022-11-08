@@ -8,5 +8,5 @@ percentagedrops:
   STRING:
     chance: 0.9
     amount: 3
-naturalspawn: true
+naturalspawn: false
 hostile: true

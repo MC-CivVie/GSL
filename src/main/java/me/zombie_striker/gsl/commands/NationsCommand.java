@@ -45,17 +45,22 @@ public class NationsCommand implements CommandExecutor {
 
         Map<NameLayer,Integer> i = MapUtil.sortByValue(activePlayers);
         Map<Object, Object> sorted = i.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(new Comparator<Integer>() {
+                    @Override
+                    public int compare(Integer o1, Integer o2) {
+                        return o2-o1;
+                    }
+                }))
                 .collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue(), (e1, e2) -> e1, LinkedHashMap::new));
 
         final int[] slot = {0};
         sorted.forEach((e, o)  -> {
-            ItemStack is = ItemUtil.prepareAd(((Map.Entry<NameLayer,Integer>)e).getKey().getAdvertisement(), ((Map.Entry<NameLayer,Integer>)e).getValue(),((Map.Entry<NameLayer,Integer>)e).getKey().getMemberranks().size());
+            ItemStack is = ItemUtil.prepareAd((((NameLayer)e).getAdvertisement()), ((int)o),((NameLayer)e).getMemberranks().size());
             gui.setIcon(slot[0], is, new GUIAction() {
                 @Override
                 public void click(int slot, Player player, GUI gui) {
                     player.closeInventory();
-                    player.sendMessage(new ComponentBuilder(((Map.Entry<NameLayer,Integer>)e).getKey().getName()+": ",ComponentBuilder.WHITE).appendClickableURL(((Map.Entry<NameLayer,Integer>)e).getKey().getAdvertisement().getDiscord(),ComponentBuilder.LIGHT_BLUE).build());
+                    player.sendMessage(new ComponentBuilder(((NameLayer)e).getName()+": ",ComponentBuilder.WHITE).appendClickableURL(((NameLayer)e).getAdvertisement().getDiscord(),ComponentBuilder.LIGHT_BLUE).build());
                 }
             });
             slot[0]++;
