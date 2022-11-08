@@ -74,7 +74,7 @@ public class ReinforceEvents implements Listener {
                 z = Math.abs((-event.getBlock().getZ()) % 16 - 15);
 
             int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
-            if (gslCube.getDurability()[x][y][z] > 0) {
+            if (gslCube.getDurability()[x][y][z] >= 0) {
                 if (gslCube.getNamelayers()[x][y][z] != null && !gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
                     if (PrisonerHandler.isPrisoner(event.getPlayer().getUniqueId())) {
                         event.setCancelled(true);
@@ -98,12 +98,14 @@ public class ReinforceEvents implements Listener {
                     }
                 } else {
                     MaterialType mt = gslCube.getReinforcedBy()[x][y][z];
-                    ItemStack is = mt.toItemStack();
-                    int first = event.getPlayer().getInventory().firstEmpty();
-                    if (first != -1) {
-                        event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), is);
-                    } else {
-                        event.getPlayer().getInventory().addItem(is);
+                    if(mt!=null) {
+                        ItemStack is = mt.toItemStack();
+                        int first = event.getPlayer().getInventory().firstEmpty();
+                        if (first != -1) {
+                            event.getPlayer().getWorld().dropItem(event.getPlayer().getLocation(), is);
+                        } else {
+                            event.getPlayer().getInventory().addItem(is);
+                        }
                     }
                 }
                 gslCube.getNamelayers()[x][y][z] = null;
@@ -145,7 +147,7 @@ public class ReinforceEvents implements Listener {
                 gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
                 gslCube.getDurability()[x][y][z] = rm.getDurability();
                 ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
-                if(rm.getType().equals(MaterialType.getMaterialType(inhand))){
+                if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
                     return;
                 }
                 if (inhand.getAmount() == 1) {
@@ -157,7 +159,7 @@ public class ReinforceEvents implements Listener {
             } else {
                 if (gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
                     ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
-                    if(rm.getType().equals(MaterialType.getMaterialType(inhand))){
+                    if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
                         return;
                     }
                     if (inhand.getAmount() == 1) {
@@ -185,6 +187,8 @@ public class ReinforceEvents implements Listener {
         if (event.getHand() == EquipmentSlot.OFF_HAND)
             return;
         if (event.getClickedBlock() == null)
+            return;
+        if(event.getAction().isLeftClick())
             return;
         GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getClickedBlock().getChunk());
         GSLCube gslCube = gslChunk.getCubes()[(event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];

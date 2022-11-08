@@ -58,6 +58,7 @@ public class WorldBorderEvents implements Listener {
         for(int i = 0; i < 25; i++){
             int x = random();
             int z = random();
+
             Location loc = event.getRespawnLocation();
             loc=loc.getWorld().getHighestBlockAt(x,z).getLocation();
             if(loc.getBlock().getType()== Material.WATER)
@@ -70,6 +71,10 @@ public class WorldBorderEvents implements Listener {
                 continue;
             if(loc.getBlock().getType().name().endsWith("LEAVES"))
                 continue;
+            double distanceFromCenter = new Location(loc.getWorld(), 0, 0, 0).distanceSquared(loc);
+            if (distanceFromCenter >= radius * radius) {
+                continue;
+            }
             event.setRespawnLocation(loc.add(0,1,0));
             }
     }
