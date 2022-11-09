@@ -20,6 +20,7 @@ public class FossilHandler {
         chance.put(new ItemStack(Material.DIAMOND),1.0);
 
         File music = FileUtils.getFolder(FileUtils.PATH_SONGS);
+        if(music.exists())
         for(File f : music.listFiles()){
             String name = f.getName().split("\\.")[0];
             ItemStack is = ItemUtil.prepareItem(Material.MUSIC_DISC_11,"Music Disc", new ComponentBuilder(name,ComponentBuilder.LIGHT_BLUE).build());

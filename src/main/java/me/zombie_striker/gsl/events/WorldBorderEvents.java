@@ -35,6 +35,8 @@ public class WorldBorderEvents implements Listener {
                         int x = random();
                         int z = random();
                         Location loc = event.getPlayer().getLocation();
+                        if(!loc.getWorld().isChunkGenerated(x/16,z/16))
+                            continue;
                         loc=loc.getWorld().getHighestBlockAt(x,z).getLocation();
                         if(loc.getBlock().getType()== Material.WATER)
                             continue;
@@ -71,7 +73,7 @@ public class WorldBorderEvents implements Listener {
                 continue;
             if(loc.getBlock().getType().name().endsWith("LEAVES"))
                 continue;
-            double distanceFromCenter = new Location(loc.getWorld(), 0, 0, 0).distanceSquared(loc);
+            double distanceFromCenter = new Location(loc.getWorld(), 0, 100, 0).distanceSquared(loc);
             if (distanceFromCenter >= radius * radius) {
                 continue;
             }
@@ -80,6 +82,6 @@ public class WorldBorderEvents implements Listener {
     }
 
     public int random(){
-        return new Random().nextInt(2*radius)-radius;
+        return (int) ((new Random().nextInt(2*radius)-radius)*0.75);
     }
 }
