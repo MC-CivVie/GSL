@@ -169,7 +169,7 @@ public class ReinforceEvents implements Listener {
                     }
                     event.getPlayer().getInventory().setItemInMainHand(inhand);
 
-                    if (gslCube.getReinforcedBy()[x][y][z] != null)
+                    if (gslCube.getReinforcedBy()[x][y][z] != null && gslCube.getReinforcedBy()[x][y][z].getBase()!=reinforcematerial.getBase())
                         event.getPlayer().getInventory().addItem(gslCube.getReinforcedBy()[x][y][z].toItemStack());
 
                     gslCube.getNamelayers()[x][y][z] = nl;
