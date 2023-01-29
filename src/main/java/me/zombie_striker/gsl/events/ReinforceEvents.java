@@ -130,17 +130,8 @@ public class ReinforceEvents implements Listener {
 
             ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
             MaterialType handtype = MaterialType.getMaterialType(inhand);
-            if(reinforcematerial != handtype)
+            if(!reinforcematerial.equals(handtype))
                 return;
-            if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
-                return;
-            }
-            if (inhand.getAmount() == 1) {
-                inhand = null;
-            } else {
-                inhand.setAmount(inhand.getAmount() - 1);
-            }
-            event.getPlayer().getInventory().setItemInMainHand(inhand);
 
             GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getClickedBlock().getChunk());
             GSLCube gslCube = gslChunk.getCubes()[(event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
@@ -160,6 +151,12 @@ public class ReinforceEvents implements Listener {
                 gslCube.getNamelayers()[x][y][z] = nl;
                 gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
                 gslCube.getDurability()[x][y][z] = rm.getDurability();
+                if (inhand.getAmount() == 1) {
+                    inhand = null;
+                } else {
+                    inhand.setAmount(inhand.getAmount() - 1);
+                }
+                event.getPlayer().getInventory().setItemInMainHand(inhand);
             } else {
                 if (gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
                     if (gslCube.getReinforcedBy()[x][y][z] != null && gslCube.getReinforcedBy()[x][y][z].getBase()!=reinforcematerial.getBase())
@@ -168,6 +165,12 @@ public class ReinforceEvents implements Listener {
                     gslCube.getNamelayers()[x][y][z] = nl;
                     gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
                     gslCube.getDurability()[x][y][z] = rm.getDurability();
+                    if (inhand.getAmount() == 1) {
+                        inhand = null;
+                    } else {
+                        inhand.setAmount(inhand.getAmount() - 1);
+                    }
+                    event.getPlayer().getInventory().setItemInMainHand(inhand);
                 } else {
                     event.getPlayer().sendMessage(new ComponentBuilder("You cannot reinforce this block, as it is already reinforced to a foreign group.", ComponentBuilder.RED).build());
                 }
