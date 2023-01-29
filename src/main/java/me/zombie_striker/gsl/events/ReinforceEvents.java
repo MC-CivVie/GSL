@@ -128,6 +128,20 @@ public class ReinforceEvents implements Listener {
             ReinforcementMaterial rm = ReinforcementMaterial.getReinforcementMaterialData(reinforcematerial);
 
 
+            ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
+            MaterialType handtype = MaterialType.getMaterialType(inhand);
+            if(reinforcematerial != handtype)
+                return;
+            if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
+                return;
+            }
+            if (inhand.getAmount() == 1) {
+                inhand = null;
+            } else {
+                inhand.setAmount(inhand.getAmount() - 1);
+            }
+            event.getPlayer().getInventory().setItemInMainHand(inhand);
+
             GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getClickedBlock().getChunk());
             GSLCube gslCube = gslChunk.getCubes()[(event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
             if (gslCube == null) {
@@ -146,29 +160,8 @@ public class ReinforceEvents implements Listener {
                 gslCube.getNamelayers()[x][y][z] = nl;
                 gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
                 gslCube.getDurability()[x][y][z] = rm.getDurability();
-                ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
-                if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
-                    return;
-                }
-                if (inhand.getAmount() == 1) {
-                    inhand = null;
-                } else {
-                    inhand.setAmount(inhand.getAmount() - 1);
-                }
-                event.getPlayer().getInventory().setItemInMainHand(inhand);
             } else {
                 if (gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
-                    ItemStack inhand = event.getPlayer().getInventory().getItemInMainHand();
-                    if(!rm.getType().equals(MaterialType.getMaterialType(inhand))){
-                        return;
-                    }
-                    if (inhand.getAmount() == 1) {
-                        inhand = null;
-                    } else {
-                        inhand.setAmount(inhand.getAmount() - 1);
-                    }
-                    event.getPlayer().getInventory().setItemInMainHand(inhand);
-
                     if (gslCube.getReinforcedBy()[x][y][z] != null && gslCube.getReinforcedBy()[x][y][z].getBase()!=reinforcematerial.getBase())
                         event.getPlayer().getInventory().addItem(gslCube.getReinforcedBy()[x][y][z].toItemStack());
 
