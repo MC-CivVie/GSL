@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class OreObject {
 
@@ -64,16 +65,14 @@ public class OreObject {
         double distanceClose = Integer.MAX_VALUE;
         for (OreObject oreObject : oreObjects) {
             if (oreObject.getReplaceType() == replaceType) {
-                if(new Random().nextInt((int) oreObject.getRarity())==0) {
-                    double s1 = OreObject.ROUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex1Center;
-                    double s2 = OreObject.TOUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex2Center;
-                    double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.simplex3Center;
+                double s1 = OreObject.ROUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.getSimplex1Center();
+                double s2 = OreObject.TOUGHNESS.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.getSimplex2Center();
+                double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.getSimplex3Center();
 
-                    double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3));
-                    if (dist < distanceClose) {
-                        distanceClose = dist;
-                        closest = oreObject;
-                    }
+                double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3));
+                if (ThreadLocalRandom.current().nextInt((int) dist) < distanceClose * (1.0 / oreObject.getRarity())) {
+                    distanceClose = dist;
+                    closest = oreObject;
                 }
             }
         }

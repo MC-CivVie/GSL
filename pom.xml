@@ -58,16 +58,16 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>meowcorp</id>
-            <url>https://fs.meowcorp.org/maven2</url>
-        </repository>
-        <repository>
             <id>papermc-repo</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>meowcorp</id>
+            <url>https://fs.meowcorp.org/maven2</url>
         </repository>
     </repositories>
 
@@ -98,7 +98,8 @@
             <groupId>com.dfsek</groupId>
             <artifactId>terra</artifactId>
             <version>meowcorp</version>
-            <scope>provided</scope>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libs/Terra-bukkit-6.2.1-BETA+358e09d05-shaded.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
