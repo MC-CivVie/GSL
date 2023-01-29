@@ -17,6 +17,8 @@ public class FossilEvents implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
+        if(true)
+            return;// We don't need fossils at the current moment.
         if(Math.random() < 0.001) {
             GSLChunk gslChunk = GSLChunk.getGSLChunk(event.getBlock().getChunk());
             GSLCube gslCube = gslChunk.getCubes()[(event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) / 16];
