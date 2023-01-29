@@ -117,6 +117,7 @@ public class GSL {
         Bukkit.getPluginManager().registerEvents(new FossilEvents(), core);
         Bukkit.getPluginManager().registerEvents(new FishingEvents(), core);
         Bukkit.getPluginManager().registerEvents(new CombatLogEvents(), core);
+        Bukkit.getPluginManager().registerEvents(new LivestockEvents(), core);
 
     }
 
