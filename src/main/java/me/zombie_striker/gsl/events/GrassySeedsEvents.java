@@ -14,15 +14,15 @@ public class GrassySeedsEvents implements Listener {
     public void onBlockBreak(BlockBreakEvent event){
         if(event.getBlock().getType()== Material.GRASS){
             if( ThreadLocalRandom.current().nextInt(100)==0){
-                event.getBlock().getDrops().add(new ItemStack(Material.BEETROOT_SEEDS));
+                event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5,0.5,0.5),new ItemStack(Material.BEETROOT_SEEDS));
             }else if( ThreadLocalRandom.current().nextInt(100)==0){
-                event.getBlock().getDrops().add(new ItemStack(Material.MELON_SEEDS));
+                event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5,0.5,0.5),new ItemStack(Material.MELON_SEEDS));
             }else if( ThreadLocalRandom.current().nextInt(100)==0){
-                event.getBlock().getDrops().add(new ItemStack(Material.PUMPKIN_SEEDS));
+                event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5,0.5,0.5),new ItemStack(Material.PUMPKIN_SEEDS));
             }else if( ThreadLocalRandom.current().nextInt(100)==0){
-                event.getBlock().getDrops().add(new ItemStack(Material.POTATO));
+                event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5,0.5,0.5),new ItemStack(Material.POTATO));
             }else if( ThreadLocalRandom.current().nextInt(100)==0){
-                event.getBlock().getDrops().add(new ItemStack(Material.CARROT));
+                event.getBlock().getWorld().dropItem(event.getBlock().getLocation().add(0.5,0.5,0.5),new ItemStack(Material.CARROT));
             }
         }
     }
