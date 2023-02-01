@@ -9,6 +9,8 @@ public final class GSLCore extends JavaPlugin {
     public void onEnable() {
         new GSL(this).init();
         NamelayerCreateGroupCommand nlcg = new NamelayerCreateGroupCommand();
+        getCommand("nl").setExecutor(new NamelayerCommand());
+
         getCommand("nlcg").setExecutor(nlcg);
 
         NamelayerMergeCommand nlmergec = new NamelayerMergeCommand();
