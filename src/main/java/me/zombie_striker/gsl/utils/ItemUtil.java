@@ -1,5 +1,6 @@
 package me.zombie_striker.gsl.utils;
 
+import me.zombie_striker.gsl.data.Pair;
 import me.zombie_striker.gsl.materials.MaterialType;
 import me.zombie_striker.gsl.namelayers.NLAdvertisement;
 import me.zombie_striker.gsl.recipes.FactoryRecipe;
@@ -159,5 +160,50 @@ public class ItemUtil {
         im.lore(l);
         is.setItemMeta(im);
         return is;
+    }
+
+    public static String getTradeButtonInput(ItemStack is){
+        @Nullable List<Component> lores = is.lore();
+        if (lores != null) {
+            for (int loreindex = 0; loreindex < lores.size(); loreindex++) {
+                Component lore = lores.get(loreindex);
+                if (lore instanceof TextComponent) {
+                    if (((TextComponent) lore).content().startsWith("Input:")) {
+                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[2];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public static String getTradeButtonOutput(ItemStack is){
+        @Nullable List<Component> lores = is.lore();
+        if (lores != null) {
+            for (int loreindex = 0; loreindex < lores.size(); loreindex++) {
+                Component lore = lores.get(loreindex);
+                if (lore instanceof TextComponent) {
+                    if (((TextComponent) lore).content().startsWith("Output:")) {
+                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[2];
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    public static ItemStack prepareTradeButton(MaterialType tradeitem, int tradeamount, MaterialType costitem, int costamount){
+        ItemStack is = prepareItem(Material.STONE_BUTTON,"Trade Button",
+                new ComponentBuilder("Input: "+tradeitem.getName()+":"+tradeamount,ComponentBuilder.WHITE).build(),
+                new ComponentBuilder("Output: "+ costitem.getName()+":"+costamount,ComponentBuilder.WHITE).build()
+                );
+        return is;
+    }
+
+    public static ItemStack prepareTradeItemIcon(Pair<MaterialType, Integer> trade, Pair<MaterialType, Integer> shop, int maxTrades) {
+        if(maxTrades<=0){
+            return null;
+        }
+        return setAmount(prepareItem(trade.getFirst().toItemStack().getType(),trade.getFirst().getName()+"x"+trade.getSecond(),
+                new ComponentBuilder("Price: "+shop.getFirst()+"x"+shop.getSecond(),ComponentBuilder.LIGHT_BLUE).build()
+                , new ComponentBuilder("Trades left: "+maxTrades,ComponentBuilder.GOLD).build()),trade.getSecond());
     }
 }

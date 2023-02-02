@@ -1,0 +1,11 @@
+name: "crossbow"
+displayname: "Craft Crossbow"
+factory: tools
+icon: CROSSBOW
+ingredients:
+  IRON_INGOT: 8
+  STRING: 2
+  WOODS: 1
+results:
+  CROSSBOW: 8
+powerrequirement: 1

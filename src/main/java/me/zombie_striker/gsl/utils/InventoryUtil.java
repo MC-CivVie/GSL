@@ -1,11 +1,15 @@
 package me.zombie_striker.gsl.utils;
 
+import me.zombie_striker.gsl.data.Pair;
 import me.zombie_striker.gsl.materials.CustomMaterialType;
 import me.zombie_striker.gsl.materials.GroupMaterialType;
 import me.zombie_striker.gsl.materials.MaterialType;
+import org.bukkit.Location;
+import org.bukkit.Sound;
 import org.bukkit.inventory.FurnaceInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class InventoryUtil {
 
@@ -133,5 +137,30 @@ public class InventoryUtil {
             }
         }
         return false;
+    }
+
+    public static void trade(Inventory testcheckl, PlayerInventory inventory, Pair<MaterialType, Integer> tradeProduct, Pair<MaterialType, Integer> tradePrice, Location pingsoundloc) {
+        if(hasAtleast(tradeProduct.getFirst(), tradeProduct.getSecond(), testcheckl) && hasAtleast(tradePrice.getFirst(),tradePrice.getSecond(),inventory)){
+            double ts = ((double)tradeProduct.getSecond())/tradeProduct.getFirst().getBase().getMaxStackSize();
+            ts -= ((double)tradePrice.getSecond())/tradePrice.getFirst().getBase().getMaxStackSize();
+            if(ts > 0){
+                if(inventory.firstEmpty()==-1){
+                    return;
+                }
+            }else{
+                if(testcheckl.firstEmpty()==-1){
+                    return;
+                }
+            }
+
+            removeAmount(tradeProduct.getFirst(),tradeProduct.getSecond(),testcheckl);
+            removeAmount(tradePrice.getFirst(),tradePrice.getSecond(),inventory);
+
+            inventory.addItem(ItemUtil.setAmount(tradeProduct.getFirst().toItemStack(),tradeProduct.getSecond()));
+            testcheckl.addItem(ItemUtil.setAmount(tradePrice.getFirst().toItemStack(),tradePrice.getSecond()));
+            if(pingsoundloc!=null){
+              pingsoundloc.getWorld().playSound(pingsoundloc, Sound.ENTITY_EXPERIENCE_ORB_PICKUP,1.0f,1.0f);
+            }
+        }
     }
 }

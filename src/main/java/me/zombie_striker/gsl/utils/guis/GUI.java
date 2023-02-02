@@ -19,6 +19,9 @@ public class GUI {
         inventory.setItem(slot, material);
         actions[slot] = action;
     }
+    public void setDisplayIcon(int slot, ItemStack is){
+        inventory.setItem(slot,is);
+    }
 
     public Inventory getInventory() {
         return inventory;

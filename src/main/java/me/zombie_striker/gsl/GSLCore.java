@@ -13,6 +13,10 @@ public final class GSLCore extends JavaPlugin {
 
         getCommand("nlcg").setExecutor(nlcg);
 
+        TradeButtonCommand tbc = new TradeButtonCommand();
+        getCommand("tb").setExecutor(tbc);
+        getCommand("tb").setTabCompleter(tbc);
+
         NamelayerMergeCommand nlmergec = new NamelayerMergeCommand();
         getCommand("nlmerge").setExecutor(nlmergec);
         getCommand("nlmerge").setTabCompleter(nlmergec);
@@ -42,10 +46,6 @@ public final class GSLCore extends JavaPlugin {
         GroupCommand gc = new GroupCommand();
         getCommand("g").setExecutor(gc);
         getCommand("g").setTabCompleter(gc);
-
-        TradingBoothCommand tbc = new TradingBoothCommand();
-        getCommand("tb").setExecutor(tbc);
-        getCommand("tb").setTabCompleter(tbc);
 
         NamelayerCreateAd nlad = new NamelayerCreateAd();
         getCommand("nlad").setExecutor(nlad);

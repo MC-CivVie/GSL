@@ -75,8 +75,8 @@ public class CropEvents implements Listener {
             int y = (event.getBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
-            double growtimeMultiplier = getGrowtime(cropType,event.getBlock().getLocation());
-            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
+            double growtimeMultiplier = getGrowtime(cropType, event.getBlock().getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier * (1000 * 60 * 60));
 
             if (growtime < 0) {
                 event.setCancelled(true);
@@ -137,8 +137,8 @@ public class CropEvents implements Listener {
             long time = gslCube.getPlantDate()[x][y][z];
 
 
-            double growtimeMultiplier = getGrowtime(cropType,event.getLocation());
-            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
+            double growtimeMultiplier = getGrowtime(cropType, event.getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier * (1000 * 60 * 60));
 
             if (growtime <= 0) {
                 event.setCancelled(true);
@@ -167,15 +167,17 @@ public class CropEvents implements Listener {
         }
     }
 
-    private double getGrowtime(CropType cropType, Location location) {;
-        if(DependancyManager.hasTerra()){
+    private double getGrowtime(CropType cropType, Location location) {
+        ;
+        if (DependancyManager.hasTerra()) {
             Biome b = TerraManager.getBiomeByLocation(location);
-            for(Map.Entry<GSLBiomeList, Double> e : cropType.getGrowthModiferByBiome().entrySet()){
-                if(e.getKey().getBiomes().contains(b)){
-                    return e.getValue();
-                }
+            for (Map.Entry<GSLBiomeList, Double> e : cropType.getGrowthModiferByBiome().entrySet()) {
+                if (e.getKey() != null)
+                    if (e.getKey().getBiomes().contains(b)) {
+                        return e.getValue();
+                    }
             }
-        }else{
+        } else {
             /**
              * Finish this
              */
@@ -225,8 +227,8 @@ public class CropEvents implements Listener {
             int y = (event.getClickedBlock().getY() - GSLChunk.BLOCK_Y_OFFSET) % 16;
 
             long time = gslCube.getPlantDate()[x][y][z];
-            double growtimeMultiplier = getGrowtime(cropType,event.getClickedBlock().getLocation());
-            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
+            double growtimeMultiplier = getGrowtime(cropType, event.getClickedBlock().getLocation());
+            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier * (1000 * 60 * 60));
 
             boolean directSunlight = cropType.requiresSunlight();
             if (event.getAction().isRightClick()) {
@@ -293,9 +295,9 @@ public class CropEvents implements Listener {
                         long time = gslCube.getPlantDate()[x][y][z];
                         CropType cropType = CropType.getCropTypeByMaterial(block.getType());
                         if (cropType != null) {
-                            double growtimeMultiplier = getGrowtime(cropType,block.getLocation());
-                            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier* (1000 * 60 * 60));
-                            if(growtime<=0)
+                            double growtimeMultiplier = getGrowtime(cropType, block.getLocation());
+                            long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier * (1000 * 60 * 60));
+                            if (growtime <= 0)
                                 continue;
                             if (block.getBlockData() instanceof Ageable) {
                                 Ageable ageable = (Ageable) block.getBlockData();

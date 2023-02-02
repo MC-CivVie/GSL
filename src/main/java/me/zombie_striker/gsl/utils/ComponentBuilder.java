@@ -15,6 +15,7 @@ public class ComponentBuilder {
     public static final Color BLACK = new Color(20,20,20);
     public static final Color GREEN = new Color (40,200,40);
     public static final Color LIGHT_BLUE = new Color(50,110,200);
+    public static final Color GOLD = new Color(227, 166, 52);
 
     private Component core;
 
