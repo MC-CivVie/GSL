@@ -4,5 +4,5 @@ public enum GrowType {
     GROW_UP,
     GROW_DOWN,
     REPLACE,
-    DEFAULT;
+    DEFAULT, GROW_MELON;
 }

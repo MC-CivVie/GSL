@@ -2,6 +2,7 @@ package me.zombie_striker.gsl.events;
 
 import me.zombie_striker.gsl.GSL;
 import me.zombie_striker.gsl.crops.CropType;
+import me.zombie_striker.gsl.crops.GrowType;
 import me.zombie_striker.gsl.dependancies.DependancyManager;
 import me.zombie_striker.gsl.dependancies.TerraManager;
 import me.zombie_striker.gsl.utils.ComponentBuilder;
@@ -10,6 +11,7 @@ import me.zombie_striker.gsl.world.GSLBiomeList;
 import me.zombie_striker.gsl.world.GSLChunk;
 import me.zombie_striker.gsl.world.GSLCube;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
@@ -18,10 +20,7 @@ import org.bukkit.block.data.Ageable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFertilizeEvent;
-import org.bukkit.event.block.BlockGrowEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.StructureGrowEvent;
@@ -101,17 +100,28 @@ public class CropEvents implements Listener {
                     event.setCancelled(true);
                 }
             }
-
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Ageable ageable = (Ageable) event.getBlock().getBlockData();
-                    int stage = (int) ((((double) (System.currentTimeMillis() - time)) / growtime) * ageable.getMaximumAge());
-                    stage = Math.min(stage, ageable.getMaximumAge());
-                    ageable.setAge(stage);
-                    event.getBlock().setBlockData(ageable);
-                }
-            }.runTaskLater(GSL.getCore(), 1);
+            if(cropType.getGrowType()== GrowType.GROW_UP) {
+                double stage = ((((double) (System.currentTimeMillis() - time)) / growtime));
+                if (stage < 1)
+                    event.setCancelled(true);
+            }else if(cropType.getGrowType()== GrowType.GROW_MELON){
+                    double stage = ((((double) (System.currentTimeMillis() - time)) / growtime));
+                    if(stage < 1)
+                        event.setCancelled(true);
+            }else {
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (event.getBlock().getBlockData() instanceof Ageable) {
+                            Ageable ageable = (Ageable) event.getBlock().getBlockData();
+                            int stage = (int) ((((double) (System.currentTimeMillis() - time)) / growtime) * ageable.getMaximumAge());
+                            stage = Math.min(stage, ageable.getMaximumAge());
+                            ageable.setAge(stage);
+                            event.getBlock().setBlockData(ageable);
+                        }
+                    }
+                }.runTaskLater(GSL.getCore(), 1);
+            }
         }
     }
 
@@ -168,7 +178,6 @@ public class CropEvents implements Listener {
     }
 
     private double getGrowtime(CropType cropType, Location location) {
-        ;
         if (DependancyManager.hasTerra()) {
             Biome b = TerraManager.getBiomeByLocation(location);
             for (Map.Entry<GSLBiomeList, Double> e : cropType.getGrowthModiferByBiome().entrySet()) {
@@ -231,7 +240,7 @@ public class CropEvents implements Listener {
             long growtime = (long) (cropType.getDefaultWaitingTime() * growtimeMultiplier * (1000 * 60 * 60));
 
             boolean directSunlight = cropType.requiresSunlight();
-            if (event.getAction().isRightClick()) {
+            if (event.getAction()== Action.RIGHT_CLICK_BLOCK) {
                 if (directSunlight) {
                     Block highest = event.getClickedBlock().getWorld().getHighestBlockAt(event.getClickedBlock().getLocation());
                     while (!highest.equals(event.getClickedBlock())) {

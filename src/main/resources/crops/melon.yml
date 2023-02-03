@@ -1,0 +1,11 @@
+material: "MELON_STEM"
+growtype: GROW_MELON
+growtime: 1.0
+requiressun: true
+soilmaterial: FARMLAND
+growthmodifiers:
+  frozen: 6.0
+  cold: 5.0
+  hot: 2.0
+  temperate: 1.0
+  ocean: -1.0
