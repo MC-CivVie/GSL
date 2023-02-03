@@ -159,18 +159,28 @@ public class ReinforceEvents implements Listener {
                 event.getPlayer().getInventory().setItemInMainHand(inhand);
             } else {
                 if (gslCube.getNamelayers()[x][y][z].getMemberranks().containsKey(event.getPlayer().getUniqueId())) {
-                    if (gslCube.getReinforcedBy()[x][y][z] != null && gslCube.getReinforcedBy()[x][y][z].getBase()!=reinforcematerial.getBase())
+                    if (gslCube.getReinforcedBy()[x][y][z] != null && gslCube.getReinforcedBy()[x][y][z]!=reinforcematerial) {
+                        gslCube.getNamelayers()[x][y][z] = nl;
+                        gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
+                        gslCube.getDurability()[x][y][z] = rm.getDurability();
+                        if (inhand.getAmount() == 1) {
+                            inhand = null;
+                        } else {
+                            inhand.setAmount(inhand.getAmount() - 1);
+                        }
+                        event.getPlayer().getInventory().setItemInMainHand(inhand);
                         event.getPlayer().getInventory().addItem(gslCube.getReinforcedBy()[x][y][z].toItemStack());
-
-                    gslCube.getNamelayers()[x][y][z] = nl;
-                    gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
-                    gslCube.getDurability()[x][y][z] = rm.getDurability();
-                    if (inhand.getAmount() == 1) {
-                        inhand = null;
-                    } else {
-                        inhand.setAmount(inhand.getAmount() - 1);
+                    }else if (rm.getDurability()!=gslCube.getDurability()[x][y][z]){
+                        gslCube.getNamelayers()[x][y][z] = nl;
+                        gslCube.getReinforcedBy()[x][y][z] = reinforcematerial;
+                        gslCube.getDurability()[x][y][z] = rm.getDurability();
+                        if (inhand.getAmount() == 1) {
+                            inhand = null;
+                        } else {
+                            inhand.setAmount(inhand.getAmount() - 1);
+                        }
+                        event.getPlayer().getInventory().setItemInMainHand(inhand);
                     }
-                    event.getPlayer().getInventory().setItemInMainHand(inhand);
                 } else {
                     event.getPlayer().sendMessage(new ComponentBuilder("You cannot reinforce this block, as it is already reinforced to a foreign group.", ComponentBuilder.RED).build());
                 }

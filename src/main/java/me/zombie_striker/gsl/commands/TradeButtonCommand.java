@@ -23,9 +23,9 @@ public class TradeButtonCommand implements CommandExecutor, TabExecutor {
             commandSender.sendMessage(new ComponentBuilder("Command structure:",ComponentBuilder.RED).append("/TB <Input Material> <Input Amount> <Output Material> <Output Amount>",ComponentBuilder.WHITE).build());
             return true;
         }
-        MaterialType in1 = MaterialType.getMaterialType(args[0]);
+        MaterialType in1 = MaterialType.getMaterialType(args[0].toUpperCase());
         int in2 = Integer.parseInt(args[1]);
-        MaterialType out1 = MaterialType.getMaterialType(args[2]);
+        MaterialType out1 = MaterialType.getMaterialType(args[2].toUpperCase());
         int out2 = Integer.parseInt(args[3]);
         ItemStack shopbutton = ItemUtil.prepareTradeButton(in1,in2,out1,out2);
         if(commandSender instanceof Player){

@@ -69,79 +69,88 @@ public class TradingEvents implements Listener {
             int shopindex = 0;
 
             public void run() {
-                for (Location location : toCheck) {
-                    Inventory testcheckl = getChestInventoryFromSign(location.getBlock(),shopnamelayer);
-                    if (testcheckl != null) {
-                        for (ItemStack is : testcheckl.getContents()) {
-                            if (is == null)
-                                continue;
-                            if (is.getType() == Material.STONE_BUTTON && is.getItemMeta().getDisplayName().equalsIgnoreCase("Trade Button")) {
+                try {
+                    for (Location location : toCheck) {
+                        Inventory testcheckl = getChestInventoryFromSign(location.getBlock(), shopnamelayer);
+                        if (testcheckl != null) {
+                            for (ItemStack is : testcheckl.getContents()) {
+                                if (is == null)
+                                    continue;
+                                if (is.getType() == Material.STONE_BUTTON && is.getItemMeta().getDisplayName().equalsIgnoreCase("Trade Button")) {
 
-                                String[] tradeinput = ItemUtil.getTradeButtonInput(is).split(":");
-                                String[] tradeoutput = ItemUtil.getTradeButtonOutput(is).split(":");
+                                    String[] tradeinput = ItemUtil.getTradeButtonInput(is).split(":");
+                                    String[] tradeoutput = ItemUtil.getTradeButtonOutput(is).split(":");
 
+                                    if (tradeinput.length < 2 || tradeoutput.length < 2)
+                                        continue;
 
-                                Pair<MaterialType, Integer> trade_price = new Pair<>(MaterialType.getMaterialType(tradeinput[0]), Integer.parseInt(tradeinput[1]));
-                                Pair<MaterialType, Integer> trade_product = new Pair<>(MaterialType.getMaterialType(tradeoutput[0]), Integer.parseInt(tradeoutput[1]));
-                                int maxTrades = getAmountOfTrades(testcheckl, trade_product.getFirst(), trade_product.getSecond());
-                                if (maxTrades > 0) {
-                                    ItemStack tradeoffer = ItemUtil.prepareTradeItemIcon(trade_product, trade_price, maxTrades);
-                                    shopGUI.setIcon(shopindex, tradeoffer, new GUIAction() {
-                                        @Override
-                                        public void click(int slot, Player player, GUI gui) {
-                                            InventoryUtil.trade(testcheckl, player.getInventory(), trade_product, trade_price, player.getLocation());
-                                            int maxTrades = getAmountOfTrades(testcheckl, trade_product.getFirst(), trade_product.getSecond());
-                                            ItemStack tradeoffer = ItemUtil.prepareTradeItemIcon(trade_product, trade_price, maxTrades);
-                                            shopGUI.setDisplayIcon(slot, tradeoffer);
-                                            if (maxTrades == 0) {
-                                                player.closeInventory();
-                                                openTempGUI(player, clickedBlock, shopnamelayer);
+                                    Pair<MaterialType, Integer> trade_price = new Pair<>(MaterialType.getMaterialType(tradeinput[0]), Integer.parseInt(tradeinput[1]));
+                                    Pair<MaterialType, Integer> trade_product = new Pair<>(MaterialType.getMaterialType(tradeoutput[0]), Integer.parseInt(tradeoutput[1]));
+                                    int maxTrades = getAmountOfTrades(testcheckl, trade_product.getFirst(), trade_product.getSecond());
+                                    if (maxTrades > 0) {
+                                        ItemStack tradeoffer = ItemUtil.prepareTradeItemIcon(trade_product, trade_price, maxTrades);
+                                        shopGUI.setIcon(shopindex, tradeoffer, new GUIAction() {
+                                            @Override
+                                            public void click(int slot, Player player, GUI gui) {
+                                                InventoryUtil.trade(testcheckl, player.getInventory(), trade_product, trade_price, player.getLocation());
+                                                int maxTrades = getAmountOfTrades(testcheckl, trade_product.getFirst(), trade_product.getSecond());
+                                                ItemStack tradeoffer = ItemUtil.prepareTradeItemIcon(trade_product, trade_price, maxTrades);
+                                                shopGUI.setDisplayIcon(slot, tradeoffer);
+                                                if (maxTrades == 0) {
+                                                    player.closeInventory();
+                                                    openTempGUI(player, clickedBlock, shopnamelayer);
+                                                }
+
                                             }
-
+                                        });
+                                        shopindex++;
+                                        if (shopindex >= 54) {
+                                            player.closeInventory();
+                                            player.openInventory(shopGUI.getInventory());
+                                            cancel();
+                                            return;
                                         }
-                                    });
-                                    shopindex++;
-                                    if (shopindex == 54) {
-                                        player.openInventory(shopGUI.getInventory());
-                                        cancel();
-                                        return;
                                     }
                                 }
                             }
                         }
                     }
-                }
-                List<Location> temptocheck = new ArrayList<>(toCheck);
-                toCheck.clear();
-                for (Location location : temptocheck) {
-                    checked.add(location);
-                    Location temp = location.clone().add(0, 0, 1);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    temp = location.clone().add(0, 0, -1);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    temp = location.clone().add(0, 1, 0);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    temp = location.clone().add(0, -1, 0);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    temp = location.clone().add(1, 0, 0);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    temp = location.clone().add(-1, 0, 0);
-                    if (!checked.contains(temp))
-                        toCheck.add(temp);
-                    iteration++;
-                    if (iteration == 64) {
-                        player.openInventory(shopGUI.getInventory());
-                        cancel();
-                        return;
+                    List<Location> temptocheck = new ArrayList<>(toCheck);
+                    toCheck.clear();
+                    for (Location location : temptocheck) {
+                        checked.add(location);
+                        Location temp = location.clone().add(0, 0, 1);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        temp = location.clone().add(0, 0, -1);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        temp = location.clone().add(0, 1, 0);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        temp = location.clone().add(0, -1, 0);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        temp = location.clone().add(1, 0, 0);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        temp = location.clone().add(-1, 0, 0);
+                        if (!checked.contains(temp))
+                            toCheck.add(temp);
+                        iteration++;
+                        if (iteration == 64) {
+                            player.closeInventory();
+                            player.openInventory(shopGUI.getInventory());
+                            cancel();
+                            return;
+                        }
+                        guitemp.setDisplayIcon(4, ItemUtil.setAmount(ItemUtil.prepareItem(Material.GLASS_PANE, "Loading Nearby Shops..."), iteration));
                     }
-                    guitemp.setDisplayIcon(4, ItemUtil.setAmount(ItemUtil.prepareItem(Material.GLASS_PANE, "Loading Nearby Shops..."), iteration));
-                }
 
+                }catch (Error|Exception e){
+                    e.printStackTrace();
+                    cancel();
+                }
             }
         }.runTaskTimer(GSL.getCore(), 1, 1);
         player.openInventory(guitemp.getInventory());

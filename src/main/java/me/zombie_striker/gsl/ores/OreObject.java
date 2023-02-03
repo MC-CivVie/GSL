@@ -23,7 +23,7 @@ public class OreObject {
     static {
         TOUGHNESS.setScale(0.001);
         ROUGHNESS.setScale(0.002);
-        METALIC.setScale(0.004);
+        METALIC.setScale(0.0015);
     }
 
     public static final List<OreObject> oreObjects = new LinkedList<>();

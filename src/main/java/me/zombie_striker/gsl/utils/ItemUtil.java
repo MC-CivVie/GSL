@@ -169,7 +169,7 @@ public class ItemUtil {
                 Component lore = lores.get(loreindex);
                 if (lore instanceof TextComponent) {
                     if (((TextComponent) lore).content().startsWith("Input:")) {
-                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[2];
+                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[1];
                     }
                 }
             }
@@ -183,7 +183,7 @@ public class ItemUtil {
                 Component lore = lores.get(loreindex);
                 if (lore instanceof TextComponent) {
                     if (((TextComponent) lore).content().startsWith("Output:")) {
-                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[2];
+                        return ((TextComponent)lores.get(loreindex)).content().split(":",2)[1];
                     }
                 }
             }
@@ -202,8 +202,8 @@ public class ItemUtil {
         if(maxTrades<=0){
             return null;
         }
-        return setAmount(prepareItem(trade.getFirst().toItemStack().getType(),trade.getFirst().getName()+"x"+trade.getSecond(),
-                new ComponentBuilder("Price: "+shop.getFirst()+"x"+shop.getSecond(),ComponentBuilder.LIGHT_BLUE).build()
+        return setAmount(prepareItem(trade.getFirst().toItemStack().getType(),trade.getFirst().getName()+" x "+trade.getSecond(),
+                new ComponentBuilder("Price: "+shop.getFirst().getName()+" x "+shop.getSecond(),ComponentBuilder.LIGHT_BLUE).build()
                 , new ComponentBuilder("Trades left: "+maxTrades,ComponentBuilder.GOLD).build()),trade.getSecond());
     }
 }
