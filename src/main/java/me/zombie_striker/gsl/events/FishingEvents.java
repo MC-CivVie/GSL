@@ -13,6 +13,8 @@ public class FishingEvents implements Listener {
         if(event.getCaught() instanceof Item){
             if(((Item) event.getCaught()).getItemStack().getType()== Material.ENCHANTED_BOOK)
                 event.setCancelled(true);
+            if(((Item) event.getCaught()).getItemStack().getType()== Material.FISHING_ROD)
+                event.setCancelled(true);
         }
     }
 }
