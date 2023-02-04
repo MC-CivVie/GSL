@@ -1,0 +1,9 @@
+entitytype: DONKEY
+displayname: 'Donkey'
+percentagedrops:
+  BONE:
+    chance: 1
+  LEATHER:
+    chance: 1
+    amount: 3
+naturalspawn: true
