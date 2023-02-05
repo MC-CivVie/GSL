@@ -46,7 +46,7 @@ public class PlayerChatEvents implements Listener {
     }
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        if(event.getPlayer().hasPlayedBefore()){
+        if(!event.getPlayer().hasPlayedBefore()){
             event.joinMessage(new ComponentBuilder(event.getPlayer().getName()+" has joined for the first time.",ComponentBuilder.WHITE).build());
         }else {
             event.joinMessage(new ComponentBuilder("[+] "+event.getPlayer().getName(),ComponentBuilder.GREEN).build());

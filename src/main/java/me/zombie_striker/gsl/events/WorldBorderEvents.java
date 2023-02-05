@@ -82,6 +82,7 @@ public class WorldBorderEvents implements Listener {
     }
 
     public int random(){
-        return (int) ((new Random().nextInt(2*radius)-radius)*0.75);
+        int d = ((new Random().nextInt(2*radius)-radius));
+        return d;
     }
 }
