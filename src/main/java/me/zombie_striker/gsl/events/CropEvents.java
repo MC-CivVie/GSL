@@ -293,6 +293,13 @@ public class CropEvents implements Listener {
         if (cropType != null) {
             event.setCancelled(true);
         }
+        GSLChunk gsl = GSLChunk.getGSLChunk(event.getBlock().getChunk());
+        for (int i = 0; i < gsl.getCubes().length; i++) {
+            GSLCube cube = gsl.getCubes()[i];
+            if (cube != null) {
+                updateCrops(cube, event.getBlock().getWorld(), gsl.getXc(), i, gsl.getZc());
+            }
+        }
     }
 
     public void updateCrops(GSLCube gslCube, World world, int xc, int yc, int zc) {

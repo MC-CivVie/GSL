@@ -45,7 +45,7 @@ public class OTPCommand implements CommandExecutor {
         }
 
         if(args.length == 0){
-            player.sendMessage(new ComponentBuilder("You need to specify whgo you wish to TP to",ComponentBuilder.RED).build());
+            player.sendMessage(new ComponentBuilder("You need to specify who you wish to TP to.",ComponentBuilder.RED).build());
             return true;
         }
         Player who = Bukkit.getPlayer(args[0]);

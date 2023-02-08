@@ -70,8 +70,8 @@ public class OreObject {
                 double s3 = OreObject.METALIC.noise(x + randx, y + randy, z + randz, randx + randy + randz) - oreObject.getSimplex3Center();
 
                 double dist = ((s1 * s1) + (s2 * s2) + (s3 * s3));
-                if (dist < distanceClose && ThreadLocalRandom.current().nextInt((int) (dist*oreObject.getRarity())) <= Math.sqrt(oreObject.getRarity())) {
-                    distanceClose = dist;
+                if (dist*oreObject.getRarity() < distanceClose && (dist*oreObject.getRarity()>=1? ThreadLocalRandom.current().nextInt((int) (dist*oreObject.getRarity())) <= Math.sqrt(oreObject.getRarity()):ThreadLocalRandom.current().nextInt((int) ((dist* oreObject.getRarity()*100)+40))<=Math.sqrt(oreObject.getRarity()))) {
+                    distanceClose = dist*oreObject.getRarity();
                     closest = oreObject;
                 }
             }
