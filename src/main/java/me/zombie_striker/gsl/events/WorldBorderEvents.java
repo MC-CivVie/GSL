@@ -31,12 +31,16 @@ public class WorldBorderEvents implements Listener {
             new BukkitRunnable(){
             @Override
                 public void run() {
-                    for(int i = 0; i < 25; i++){
+                    for(int i = 0; i < 45; i++){
                         int x = random();
                         int z = random();
                         Location loc = event.getPlayer().getLocation();
                         if(!loc.getWorld().isChunkGenerated(x/16,z/16))
                             continue;
+                        double distanceFromCenter = new Location(loc.getWorld(), 0, 100, 0).distanceSquared(loc);
+                        if (distanceFromCenter >= radius * radius) {
+                            continue;
+                        }
                         loc=loc.getWorld().getHighestBlockAt(x,z).getLocation();
                         if(loc.getBlock().getType()== Material.WATER)
                             continue;
@@ -57,7 +61,7 @@ public class WorldBorderEvents implements Listener {
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event){
         if(event.getPlayer().getBedSpawnLocation()==null)
-        for(int i = 0; i < 25; i++){
+        for(int i = 0; i < 46; i++){
             int x = random();
             int z = random();
 

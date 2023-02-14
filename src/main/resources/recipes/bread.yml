@@ -1,0 +1,9 @@
+name: "bread"
+displayname: "Make Bread"
+factory: basic
+icon: BREAD
+ingredients:
+  WHEAT: 16
+results:
+  BREAD: 16
+powerrequirement: 1
